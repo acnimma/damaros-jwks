@@ -25,115 +25,109 @@
 
 <div id="damaros-panel-docs" class="damaros-panel"><div class="damaros-docs-wrap">
 <div class="damaros-docs-eyebrow">Epic FHIR Integration</div><h1 class="damaros-docs-title">Production Integration Documentation</h1>
-<p class="damaros-docs-subtitle">Deployment-facing technical reference for the Damaros Epic SMART on FHIR integration. Covers authentication, authorized services, PHI handling, screening determinism, access control, resiliency, and production controls.</p>
+<p class="damaros-docs-subtitle">Deployment-facing technical reference aligned to the Damaros product codebase and Epic SMART on FHIR <strong>Backend Services</strong> (server-to-server). Covers authentication, JWKS publication, authorized reads, PHI boundaries, deterministic screening, access control, and production write-back gates. <strong>Not</strong> shown here: end-user SMART EHR launch as the primary cohort connector—that path is reference-only in the open-source smart-app stub.</p>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">01_PLATFORM_OVERVIEW</div><h2 class="damaros-docs-section-heading">Platform Overview</h2><div class="damaros-docs-body">
 <p>Damaros is a clinical trial execution platform that performs deterministic, protocol-driven eligibility evaluation against Electronic Health Record data.</p>
-<p>The system converts trial protocols into structured evaluation logic, screens approved cohorts against inclusion and exclusion criteria, and produces criterion-level evidence for coordinator review, institutional oversight, and audit reconstruction.</p>
-<p>The Epic integration operates as a SMART on FHIR Backend Services application. Access is read-only by default. Optional write-back capabilities are disabled unless explicitly enabled after site authorization and deployment-level configuration.</p>
+<p>The system converts trial protocols into structured evaluation logic, screens approved cohorts against inclusion and exclusion criteria, and produces criterion-level PASS, REVIEW, or FAIL outcomes with evidence for coordinator review, institutional oversight, and audit reconstruction.</p>
+<p>The <strong>production</strong> Epic integration path is <strong>SMART on FHIR Backend Services</strong>: the API/worker exchanges a signed JWT for an access token (<code>client_credentials</code> + <code>private_key_jwt</code>, RFC 7523). Access is <strong>read-only by default</strong>. Epic access tokens are not issued to browsers and are not stored in the web session.</p>
 </div></section>
 
 <div class="damaros-docs-divider"></div>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">02_INTEGRATION_ARCHITECTURE</div><h2 class="damaros-docs-section-heading">Integration Architecture</h2><table class="damaros-kv-table">
-<tr><td>APPLICATION_AUDIENCE</td><td>Backend Systems</td></tr>
-<tr><td>FHIR_VERSION</td><td>R4; MedicationStatement retrieval enabled via site-level configuration flag</td></tr>
-<tr><td>USE_CASE</td><td>Clinical trial eligibility screening, evidence retrieval, cohort review, and audit reconstruction</td></tr>
+<tr><td>APPLICATION_AUDIENCE</td><td>Backend Systems (Epic-registered Backend Services app)</td></tr>
+<tr><td>PRIMARY_OAUTH_MODEL</td><td><code>client_credentials</code> + JWT client assertion to Epic token URL; PKCE does not apply</td></tr>
+<tr><td>USER_SMART_LAUNCH</td><td>Not used for cohort sync / screening ingest; optional future in-chart app only (reference stub in repo)</td></tr>
+<tr><td>FHIR_VERSION</td><td>R4</td></tr>
+<tr><td>USE_CASE</td><td>Clinical trial eligibility screening, evidence retrieval, cohort review, audit reconstruction</td></tr>
 <tr><td>AUTH_STANDARD</td><td>SMART on FHIR Backend Services (RFC 7523)</td></tr>
-<tr><td>AUTH_METHOD</td><td>JWT Client Assertion</td></tr>
-<tr><td>JWT_ALGORITHM</td><td>RS384</td></tr>
-<tr><td>KEY_SIZE</td><td>RSA-2048</td></tr>
-<tr><td>TOKEN_TTL</td><td>300 seconds (assertion TTL cap)</td></tr>
-<tr><td>DEFAULT_ACCESS</td><td>Read-only; write-back disabled by default</td></tr>
-<tr><td>TOKEN_ENDPOINT</td><td>Configured via DAMAROS_EPIC_TOKEN_URL environment variable</td></tr>
+<tr><td>AUTH_METHOD</td><td>JWT client assertion (<code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code>)</td></tr>
+<tr><td>JWT_ALGORITHM</td><td>RS384 (override via <code>DAMAROS_EPIC_JWT_ALGORITHM</code> if Epic requires)</td></tr>
+<tr><td>KEY_SIZE</td><td>RSA-2048 (or per Epic registration)</td></tr>
+<tr><td>TOKEN_TTL</td><td>Assertion <code>exp</code> within 300 seconds of <code>iat</code>; access token TTL from Epic response; in-memory cache only</td></tr>
+<tr><td>DEFAULT_ACCESS</td><td>Read-only FHIR; no EHR write-back unless explicit env gates below</td></tr>
+<tr><td>TOKEN_ENDPOINT</td><td><code>DAMAROS_EPIC_TOKEN_URL</code> (alias: <code>DAMAROS_EPIC_OAUTH_TOKEN_URL</code>)</td></tr>
+<tr><td>FHIR_BASE</td><td><code>DAMAROS_EPIC_FHIR_BASE</code> (alias: <code>DAMAROS_EPIC_FHIR_BASE_URL</code>)</td></tr>
 </table></section>
 
-<section class="damaros-docs-section"><div class="damaros-docs-section-label">02A_ENVIRONMENT_SEPARATION</div><h2 class="damaros-docs-section-heading">Environment Separation</h2><table class="damaros-kv-table">
-<tr><td>NON_PRODUCTION</td><td>Separate Epic non-production client ID, signing keypair, and JWKS</td></tr>
-<tr><td>PRODUCTION</td><td>Independent Epic production client ID, signing keypair, and JWKS</td></tr>
-<tr><td>JWKS_NONPROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-nonprod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-nonprod.json</a></td></tr>
-<tr><td>JWKS_PROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-prod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-prod.json</a></td></tr>
-<tr><td>SECRET_STORAGE</td><td>Private keys loaded from a configured secret store or secure file path; never committed to source control</td></tr>
-<tr><td>PROD_DEFAULTS</td><td>FHIR write behavior defaults off; production configuration must explicitly enable any write-capable pathway via DAMAROS_FHIR_WRITE_ENABLED</td></tr>
-</table></section>
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">02A_ENVIRONMENT_SEPARATION</div><h2 class="damaros-docs-section-heading">Environment Separation &amp; JWKS</h2><table class="damaros-kv-table">
+<tr><td>NON_PRODUCTION</td><td>Separate Epic sandbox / non-prod client ID, signing keypair, and JWKS URL</td></tr>
+<tr><td>PRODUCTION</td><td>Independent Epic production client ID, signing keypair, and JWKS URL</td></tr>
+<tr><td>JWKS_STATIC_NONPROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-nonprod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-nonprod.json</a> — public keys only</td></tr>
+<tr><td>JWKS_STATIC_PROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-prod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-prod.json</a> — public keys only</td></tr>
+<tr><td>JWKS_VIA_API</td><td>Optional: set <code>DAMAROS_EPIC_JWKS_SERVE_ENABLED=1</code> on the API; Epic may register <code>{DAMAROS_PUBLIC_BASE_URL}/v1/meta/epic_jwks.json</code> (same PEM + <code>kid</code> as token signing). Use static URLs or API URL—never both for the same key without coordination.</td></tr>
+<tr><td>SECRET_STORAGE</td><td>Private signing PEM from secret manager or secure mount; never in git or client bundles</td></tr>
+<tr><td>WRITE_ENV_NONPROD</td><td><code>DAMAROS_FHIR_WRITE_ENABLED=1</code> required for any FHIR POST/PUT helper path</td></tr>
+<tr><td>WRITE_ENV_PRODUCTION</td><td>Requires <code>DAMAROS_FHIR_WRITE_ENABLED=1</code> <strong>and</strong> <code>DAMAROS_FHIR_PRODUCTION_WRITE_ATTESTED=1</code> when <code>DAMAROS_ENV</code> is <code>production</code> or <code>prod</code> (two-step gate for hospital review)</td></tr>
+</table>
+<div class="damaros-callout">This page hosts <strong>public</strong> JWKS JSON for Epic app registration. Private keys live only in the customer deployment or Damaros-operated secret store—not in this repository’s public artifacts.</div></section>
 
-<section class="damaros-docs-section"><div class="damaros-docs-section-label">02B_AUTHENTICATION_FLOW</div><h2 class="damaros-docs-section-heading">Authentication Flow</h2><div class="damaros-docs-body">
-<p>Damaros uses SMART on FHIR Backend Services with JWT client assertions (RFC 7523). The client authenticates using a signed JWT presented to the Epic token endpoint. Access tokens are short-lived and held only in process memory for the active execution context.</p>
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">02B_AUTHENTICATION_FLOW</div><h2 class="damaros-docs-section-heading">Authentication Flow (Backend Services)</h2><div class="damaros-docs-body">
+<p>The API builds a signed JWT (iss/sub = Epic client id, aud = token URL, jti = UUID, bounded exp), POSTs to the Epic token endpoint with <code>grant_type=client_credentials</code>, and caches the access token in process memory for FHIR HTTP clients. Failures surface to operators; there is no silent fallback to unauthenticated reads.</p>
 </div><table class="damaros-kv-table">
-<tr><td>GRANT_TYPE</td><td>client_credentials</td></tr>
-<tr><td>ASSERTION_TYPE</td><td>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</td></tr>
-<tr><td>TOKEN_ENDPOINT</td><td>Epic-provided authorization server endpoint (DAMAROS_EPIC_TOKEN_URL)</td></tr>
-<tr><td>JWT_ISS / JWT_SUB</td><td>Epic-issued client ID for the active environment</td></tr>
-<tr><td>JWT_AUD</td><td>Epic token endpoint URL</td></tr>
-<tr><td>JWT_EXP</td><td>Current time + 300 seconds (capped)</td></tr>
-<tr><td>JWT_JTI</td><td>UUID generated per assertion</td></tr>
-<tr><td>TOKEN_STORAGE</td><td>In-process memory cache only; not written to disk, database, or external store</td></tr>
-</table><div class="damaros-callout">Token acquisition uses bounded retry with exponential backoff. Authentication failures are surfaced as operator-visible error states and do not silently degrade to unauthenticated access.</div></section>
+<tr><td>GRANT_TYPE</td><td><code>client_credentials</code></td></tr>
+<tr><td>ASSERTION_TYPE</td><td><code>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</code></td></tr>
+<tr><td>TOKEN_ENDPOINT</td><td>Epic-issued URL (<code>DAMAROS_EPIC_TOKEN_URL</code>)</td></tr>
+<tr><td>JWT_ISS / JWT_SUB</td><td>Epic client ID for the active environment</td></tr>
+<tr><td>JWT_AUD</td><td>Token endpoint URL (per Epic / RFC 7523)</td></tr>
+<tr><td>JWT_JTI</td><td>UUID per assertion</td></tr>
+<tr><td>TOKEN_STORAGE</td><td>In-process only; not written to disk, DB, or browser</td></tr>
+</table><div class="damaros-callout">FHIR requests use bounded retry and backoff on 429/5xx per connector configuration.</div></section>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">02C_OAUTH_SCOPE</div><h2 class="damaros-docs-section-heading">OAuth Scope</h2><div class="damaros-docs-body">
-<p>The configured scope is <code>system/*.read</code>, covering read access to Epic FHIR resources. No write scopes are included in the standard scope configuration. The resource families accessed under this scope are listed in section 03.</p>
+<p>Typical Epic registration uses <strong>system-level read</strong> scopes (e.g. <code>system/Patient.read</code>, <code>system/Observation.read</code>, …) narrowed to the minimum resource types the site approves. Exact scope strings follow Epic’s vocabulary for your app type. Optional <code>DAMAROS_EPIC_SCOPE</code> passes a space-delimited list to the token request.</p>
+<p><strong>Standard submission:</strong> no write scopes. Add Bulk Data / Group export scopes only when <code>$export</code> is enabled for that tenant.</p>
 </div></section>
 
 <div class="damaros-docs-divider"></div>
 
-<section class="damaros-docs-section"><div class="damaros-docs-section-label">03_IMPLEMENTED_SERVICES</div><h2 class="damaros-docs-section-heading">Implemented Epic Web Services</h2><div class="damaros-docs-body"><p>The following FHIR resource types are actively retrieved as part of the eligibility screening workflow. All resources use FHIR R4.</p></div><div class="damaros-api-groups">
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">03_DEFAULT_PATIENT_READ_BUNDLE</div><h2 class="damaros-docs-section-heading">Default Patient FHIR Reads (code-aligned)</h2><div class="damaros-docs-body"><p>The live <strong>patient bundle</strong> pull used for eligibility ingest includes the following R4 reads/searches. This list matches the current open-source <code>EpicFhirClient.fetch_patient_bundle</code> behavior.</p></div><div class="damaros-api-groups">
 
-<div><div class="damaros-api-group-label">Patient Identity and Cohort</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">Patient.Read / Patient.Search (R4)</span><span class="damaros-api-note">Demographics and cohort lookup</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">Group.Read / Group.Search (R4)</span><span class="damaros-api-note">Approved patient group membership</span></li>
+<div><div class="damaros-api-group-label">Patient &amp; cohort</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Patient.Read</span><span class="damaros-api-note"><code>GET Patient/{id}</code></span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Group.Read</span><span class="damaros-api-note"><code>GET Group/{id}</code> for member patient IDs (separate cohort sync path)</span></li>
 </ul></div>
 
 <div><div class="damaros-api-group-label">Observations</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">Observation.Read / Observation.Search (R4)</span><span class="damaros-api-note">Labs, vitals, social history, genomics (category-filtered)</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Observation.Search (laboratory)</span><span class="damaros-api-note">Lab-focused search with Epic-tuned parameter variants; not a full chart extract</span></li>
 </ul></div>
 
-<div><div class="damaros-api-group-label">Conditions</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">Condition.Read / Condition.Search (R4)</span><span class="damaros-api-note">Problems, encounter diagnoses, medical history, health concerns</span></li>
+<div><div class="damaros-api-group-label">Conditions, meds, allergies, procedures, documents</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Condition.Search</span><span class="damaros-api-note"><code>patient=Patient/{id}</code>, paginated</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">MedicationRequest.Search</span><span class="damaros-api-note"><code>patient=Patient/{id}</code>, paginated</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">MedicationStatement.Search</span><span class="damaros-api-note">Only if <code>DAMAROS_EPIC_FETCH_MEDICATION_STATEMENT=1</code> <span class="damaros-optional-tag">opt-in</span></span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Procedure.Search</span><span class="damaros-api-note"><code>patient=Patient/{id}</code>, paginated</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">AllergyIntolerance.Search</span><span class="damaros-api-note"><code>patient=Patient/{id}</code>, paginated</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">DocumentReference.Search</span><span class="damaros-api-note">Metadata; <code>patient=Patient/{id}</code>, paginated</span></li>
 </ul></div>
-
-<div><div class="damaros-api-group-label">Medications</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">MedicationRequest.Read / MedicationRequest.Search (R4)</span><span class="damaros-api-note">Signed medication orders</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">MedicationStatement.Read / MedicationStatement.Search (R4)</span><span class="damaros-api-note">Medication statements; enabled via site configuration</span></li>
-</ul></div>
-
-<div><div class="damaros-api-group-label">Allergies and Procedures</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">AllergyIntolerance.Read / AllergyIntolerance.Search (R4)</span><span class="damaros-api-note">Allergy evidence</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">Procedure.Read / Procedure.Search (R4)</span><span class="damaros-api-note">Procedure orders and surgical history</span></li>
-</ul></div>
-
-<div><div class="damaros-api-group-label">Documents</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">DocumentReference.Read / DocumentReference.Search (R4)</span><span class="damaros-api-note">Clinical document metadata</span></li>
-</ul></div>
-
-<div><div class="damaros-api-group-label">Bulk FHIR Export</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">Bulk Data Kick-off / Status / File Download</span><span class="damaros-api-note">Group-level export for large cohort workflows</span></li>
-</ul></div>
-
-<div><div class="damaros-api-group-label">Optional Write-Back <span class="damaros-optional-tag">Disabled by default</span></div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">Observation.Create (Consent / Screening Status) (R4)</span><span class="damaros-api-note">Only if DAMAROS_FHIR_WRITE_ENABLED=1</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">Subscription.Create (R4)</span><span class="damaros-api-note">Only if DAMAROS_FHIR_WRITE_ENABLED=1</span></li>
-</ul><div class="damaros-callout">Write-back is disabled by default. Write operations raise a runtime error unless DAMAROS_FHIR_WRITE_ENABLED=1 is explicitly configured after site authorization and policy review. Standard screening operations require no write-back.</div></div>
 
 </div></section>
 
-<section class="damaros-docs-section"><div class="damaros-docs-section-label">03A_ADDITIONAL_REQUESTED_SERVICES</div><h2 class="damaros-docs-section-heading">Additional Resources Requested for Site Authorization</h2><div class="damaros-docs-body"><p>The following FHIR resources are included in the scope request for anticipated site-authorized clinical context workflows. Retrieval of these resources is not active in the current screening engine and will be enabled only as authorized by each site.</p></div><div class="damaros-api-groups">
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">03B_BULK_AND_ADVANCED_API</div><h2 class="damaros-docs-section-heading">Bulk FHIR &amp; other APIs (tenant-gated)</h2><div class="damaros-api-groups">
+<div><div class="damaros-api-group-label">Bulk Data $export</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Bulk kick-off / status / file download</span><span class="damaros-api-note">Implemented in codebase for large cohorts; requires Epic-approved bulk + Group scopes and explicit deployment enablement</span></li>
+</ul></div>
+<div><div class="damaros-api-group-label">Patient.$match</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Patient.$match (POST)</span><span class="damaros-api-note">Available on client for site-approved payloads; <strong>not</strong> invoked by default screening hot path</span></li>
+</ul></div>
+</div></section>
 
-<div><div class="damaros-api-group-label">Extended Clinical Context</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">Encounter.Read / Encounter.Search (R4)</span><span class="damaros-api-note">Encounter history</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">Immunization.Read / Immunization.Search (R4)</span><span class="damaros-api-note">Vaccination history</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">FamilyMemberHistory.Read / FamilyMemberHistory.Search (R4)</span><span class="damaros-api-note">Family history</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">ServiceRequest.Read / ServiceRequest.Search (R4)</span><span class="damaros-api-note">Service and diagnostic orders</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">DiagnosticReport.Read / DiagnosticReport.Search (R4)</span><span class="damaros-api-note">Diagnostic reports</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">Specimen.Read / Specimen.Search (R4)</span><span class="damaros-api-note">Specimen records</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">Binary.Read (R4)</span><span class="damaros-api-note">Authorized document payload retrieval</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">CarePlan.Read / CarePlan.Search (R4)</span><span class="damaros-api-note">Care plan context</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">CareTeam.Read / CareTeam.Search (R4)</span><span class="damaros-api-note">Care team context</span></li>
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">03C_OPTIONAL_WRITE_BACK</div><h2 class="damaros-docs-section-heading">Optional Write-Back <span class="damaros-optional-tag">Off by default</span></h2><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Observation.Create</span><span class="damaros-api-note">Consent / screening-status style payloads only with site policy; gated by env vars above</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Subscription.Create</span><span class="damaros-api-note">Separate webhook integration; same write gate applies if used for create</span></li>
+</ul><div class="damaros-callout">Standard eligibility screening does not require write-back to Epic. Attempting a write without gates raises a configuration error, not a silent no-op.</div></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">03A_FUTURE_SCOPE_REQUESTS</div><h2 class="damaros-docs-section-heading">Future / site-specific scope requests (not default bundle)</h2><div class="damaros-docs-body"><p>The following may appear on an Epic scope worksheet for <strong>anticipated</strong> workflows. They are <strong>not</strong> part of the default patient bundle fetch today. Enable retrieval only when the protocol engine and site authorization require it.</p></div><div class="damaros-api-groups">
+
+<div><div class="damaros-api-group-label">Extended clinical context (examples)</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Encounter, Immunization, FamilyMemberHistory</span><span class="damaros-api-note">Not in default <code>fetch_patient_bundle</code></span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">ServiceRequest, DiagnosticReport, Specimen, Binary</span><span class="damaros-api-note">Not in default bundle</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">CarePlan, CareTeam</span><span class="damaros-api-note">Not in default bundle</span></li>
 </ul></div>
 
-<div><div class="damaros-api-group-label">Research Workflow</div><ul class="damaros-api-list">
-<li class="damaros-api-item"><span class="damaros-api-name">ResearchStudy.Read / ResearchStudy.Search (R4)</span><span class="damaros-api-note">Research study metadata</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">ResearchSubject.Read / ResearchSubject.Search (R4)</span><span class="damaros-api-note">Research subject records</span></li>
-<li class="damaros-api-item"><span class="damaros-api-name">Patient.$match (R4)</span><span class="damaros-api-note">Patient matching and de-duplication</span></li>
+<div><div class="damaros-api-group-label">Research workflow (examples)</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">ResearchStudy, ResearchSubject</span><span class="damaros-api-note">Not in default bundle</span></li>
 </ul></div>
 
 </div></section>
@@ -142,72 +136,54 @@
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">04_PHI_BOUNDARY</div><h2 class="damaros-docs-section-heading">PHI Boundary and Data Flow</h2><ul class="damaros-bullet-list">
 <li>Cohorts are defined by approved protocol logic or institutional configuration.</li>
-<li>Patient data is retrieved through FHIR read APIs or Bulk FHIR export depending on cohort size and site policy.</li>
+<li>Patient data is retrieved through FHIR read APIs or, when enabled, Bulk FHIR export—per site policy.</li>
 <li>PHI is processed inside the institution-approved deployment boundary.</li>
-<li>Patient-level clinical data is blocked from entering external LLM API calls by enforced classification gates at the application layer. Protocol parsing and non-PHI configuration tasks may use cloud-hosted inference; patient records do not pass through those paths.</li>
-<li>Eligibility is computed deterministically against protocol inclusion and exclusion criteria.</li>
-<li>Results are surfaced to authorized clinical research users with criterion-level evidence.</li>
-<li>Audit artifacts preserve source FHIR resource references for review and reconstruction.</li>
-<li>Data handling outside the deployment boundary is governed by executed data-use terms and institutional policy.</li>
+<li>Patient-level clinical data does not enter external LLM API paths; application-layer gates enforce separation (see product compliance documentation).</li>
+<li>Eligibility is computed deterministically; outputs are criterion-level with evidence references where populated.</li>
+<li>Audit artifacts preserve source FHIR references where available for reconstruction.</li>
 </ul></section>
 
 <div class="damaros-docs-divider"></div>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">05_AUDIT_AND_REPLAY</div><h2 class="damaros-docs-section-heading">Audit, Determinism, and Replay</h2><ul class="damaros-bullet-list">
-<li>Eligibility decisions are deterministic and reproducible for a fixed protocol version, cohort definition, evidence snapshot, and evaluation_as_of timestamp.</li>
-<li>Every patient decision is recorded at criterion level with PASS, FAIL, or REVIEW status and associated rationale.</li>
-<li>Evidence links back to source FHIR resource references where available.</li>
-<li>Protocol amendments generate versioned re-evaluation outputs linked to a protocol_version_id and engine_version.</li>
-<li>Replay uses the same protocol version, evaluation_as_of timestamp, normalized evidence snapshot, and deterministic ordering rules. Outcomes are classified as replay_ok, replay_diverged, or replay_blocked to surface any deviation from the original run.</li>
-<li>No opaque decisioning is used for clinical eligibility outputs.</li>
-<li>Audit logs are institution-scoped and access-controlled.</li>
+<li>Decisions are reproducible for fixed protocol version, cohort snapshot, evidence snapshot, and <code>evaluation_as_of</code>.</li>
+<li>Every patient outcome is recorded at criterion level with PASS, FAIL, or REVIEW and rationale.</li>
+<li>Protocol amendments link to versioned protocol IDs and engine versions.</li>
+<li>Replay classifies agreement or divergence; no opaque “model decided” eligibility.</li>
 </ul></section>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">05A_ACCESS_CONTROL</div><h2 class="damaros-docs-section-heading">Identity and Access Control</h2><ul class="damaros-bullet-list">
-<li>User access is role-scoped. Defined roles include coordinator, investigator, sub-investigator, research nurse, data manager, IRB reviewer, DSMB member, monitor, sponsor, site administrator, organization administrator, and related operator roles.</li>
-<li>Each principal carries a subject identifier, role, organization scope, and authorized trial scope. Users access only studies, cohorts, evidence, and audit records within their authorized scope.</li>
-<li>Administrative actions, export operations, and write-capable configuration changes are restricted to authorized roles.</li>
-<li>Web sessions are issued with a fixed TTL; token expiry enforces time-bounded access.</li>
-<li>Access events are logged for security review and operational audit.</li>
+<li>Role-scoped access (coordinator, investigator, sponsor, site admin, etc.).</li>
+<li>Principals carry subject, role, organization scope, and trial scope.</li>
+<li>Administrative and export actions restricted by RBAC; web sessions are TTL-bound.</li>
 </ul></section>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">05B_WRITE_BACK</div><h2 class="damaros-docs-section-heading">Write-Back Controls</h2><ul class="damaros-bullet-list">
-<li>Write-back is disabled by default in all deployment configurations.</li>
-<li>Write-back requires explicit site approval and must be enabled by setting DAMAROS_FHIR_WRITE_ENABLED=1 at deployment time. Attempting a write operation without this flag raises a runtime error with an explicit configuration message.</li>
-<li>Permitted write-back is limited to institution-approved resource types such as consent or screening-status observations.</li>
-<li>Standard eligibility screening does not require write-back to Epic.</li>
+<li>Write-back is off by default in all environments at the code level.</li>
+<li>Non-production: <code>DAMAROS_FHIR_WRITE_ENABLED=1</code> after site policy may enable write helpers.</li>
+<li>Production: requires <code>DAMAROS_FHIR_WRITE_ENABLED=1</code> and <code>DAMAROS_FHIR_PRODUCTION_WRITE_ATTESTED=1</code> when <code>DAMAROS_ENV</code> is production-class—prevents a single env typo from enabling EHR writes during IT review.</li>
+<li>Standard screening does not require Epic write-back.</li>
 </ul></section>
 
 <div class="damaros-docs-divider"></div>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">06_PERFORMANCE</div><h2 class="damaros-docs-section-heading">Performance and API Usage</h2><ul class="damaros-bullet-list">
-<li>FHIR API usage is designed to follow Epic operational performance guidance, targeting non-disruptive load on the Epic server.</li>
-<li>Bulk FHIR export is the preferred mechanism for large cohort workflows, reducing per-patient query volume relative to individual FHIR reads.</li>
-<li>Per-host rate limiting and bounded exponential backoff are applied to all FHIR requests on 429 and 5xx responses.</li>
-<li>Bulk export polling uses a configurable interval (default 2 seconds) with a bounded maximum polling window.</li>
-<li>Point queries use per-request retry caps to prevent unbounded retry behavior.</li>
+<li>FHIR usage follows Epic operational guidance; bulk export preferred for large cohort refresh where approved.</li>
+<li>Rate limiting and bounded exponential backoff on 429/5xx.</li>
+<li>Per-resource failures in a bundle do not block other resource types in the same pull.</li>
 </ul></section>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">06A_ERROR_HANDLING</div><h2 class="damaros-docs-section-heading">Error Handling and Resiliency</h2><ul class="damaros-bullet-list">
-<li>Token acquisition failures use bounded retry with exponential backoff and surface as operator-visible failure states.</li>
-<li>Transient FHIR errors (429, 5xx) trigger exponential backoff with per-request retry caps.</li>
-<li>Individual resource fetch failures are isolated; a failure on one resource type does not block retrieval of other resource types in the same patient bundle.</li>
-<li>Missing or insufficient data is surfaced as REVIEW status rather than silently converting to eligibility PASS.</li>
-<li>Failed ingestion, screening, and replay jobs preserve diagnostic metadata for authorized operators.</li>
-<li>Retry operations are idempotent by design; no duplicate write behavior occurs when write-back is disabled.</li>
+<li>Missing clinical data surfaces as REVIEW where appropriate—not silent PASS.</li>
+<li>Retry paths are idempotent while write-back remains disabled.</li>
 </ul></section>
 
 <div class="damaros-docs-divider"></div>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">07_SECURITY_AND_PRIVACY</div><h2 class="damaros-docs-section-heading">Security and Privacy</h2><ul class="damaros-bullet-list">
-<li>Private signing keys are loaded from a configured secret store or secure file path and are never committed to source control.</li>
-<li>Access tokens are short-lived and held only in process memory; they are not persisted to disk or database.</li>
-<li>All FHIR API traffic is encrypted in transit (https:// enforced at the connector layer).</li>
-<li>Application logging is designed to redact PHI patterns using a structured log processor active across all log output paths.</li>
-<li>Data at rest encryption is deployment- and site-configured.</li>
-<li>Clinical data is used only for approved research screening workflows.</li>
-<li>Data is not sold, licensed, used for advertising, or used to train commercial AI models.</li>
-<li>Retention, deletion, export handling, and purge behavior are site-configured and governed by executed data-use agreements and institutional policy.</li>
+<li>Signing keys and Epic tokens are server-side secrets; TLS for FHIR in transit.</li>
+<li>Structured logging designed to reduce PHI leakage (deployment-specific log processors).</li>
+<li>Data at rest encryption and retention are deployment- and agreement-driven.</li>
 </ul></section>
 
 <section class="damaros-docs-section"><div class="damaros-docs-section-label">08_CONTACT</div><h2 class="damaros-docs-section-heading">Contact</h2><div class="damaros-contact-block"><div>Organization &nbsp;&nbsp; Damaros, LLC</div><div>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:anirudh@damaros.ai">anirudh@damaros.ai</a></div><div>Website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://damaros.ai">damaros.ai</a></div></div></section>
