@@ -8,182 +8,217 @@
   .damaros-monogram-bg{position:fixed;top:18%;left:0;right:0;height:66%;z-index:0;pointer-events:none;overflow:hidden;background:#000!important;-webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.55) 9%,#000 22%,#000 78%,rgba(0,0,0,.55) 91%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.55) 9%,#000 22%,#000 78%,rgba(0,0,0,.55) 91%,transparent 100%)}.damaros-monogram-grid{position:absolute;top:-24%;left:-14%;width:128%;height:148%;display:grid;grid-template-columns:repeat(auto-fill,104px);grid-auto-rows:104px;gap:34px;opacity:.10;transform:rotate(-8deg) translate3d(0,0,0);animation:drift 12s linear infinite;will-change:transform}.damaros-monogram-grid img{width:104px;height:104px;object-fit:contain;display:block;opacity:.055;filter:grayscale(1) brightness(.63) contrast(1.25);mix-blend-mode:screen}.damaros-monogram-grid.error{display:flex;align-items:center;justify-content:center;transform:none!important;animation:none;opacity:1}.damaros-monogram-error{font-family:var(--fm);font-size:.7rem;letter-spacing:.08em;color:var(--blue);border:1px solid var(--bd);padding:.8rem 1rem;background:#000}
   @keyframes drift{0%{transform:rotate(-8deg) translate3d(0,0,0)}50%{transform:rotate(-8deg) translate3d(38px,-6px,0)}100%{transform:rotate(-8deg) translate3d(0,0,0)}}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
   .damaros-terminal-wrap{position:relative;z-index:10;text-align:center;max-width:820px}.damaros-terminal-prefix{font-family:var(--fh);font-size:1.2rem;letter-spacing:.1em;margin-bottom:1.8rem;opacity:0;animation:fade .6s ease .25s both}.damaros-blink-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--blue);margin-left:.42rem;vertical-align:middle;animation:pulse 2.2s ease-in-out infinite}.damaros-typed-line{min-height:2.4em;display:flex;align-items:center;justify-content:center;white-space:nowrap;font-family:var(--fh);font-size:clamp(1.15rem,3vw,2.4rem);line-height:1.3}.damaros-cursor{display:inline-block;width:2px;height:1.05em;background:var(--blue);margin-left:3px;animation:blink 1.5s step-end infinite;box-shadow:0 0 10px var(--bd)}.damaros-subtext{margin-top:2.5rem;color:var(--blue);font-family:var(--fh);font-size:.9rem;font-weight:500;letter-spacing:.03em;opacity:0;animation:fade .8s ease 3s both}.damaros-cta-wrap{margin-top:3rem;opacity:0;animation:fade .8s ease 3.35s both}.damaros-cta-btn{display:inline-flex;align-items:center;gap:.65rem;color:var(--tp);border:1px solid var(--bd);padding:.9rem 2.2rem;text-decoration:none;text-transform:uppercase;font-family:var(--fh);font-size:.8rem;font-weight:500;letter-spacing:.12em;position:relative;overflow:hidden;background:transparent;transition:all .4s cubic-bezier(.16,1,.3,1)}.damaros-cta-btn:before{content:'';position:absolute;inset:0;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1);z-index:-1}.damaros-cta-btn:hover{color:#000;border-color:var(--blue);box-shadow:0 0 30px rgba(123,150,178,.12)}.damaros-cta-btn:hover:before{transform:scaleX(1)}.damaros-cta-arrow{transition:transform .3s}.damaros-cta-btn:hover .damaros-cta-arrow{transform:translateX(4px)}.damaros-bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.2rem;color:var(--td);font-family:var(--fm);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;animation:fade .8s ease 3.6s both;background:#000!important}
-  .damaros-docs-wrap{max-width:900px;margin:0 auto;padding:calc(var(--tab) + 4rem) 2.2rem 6rem;background:#000!important}.damaros-docs-eyebrow,.damaros-docs-section-label,.damaros-api-group-label{font-family:var(--fm);text-transform:uppercase;color:var(--blue)}.damaros-docs-eyebrow{font-size:.6rem;letter-spacing:.18em;opacity:.75;margin-bottom:.6rem}.damaros-docs-title{font-family:var(--fh);font-size:clamp(1.45rem,3vw,2.05rem);font-weight:500;letter-spacing:.02em;margin-bottom:.5rem}.damaros-docs-subtitle{color:var(--td);font-size:.86rem;line-height:1.65;margin-bottom:3.5rem}.damaros-docs-divider{width:100%;height:1px;background:rgba(123,150,178,.08);margin:3rem 0}.damaros-docs-section{margin-bottom:3rem}.damaros-docs-section-label{font-size:.6rem;letter-spacing:.18em;opacity:.6;margin-bottom:.4rem}.damaros-docs-section-label:before{content:'// '}.damaros-docs-section-heading{font-family:var(--fh);font-size:1rem;font-weight:500;letter-spacing:.06em;padding-bottom:.6rem;border-bottom:1px solid rgba(123,150,178,.08);margin-bottom:1.2rem}.damaros-docs-body{color:var(--ts);font-size:.85rem;line-height:1.75}.damaros-docs-body p+p{margin-top:.8rem}
+  .damaros-docs-wrap{max-width:900px;margin:0 auto;padding:calc(var(--tab) + 4rem) 2.2rem 6rem;background:#000!important}.damaros-docs-eyebrow,.damaros-docs-section-label,.damaros-api-group-label{font-family:var(--fm);text-transform:uppercase;color:var(--blue)}.damaros-docs-eyebrow{font-size:.6rem;letter-spacing:.18em;opacity:.75;margin-bottom:.6rem}.damaros-docs-title{font-family:var(--fh);font-size:clamp(1.45rem,3vw,2.05rem);font-weight:500;letter-spacing:.02em;margin-bottom:.5rem}.damaros-docs-subtitle{color:var(--td);font-size:.86rem;line-height:1.65;margin-bottom:3.5rem}.damaros-docs-divider{width:100%;height:1px;background:rgba(123,150,178,.08);margin:3rem 0}.damaros-docs-section{margin-bottom:3rem}.damaros-docs-section-label{font-size:.6rem;letter-spacing:.18em;opacity:.6;margin-bottom:.4rem}.damaros-docs-section-label:before{content:'// '}.damaros-docs-section-heading{font-family:var(--fh);font-size:1rem;font-weight:500;letter-spacing:.06em;padding-bottom:.6rem;border-bottom:1px solid rgba(123,150,178,.08);margin-bottom:1.2rem}.damaros-docs-body{color:var(--ts);font-size:.85rem;line-height:1.75}.damaros-docs-body p+p{margin-top:.8rem}.damaros-docs-body code{font-family:var(--fm);color:var(--blue);font-size:.8rem}
   .damaros-kv-table{width:100%;border-collapse:collapse;font-family:var(--fm);font-size:.7rem;background:#000!important}.damaros-kv-table tr{border-bottom:1px solid rgba(123,150,178,.055)}.damaros-kv-table tr:last-child{border-bottom:0}.damaros-kv-table td{padding:.58rem 0;vertical-align:top;line-height:1.5;background:#000!important}.damaros-kv-table td:first-child{width:250px;padding-right:1.5rem;color:var(--blue);opacity:.75;white-space:nowrap}.damaros-kv-table td:last-child{color:rgba(232,232,232,.72);word-break:break-word}.damaros-kv-link{color:var(--blue);text-decoration:none}.damaros-kv-link:hover{text-decoration:underline}
   .damaros-api-groups{display:flex;flex-direction:column;gap:1.8rem}.damaros-api-group-label{font-size:.58rem;letter-spacing:.14em;opacity:.58;margin:1.4rem 0 .5rem}.damaros-api-group-label:before{content:'> '}.damaros-api-list{list-style:none;display:flex;flex-direction:column;padding-left:0;margin:0;background:#000!important}.damaros-api-item{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding:.38rem 0;border-bottom:1px solid rgba(123,150,178,.05);font-family:var(--fm);font-size:.68rem;background:#000!important}.damaros-api-name{color:rgba(232,232,232,.82)}.damaros-api-note{color:var(--td);font-size:.62rem;text-align:right;white-space:nowrap}.damaros-optional-tag{display:inline-block;margin-left:.5rem;padding:.1rem .4rem;border:1px solid rgba(123,150,178,.24);color:var(--blue);font-size:.55rem;letter-spacing:.1em;background:#000}.damaros-bullet-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;color:var(--ts);font-size:.85rem;line-height:1.6;padding-left:0;margin:0;background:#000!important}.damaros-bullet-list li:before{content:'— ';color:var(--blue);opacity:.65;font-family:var(--fm)}.damaros-callout{margin-top:1rem;padding:.8rem 1.2rem;border-left:2px solid rgba(123,150,178,.28);background:#000!important;color:rgba(232,232,232,.58);font-family:var(--fm);font-size:.68rem;line-height:1.7}.damaros-contact-block{font-family:var(--fm);font-size:.75rem;line-height:2;color:rgba(232,232,232,.68);background:#000!important}.damaros-contact-block a{color:var(--blue);text-decoration:none}
   @media(max-width:700px){.damaros-tab-bar{padding:0 0 0 .8rem!important;justify-content:flex-start!important}.damaros-tab-brand{display:none!important}.damaros-tab-links{margin:0!important;padding:0!important}.damaros-tab-btn{padding:0 .65rem}.damaros-tab-btn:after{left:.65rem;right:.65rem}.damaros-monogram-grid{grid-template-columns:repeat(auto-fill,72px);grid-auto-rows:72px;gap:22px;opacity:.11}.damaros-monogram-grid img{width:72px;height:72px;opacity:.055;filter:grayscale(1) brightness(.48) contrast(1.25);mix-blend-mode:screen}.damaros-typed-line{white-space:normal}.damaros-bottom-bar{padding:.85rem 1.2rem}.damaros-docs-wrap{padding:calc(var(--tab) + 2.5rem) 1.4rem 4rem}.damaros-kv-table td:first-child{width:145px;font-size:.62rem}.damaros-api-item{grid-template-columns:1fr;gap:.1rem}.damaros-api-note{text-align:left;white-space:normal}}
-  </style>
-  
-  <div class="damaros-site">
-  <nav class="damaros-tab-bar"><div class="damaros-tab-links"><button class="damaros-tab-btn active" data-panel="home">Home</button><button class="damaros-tab-btn" data-panel="docs">Documentation</button></div></nav>
-  
-  <div id="damaros-panel-home" class="damaros-panel active">
-  <div class="damaros-monogram-bg"><div class="damaros-monogram-grid" id="damarosMonogramGrid"></div></div>
-  <main class="damaros-terminal-wrap"><div class="damaros-terminal-prefix">Damaros<span class="damaros-blink-dot"></span></div><div class="damaros-typed-line"><span id="damarosTyped"></span><span class="damaros-cursor"></span></div><div class="damaros-subtext">clinical investigation, rewired.</div><div class="damaros-cta-wrap"><a href="mailto:anirudh@damaros.ai" class="damaros-cta-btn">Request a Demo <span class="damaros-cta-arrow">→</span></a></div></main>
-  <div class="damaros-bottom-bar"><span id="damarosVisitorLocation">secure session</span><span>© 2026 Damaros</span></div>
-  </div>
-  
-  <div id="damaros-panel-docs" class="damaros-panel"><div class="damaros-docs-wrap">
-  <div class="damaros-docs-eyebrow">Epic FHIR Integration</div><h1 class="damaros-docs-title">Production Integration Documentation</h1>
-  <p class="damaros-docs-subtitle">Deployment-facing technical reference for the Damaros Epic SMART on FHIR integration, including authentication, requested services, PHI boundaries, access control, audit guarantees, performance posture, resiliency behavior, and production controls.</p>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">01_PLATFORM_OVERVIEW</div><h2 class="damaros-docs-section-heading">Platform Overview</h2><div class="damaros-docs-body">
-  <p>Damaros is a clinical trial execution platform that performs deterministic, protocol-driven eligibility evaluation against Electronic Health Record data.</p>
-  <p>The system converts trial protocols into structured evaluation logic, screens approved cohorts against inclusion and exclusion criteria, and produces criterion-level evidence suitable for coordinator review, institutional oversight, and audit reconstruction.</p>
-  <p>The Epic integration operates as a SMART on FHIR Backend Services application. Access is read-only by default. Optional write-back capabilities remain disabled unless explicitly enabled after site authorization, IRB/policy review, and deployment-level configuration.</p>
-  </div></section>
-  
-  <div class="damaros-docs-divider"></div>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">02_INTEGRATION_ARCHITECTURE</div><h2 class="damaros-docs-section-heading">Integration Architecture</h2><table class="damaros-kv-table">
-  <tr><td>APPLICATION_AUDIENCE</td><td>Backend Systems</td></tr>
-  <tr><td>FHIR_VERSION</td><td>R4, with MedicationStatement STU3 where Epic service availability requires it</td></tr>
-  <tr><td>USE_CASE</td><td>Clinical trial eligibility screening, evidence retrieval, cohort review, and audit reconstruction</td></tr>
-  <tr><td>AUTH_STANDARD</td><td>SMART on FHIR Backend Services</td></tr>
-  <tr><td>AUTH_METHOD</td><td>JWT Client Assertion</td></tr>
-  <tr><td>JWT_ALGORITHM</td><td>RS384</td></tr>
-  <tr><td>KEY_SIZE</td><td>RSA-2048</td></tr>
-  <tr><td>TOKEN_TTL</td><td>300 seconds or less</td></tr>
-  <tr><td>DEFAULT_ACCESS</td><td>Read-only</td></tr>
-  <tr><td>DEPLOYMENT_MODEL</td><td>Institution-approved private cloud, on-premises, or controlled deployment environment</td></tr>
-  </table></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">02A_ENVIRONMENT_SEPARATION</div><h2 class="damaros-docs-section-heading">Environment Separation</h2><table class="damaros-kv-table">
-  <tr><td>NON_PRODUCTION</td><td>Separate Epic non-production client ID, JWKS, and signing keypair</td></tr>
-  <tr><td>PRODUCTION</td><td>Independent Epic production client ID, JWKS, and signing keypair</td></tr>
-  <tr><td>JWKS_NONPROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-nonprod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-nonprod.json</a></td></tr>
-  <tr><td>JWKS_PROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-prod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-prod.json</a></td></tr>
-  <tr><td>SECRET_STORAGE</td><td>Private keys loaded from managed secrets storage, never from source control, browser code, or environment files committed to a repository</td></tr>
-  <tr><td>PROD_DEFAULTS</td><td>FHIR write behavior defaults off; production configuration must explicitly enable any write-capable pathway</td></tr>
-  </table></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">02B_AUTHENTICATION_FLOW</div><h2 class="damaros-docs-section-heading">Authentication Flow</h2><div class="damaros-docs-body">
-  <p>Damaros uses SMART on FHIR Backend Services with JWT client assertions. Tokens are requested from the Epic authorization server using client credentials and are scoped to institution-approved system-level access.</p>
-  </div><table class="damaros-kv-table">
-  <tr><td>GRANT_TYPE</td><td>client_credentials</td></tr>
-  <tr><td>ASSERTION_TYPE</td><td>JWT bearer client assertion</td></tr>
-  <tr><td>TOKEN_ENDPOINT</td><td>Epic-provided authorization server endpoint</td></tr>
-  <tr><td>JWT_ISS / JWT_SUB</td><td>Epic-issued client ID for the active environment</td></tr>
-  <tr><td>JWT_AUD</td><td>Epic token endpoint URL</td></tr>
-  <tr><td>JWT_EXP</td><td>Short-lived assertion, 300 seconds or less</td></tr>
-  <tr><td>JWT_JTI</td><td>Unique identifier generated per assertion</td></tr>
-  <tr><td>TOKEN_STORAGE</td><td>Access tokens are held only for the active execution context and are not persisted</td></tr>
-  </table><div class="damaros-callout">Token acquisition is bounded, retry-limited, and visible to operators when authentication fails.</div></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">02C_OAUTH_SCOPES</div><h2 class="damaros-docs-section-heading">OAuth Scope Families</h2><div class="damaros-docs-body"><p>Requested Epic web services map to system-level read scopes for approved resources. Write scopes are excluded from standard screening operations and are only considered for institution-approved write-back workflows.</p></div>
-  <ul class="damaros-api-list">
-  <li class="damaros-api-item"><span class="damaros-api-name">system/Patient.read</span><span class="damaros-api-note">Patient identity and cohort resolution</span></li>
-  <li class="damaros-api-item"><span class="damaros-api-name">system/Observation.read</span><span class="damaros-api-note">Labs, vitals, biomarkers, social history, genomics</span></li>
-  <li class="damaros-api-item"><span class="damaros-api-name">system/Condition.read</span><span class="damaros-api-note">Problems, diagnoses, health concerns, medical history</span></li>
-  <li class="damaros-api-item"><span class="damaros-api-name">system/MedicationRequest.read / MedicationStatement.read</span><span class="damaros-api-note">Medication orders and medication statements</span></li>
-  <li class="damaros-api-item"><span class="damaros-api-name">system/Procedure.read / ServiceRequest.read / Specimen.read</span><span class="damaros-api-note">Procedures, orders, and specimens</span></li>
-  <li class="damaros-api-item"><span class="damaros-api-name">system/DocumentReference.read / Binary.read / DiagnosticReport.read</span><span class="damaros-api-note">Reports, documents, and authorized payload retrieval</span></li>
-  <li class="damaros-api-item"><span class="damaros-api-name">system/Encounter.read / CarePlan.read / CareTeam.read / FamilyMemberHistory.read</span><span class="damaros-api-note">Clinical context and longitudinal care evidence</span></li>
-  <li class="damaros-api-item"><span class="damaros-api-name">system/Group.read / ResearchStudy.read / ResearchSubject.read</span><span class="damaros-api-note">Cohort and research workflow context</span></li>
-  </ul></section>
-  
-  <div class="damaros-docs-divider"></div>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">03_REQUESTED_WEB_SERVICES</div><h2 class="damaros-docs-section-heading">Requested Epic Web Services</h2><div class="damaros-docs-body"><p>Services are requested to support eligibility execution, source evidence retrieval, cohort review, audit reconstruction, and optional institution-approved research workflow support. Actual enablement may be narrowed by the site.</p></div><div class="damaros-api-groups">
-  
-  <div><div class="damaros-api-group-label">Patient Identity</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">Patient.Read / Patient.Search (Demographics) (R4)</span><span class="damaros-api-note">Demographics and lookup</span></li><li class="damaros-api-item"><span class="damaros-api-name">Patient.$match (Patient Match) (R4)</span><span class="damaros-api-note">Matching and de-duplication</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Allergies and Immunizations</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">AllergyIntolerance.Read/Search (Patient Chart) (R4)</span><span class="damaros-api-note">Allergy evidence</span></li><li class="damaros-api-item"><span class="damaros-api-name">Immunization.Read/Search (Patient Chart) (R4)</span><span class="damaros-api-note">Vaccination history</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Observations, Labs, Vitals, Genomics</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">Observation.Read/Search (Labs) (R4)</span><span class="damaros-api-note">Labs, biomarkers, flowsheets</span></li><li class="damaros-api-item"><span class="damaros-api-name">Observation.Search (Vital Signs) (R4)</span><span class="damaros-api-note">Vitals lookup</span></li><li class="damaros-api-item"><span class="damaros-api-name">Observation.Read/Search (Social History) (R4)</span><span class="damaros-api-note">Smoking and social history</span></li><li class="damaros-api-item"><span class="damaros-api-name">Observation.Search (Genomics) (R4)</span><span class="damaros-api-note">Genomic observations</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Conditions and Diagnoses</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">Condition.Read/Search (Problems, Encounter Diagnosis, Medical History, Health Concerns, Genomics) (R4)</span><span class="damaros-api-note">Diagnosis and condition evidence</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Medications</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">MedicationRequest.Read/Search (Signed Medication Order) (R4)</span><span class="damaros-api-note">Medication orders</span></li><li class="damaros-api-item"><span class="damaros-api-name">MedicationStatement.Read/Search (STU3)</span><span class="damaros-api-note">Medication statements</span></li></ul><div class="damaros-callout">MedicationStatement is requested in STU3 where Epic service availability requires that version for the medication statement workflow.</div></div>
-  <div><div class="damaros-api-group-label">Procedures, Orders, Specimens</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">Procedure.Read/Search (Orders, Surgeries) (R4)</span><span class="damaros-api-note">Procedure orders and surgical history</span></li><li class="damaros-api-item"><span class="damaros-api-name">ServiceRequest.Read/Search (Orders) (R4)</span><span class="damaros-api-note">Service and diagnostic orders</span></li><li class="damaros-api-item"><span class="damaros-api-name">Specimen.Read/Search (Patient Chart) (R4)</span><span class="damaros-api-note">Specimen records</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Documents, Reports, Binary Payloads</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">DiagnosticReport.Read/Search (Results) (R4)</span><span class="damaros-api-note">Diagnostic reports</span></li><li class="damaros-api-item"><span class="damaros-api-name">DocumentReference.Read/Search (Clinical Notes, Document Information, Labs, Radiology Results) (R4)</span><span class="damaros-api-note">Document metadata</span></li><li class="damaros-api-item"><span class="damaros-api-name">Binary.Read/Search (Clinical Notes, Document Information, Labs, Radiology Results) (R4)</span><span class="damaros-api-note">Authorized payload retrieval</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Encounters, Care Context, Family History</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">Encounter.Read/Search (Patient Chart) (R4)</span><span class="damaros-api-note">Encounter history</span></li><li class="damaros-api-item"><span class="damaros-api-name">CarePlan.Read/Search (Longitudinal, Oncology) (R4)</span><span class="damaros-api-note">Care plan context</span></li><li class="damaros-api-item"><span class="damaros-api-name">CareTeam.Read/Search (Longitudinal CareTeam) (R4)</span><span class="damaros-api-note">Care team context</span></li><li class="damaros-api-item"><span class="damaros-api-name">FamilyMemberHistory.Read/Search (R4)</span><span class="damaros-api-note">Family history</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Research Resources</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">ResearchStudy.Read/Search (R4)</span><span class="damaros-api-note">Research study metadata</span></li><li class="damaros-api-item"><span class="damaros-api-name">ResearchSubject.Read/Search (R4)</span><span class="damaros-api-note">Research subject records</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Cohort Management and Bulk FHIR</div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">Group.Read/Search (Employer Group) (R4)</span><span class="damaros-api-note">Approved patient groups</span></li><li class="damaros-api-item"><span class="damaros-api-name">Bulk Data Kick-off / Status / File / Delete Request</span><span class="damaros-api-note">Export lifecycle</span></li></ul></div>
-  <div><div class="damaros-api-group-label">Optional Write-Back <span class="damaros-optional-tag">Disabled by default</span></div><ul class="damaros-api-list"><li class="damaros-api-item"><span class="damaros-api-name">Observation.Write (Consent / Screening Status) (R4)</span><span class="damaros-api-note">Only if authorized</span></li><li class="damaros-api-item"><span class="damaros-api-name">Subscription.Write (R4)</span><span class="damaros-api-note">Only if authorized</span></li></ul><div class="damaros-callout">Write-back is disabled unless DAMAROS_FHIR_WRITE_ENABLED=1 is explicitly configured. No writes occur during standard screening operations.</div></div>
-  
-  </div></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">03A_PHI_BOUNDARY_AND_DATA_FLOW</div><h2 class="damaros-docs-section-heading">PHI Boundary and Data Flow</h2><ul class="damaros-bullet-list">
-  <li>Cohorts are defined by approved protocol logic or institutional configuration.</li>
-  <li>Patient data is retrieved through FHIR APIs or Bulk FHIR export depending on cohort size and site policy.</li>
-  <li>PHI is processed only inside the institution-approved deployment boundary.</li>
-  <li>Protocol parsing and non-PHI configuration may use separate services, but patient-level PHI is not sent to public LLM APIs.</li>
-  <li>Eligibility is computed deterministically against protocol inclusion and exclusion criteria.</li>
-  <li>Results are surfaced to authorized clinical research users with criterion-level evidence.</li>
-  <li>Audit artifacts preserve source references required for review and reconstruction.</li>
-  <li>No data leaves authorized infrastructure boundaries without institutional approval and executed data-use terms.</li>
-  </ul></section>
-  
-  <div class="damaros-docs-divider"></div>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">04_AUDIT_AND_REPLAY</div><h2 class="damaros-docs-section-heading">Audit, Determinism, and Replay</h2><ul class="damaros-bullet-list">
-  <li>Eligibility decisions are deterministic and reproducible for a fixed protocol version, cohort definition, data snapshot, and evaluation_as_of timestamp.</li>
-  <li>Every patient decision is logged at criterion level with PASS, FAIL, or REVIEW status.</li>
-  <li>Evidence links back to source FHIR resources, document metadata, and retrieved payload references where available.</li>
-  <li>Protocol amendments generate versioned re-evaluation outputs and reviewable diffs.</li>
-  <li>Replay uses the same protocol version, evaluation timestamp, normalized evidence set, and deterministic ordering rules.</li>
-  <li>No opaque or black-box decisioning is used for clinical eligibility outputs.</li>
-  <li>Audit logs are institution-scoped, access-controlled, and reviewable by authorized users.</li>
-  </ul></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">04A_ACCESS_CONTROL</div><h2 class="damaros-docs-section-heading">Identity and Access Control</h2><ul class="damaros-bullet-list">
-  <li>User access is role-scoped for clinical research workflows, including coordinator, investigator, administrator, and technical operator roles where enabled.</li>
-  <li>Users see only institution-approved studies, cohorts, evidence, and audit records.</li>
-  <li>Administrative actions, export operations, and write-capable configuration changes are restricted to authorized users.</li>
-  <li>Sessions, authentication, and inactivity controls are configured according to the institution-approved deployment model.</li>
-  <li>Access events are logged for security review and operational audit.</li>
-  </ul></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">04B_PERFORMANCE_AND_USAGE</div><h2 class="damaros-docs-section-heading">Performance and API Usage</h2><ul class="damaros-bullet-list">
-  <li>FHIR API usage is designed to comply with Epic operational performance guidance and site-specific limits.</li>
-  <li>Target usage is bounded to Epic ODB guidance: no more than 1% peak load and no more than 5% off-peak load unless a site approves otherwise.</li>
-  <li>Bulk FHIR export is preferred for large cohort workflows to avoid excessive point-query load.</li>
-  <li>Requests are rate-limited and governed by bounded exponential backoff.</li>
-  <li>Polling intervals are controlled to avoid unnecessary authorization server or FHIR server pressure.</li>
-  <li>Batching, connection reuse, and job-level orchestration reduce system load.</li>
-  <li>Retry behavior is idempotent and avoids duplicate write behavior when optional write-back is disabled.</li>
-  </ul></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">04C_ERROR_HANDLING</div><h2 class="damaros-docs-section-heading">Error Handling and Resiliency</h2><ul class="damaros-bullet-list">
-  <li>Token acquisition failures are handled with bounded retry and operator-visible failure states.</li>
-  <li>Transient FHIR errors use exponential backoff with retry caps.</li>
-  <li>Partial cohort failures are isolated and surfaced for review without corrupting completed results.</li>
-  <li>Missing or stale data is surfaced as REVIEW rather than silently converted into eligibility PASS.</li>
-  <li>Upstream instability can trigger circuit breaker behavior to protect Epic infrastructure.</li>
-  <li>Failed ingestion, screening, export, and replay jobs preserve diagnostic metadata for authorized operators.</li>
-  <li>Operations are designed to be replay-safe under fixed protocol, cohort, and evaluation timestamp inputs.</li>
-  </ul></section>
-  
-  <div class="damaros-docs-divider"></div>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">05_SECURITY_AND_PRIVACY</div><h2 class="damaros-docs-section-heading">Security and Privacy</h2><ul class="damaros-bullet-list">
-  <li>Private signing keys are stored in managed secrets infrastructure and never committed to source control.</li>
-  <li>Access tokens are short-lived and not persisted.</li>
-  <li>All access is institution-scoped and bound to approved Epic client credentials.</li>
-  <li>All API traffic is encrypted in transit using TLS 1.2 or higher.</li>
-  <li>Data is encrypted at rest according to deployment and site policy.</li>
-  <li>No PHI is written to application logs at any verbosity level.</li>
-  <li>Clinical data is used only for approved research screening workflows.</li>
-  <li>Data is not sold, licensed, used for advertising, or used to train commercial AI models.</li>
-  <li>Retention, deletion, export handling, and purge behavior follow site-specific Data Use Agreement and institutional policy.</li>
-  </ul></section>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">05A_OPTIONAL_WRITE_BACK</div><h2 class="damaros-docs-section-heading">Optional Write-Back Controls</h2><ul class="damaros-bullet-list">
-  <li>Write-back is disabled by default in production configuration.</li>
-  <li>Write-back requires explicit site approval, appropriate policy review, and deployment-level enablement.</li>
-  <li>Permitted write-back is limited to institution-approved objects such as consent or screening-status observations.</li>
-  <li>Every write-capable operation is logged with actor, timestamp, patient context, payload class, and result.</li>
-  <li>Standard eligibility screening does not require write-back to Epic.</li>
-  </ul></section>
-  
-  <div class="damaros-docs-divider"></div>
-  
-  <section class="damaros-docs-section"><div class="damaros-docs-section-label">06_CONTACT</div><h2 class="damaros-docs-section-heading">Contact</h2><div class="damaros-contact-block"><div>Organization &nbsp;&nbsp; Damaros, LLC</div><div>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:anirudh@damaros.ai">anirudh@damaros.ai</a></div><div>Website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://damaros.ai">damaros.ai</a></div></div></section>
-  
-  </div></div></div>
-  
-  <script>
-  (function(){const SRC="https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png";function init(){document.body.classList.add("damaros-home-lock");const grid=document.getElementById("damarosMonogramGrid");if(grid){const test=new Image();test.onload=function(){grid.classList.remove("error");grid.innerHTML="";const n=window.innerWidth<700?150:220;for(let i=0;i<n;i++){const img=document.createElement("img");const r=(Math.random()*6-3).toFixed(2),s=(.94+Math.random()*.12).toFixed(3),o=(.78+Math.random()*.22).toFixed(3);img.src=SRC;img.alt="";img.draggable=false;img.loading="eager";img.decoding="async";img.style.transform="rotate("+r+"deg) scale("+s+")";img.style.opacity=o;grid.appendChild(img)}};test.onerror=function(){grid.classList.add("error");grid.innerHTML='<div class="damaros-monogram-error">monogram image failed to load</div>';console.error("Damaros monogram failed:",SRC)};test.src=SRC}
-  let px=0,py=0;window.addEventListener("mousemove",function(e){if(!grid||grid.classList.contains("error"))return;const x=(e.clientX/window.innerWidth-.5)*16,y=(e.clientY/window.innerHeight-.5)*10;px+=(x-px)*.08;py+=(y-py)*.08;grid.style.animation="none";grid.style.transform="rotate(-8deg) translate3d("+px+"px,"+py+"px,0)"});window.addEventListener("mouseleave",function(){if(!grid||grid.classList.contains("error"))return;grid.style.animation="drift 12s linear infinite";grid.style.transform=""});
-  document.querySelectorAll(".damaros-tab-btn").forEach(function(btn){btn.addEventListener("click",function(){const t=btn.dataset.panel;document.querySelectorAll(".damaros-tab-btn").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".damaros-panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");const panel=document.getElementById("damaros-panel-"+t);if(panel)panel.classList.add("active");const docs=t==="docs";document.body.classList.toggle("damaros-docs-active",docs);document.body.classList.toggle("damaros-home-lock",!docs);if(docs){history.replaceState(null,"","#docs");window.scrollTo(0,0)}else history.replaceState(null,"",window.location.pathname)})});if(location.hash==="#docs"){const b=document.querySelector('.damaros-tab-btn[data-panel="docs"]');if(b)b.click()}
-  const phrases=["own your trial workflow","automate the screening bottleneck","surface patients, not paperwork","supercharge form generation","streamline accrual at scale"],typed=document.getElementById("damarosTyped");let pi=0,ci=0,del=false;function tick(){if(!typed)return;const p=phrases[pi];if(!del){typed.textContent=p.slice(0,ci+1);ci++;if(ci===p.length){setTimeout(function(){del=true;tick()},3200);return}}else{typed.textContent=p.slice(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,350);return}}setTimeout(tick,del?28:65)}setTimeout(tick,900);
-  const loc=document.getElementById("damarosVisitorLocation");if(loc)fetch("https://ipapi.co/json/").then(r=>r.ok?r.json():null).then(d=>{if(d&&d.city&&d.region)loc.textContent=d.city+", "+d.region}).catch(()=>{})}
-  if(document.readyState==="complete")init();else window.addEventListener("load",init)})();
-  </script>
+</style>
+
+<div class="damaros-site">
+<nav class="damaros-tab-bar"><div class="damaros-tab-links"><button class="damaros-tab-btn active" data-panel="home">Home</button><button class="damaros-tab-btn" data-panel="docs">Documentation</button></div></nav>
+
+<div id="damaros-panel-home" class="damaros-panel active">
+<div class="damaros-monogram-bg"><div class="damaros-monogram-grid" id="damarosMonogramGrid"></div></div>
+<main class="damaros-terminal-wrap"><div class="damaros-terminal-prefix">Damaros<span class="damaros-blink-dot"></span></div><div class="damaros-typed-line"><span id="damarosTyped"></span><span class="damaros-cursor"></span></div><div class="damaros-subtext">clinical investigation, rewired.</div><div class="damaros-cta-wrap"><a href="mailto:anirudh@damaros.ai" class="damaros-cta-btn">Request a Demo <span class="damaros-cta-arrow">→</span></a></div></main>
+<div class="damaros-bottom-bar"><span id="damarosVisitorLocation">secure session</span><span>© 2026 Damaros</span></div>
+</div>
+
+<div id="damaros-panel-docs" class="damaros-panel"><div class="damaros-docs-wrap">
+<div class="damaros-docs-eyebrow">Epic FHIR Integration</div><h1 class="damaros-docs-title">Production Integration Documentation</h1>
+<p class="damaros-docs-subtitle">Deployment-facing technical reference for the Damaros Epic SMART on FHIR integration. Covers authentication, authorized services, PHI handling, screening determinism, access control, resiliency, and production controls.</p>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">01_PLATFORM_OVERVIEW</div><h2 class="damaros-docs-section-heading">Platform Overview</h2><div class="damaros-docs-body">
+<p>Damaros is a clinical trial execution platform that performs deterministic, protocol-driven eligibility evaluation against Electronic Health Record data.</p>
+<p>The system converts trial protocols into structured evaluation logic, screens approved cohorts against inclusion and exclusion criteria, and produces criterion-level evidence for coordinator review, institutional oversight, and audit reconstruction.</p>
+<p>The Epic integration operates as a SMART on FHIR Backend Services application. Access is read-only by default. Optional write-back capabilities are disabled unless explicitly enabled after site authorization and deployment-level configuration.</p>
+</div></section>
+
+<div class="damaros-docs-divider"></div>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">02_INTEGRATION_ARCHITECTURE</div><h2 class="damaros-docs-section-heading">Integration Architecture</h2><table class="damaros-kv-table">
+<tr><td>APPLICATION_AUDIENCE</td><td>Backend Systems</td></tr>
+<tr><td>FHIR_VERSION</td><td>R4; MedicationStatement retrieval enabled via site-level configuration flag</td></tr>
+<tr><td>USE_CASE</td><td>Clinical trial eligibility screening, evidence retrieval, cohort review, and audit reconstruction</td></tr>
+<tr><td>AUTH_STANDARD</td><td>SMART on FHIR Backend Services (RFC 7523)</td></tr>
+<tr><td>AUTH_METHOD</td><td>JWT Client Assertion</td></tr>
+<tr><td>JWT_ALGORITHM</td><td>RS384</td></tr>
+<tr><td>KEY_SIZE</td><td>RSA-2048</td></tr>
+<tr><td>TOKEN_TTL</td><td>300 seconds (assertion TTL cap)</td></tr>
+<tr><td>DEFAULT_ACCESS</td><td>Read-only; write-back disabled by default</td></tr>
+<tr><td>TOKEN_ENDPOINT</td><td>Configured via DAMAROS_EPIC_TOKEN_URL environment variable</td></tr>
+</table></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">02A_ENVIRONMENT_SEPARATION</div><h2 class="damaros-docs-section-heading">Environment Separation</h2><table class="damaros-kv-table">
+<tr><td>NON_PRODUCTION</td><td>Separate Epic non-production client ID, signing keypair, and JWKS</td></tr>
+<tr><td>PRODUCTION</td><td>Independent Epic production client ID, signing keypair, and JWKS</td></tr>
+<tr><td>JWKS_NONPROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-nonprod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-nonprod.json</a></td></tr>
+<tr><td>JWKS_PROD</td><td><a class="damaros-kv-link" href="https://damaros-jwks.vercel.app/.well-known/jwks-prod.json" target="_blank" rel="noopener">damaros-jwks.vercel.app/.well-known/jwks-prod.json</a></td></tr>
+<tr><td>SECRET_STORAGE</td><td>Private keys loaded from a configured secret store or secure file path; never committed to source control</td></tr>
+<tr><td>PROD_DEFAULTS</td><td>FHIR write behavior defaults off; production configuration must explicitly enable any write-capable pathway via DAMAROS_FHIR_WRITE_ENABLED</td></tr>
+</table></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">02B_AUTHENTICATION_FLOW</div><h2 class="damaros-docs-section-heading">Authentication Flow</h2><div class="damaros-docs-body">
+<p>Damaros uses SMART on FHIR Backend Services with JWT client assertions (RFC 7523). The client authenticates using a signed JWT presented to the Epic token endpoint. Access tokens are short-lived and held only in process memory for the active execution context.</p>
+</div><table class="damaros-kv-table">
+<tr><td>GRANT_TYPE</td><td>client_credentials</td></tr>
+<tr><td>ASSERTION_TYPE</td><td>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</td></tr>
+<tr><td>TOKEN_ENDPOINT</td><td>Epic-provided authorization server endpoint (DAMAROS_EPIC_TOKEN_URL)</td></tr>
+<tr><td>JWT_ISS / JWT_SUB</td><td>Epic-issued client ID for the active environment</td></tr>
+<tr><td>JWT_AUD</td><td>Epic token endpoint URL</td></tr>
+<tr><td>JWT_EXP</td><td>Current time + 300 seconds (capped)</td></tr>
+<tr><td>JWT_JTI</td><td>UUID generated per assertion</td></tr>
+<tr><td>TOKEN_STORAGE</td><td>In-process memory cache only; not written to disk, database, or external store</td></tr>
+</table><div class="damaros-callout">Token acquisition uses bounded retry with exponential backoff. Authentication failures are surfaced as operator-visible error states and do not silently degrade to unauthenticated access.</div></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">02C_OAUTH_SCOPE</div><h2 class="damaros-docs-section-heading">OAuth Scope</h2><div class="damaros-docs-body">
+<p>The configured scope is <code>system/*.read</code>, covering read access to Epic FHIR resources. No write scopes are included in the standard scope configuration. The resource families accessed under this scope are listed in section 03.</p>
+</div></section>
+
+<div class="damaros-docs-divider"></div>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">03_IMPLEMENTED_SERVICES</div><h2 class="damaros-docs-section-heading">Implemented Epic Web Services</h2><div class="damaros-docs-body"><p>The following FHIR resource types are actively retrieved as part of the eligibility screening workflow. All resources use FHIR R4.</p></div><div class="damaros-api-groups">
+
+<div><div class="damaros-api-group-label">Patient Identity and Cohort</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Patient.Read / Patient.Search (R4)</span><span class="damaros-api-note">Demographics and cohort lookup</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Group.Read / Group.Search (R4)</span><span class="damaros-api-note">Approved patient group membership</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Observations</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Observation.Read / Observation.Search (R4)</span><span class="damaros-api-note">Labs, vitals, social history, genomics (category-filtered)</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Conditions</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Condition.Read / Condition.Search (R4)</span><span class="damaros-api-note">Problems, encounter diagnoses, medical history, health concerns</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Medications</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">MedicationRequest.Read / MedicationRequest.Search (R4)</span><span class="damaros-api-note">Signed medication orders</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">MedicationStatement.Read / MedicationStatement.Search (R4)</span><span class="damaros-api-note">Medication statements; enabled via site configuration</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Allergies and Procedures</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">AllergyIntolerance.Read / AllergyIntolerance.Search (R4)</span><span class="damaros-api-note">Allergy evidence</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Procedure.Read / Procedure.Search (R4)</span><span class="damaros-api-note">Procedure orders and surgical history</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Documents</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">DocumentReference.Read / DocumentReference.Search (R4)</span><span class="damaros-api-note">Clinical document metadata</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Bulk FHIR Export</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Bulk Data Kick-off / Status / File Download</span><span class="damaros-api-note">Group-level export for large cohort workflows</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Optional Write-Back <span class="damaros-optional-tag">Disabled by default</span></div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Observation.Create (Consent / Screening Status) (R4)</span><span class="damaros-api-note">Only if DAMAROS_FHIR_WRITE_ENABLED=1</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Subscription.Create (R4)</span><span class="damaros-api-note">Only if DAMAROS_FHIR_WRITE_ENABLED=1</span></li>
+</ul><div class="damaros-callout">Write-back is disabled by default. Write operations raise a runtime error unless DAMAROS_FHIR_WRITE_ENABLED=1 is explicitly configured after site authorization and policy review. Standard screening operations require no write-back.</div></div>
+
+</div></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">03A_ADDITIONAL_REQUESTED_SERVICES</div><h2 class="damaros-docs-section-heading">Additional Resources Requested for Site Authorization</h2><div class="damaros-docs-body"><p>The following FHIR resources are included in the scope request for anticipated site-authorized clinical context workflows. Retrieval of these resources is not active in the current screening engine and will be enabled only as authorized by each site.</p></div><div class="damaros-api-groups">
+
+<div><div class="damaros-api-group-label">Extended Clinical Context</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">Encounter.Read / Encounter.Search (R4)</span><span class="damaros-api-note">Encounter history</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Immunization.Read / Immunization.Search (R4)</span><span class="damaros-api-note">Vaccination history</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">FamilyMemberHistory.Read / FamilyMemberHistory.Search (R4)</span><span class="damaros-api-note">Family history</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">ServiceRequest.Read / ServiceRequest.Search (R4)</span><span class="damaros-api-note">Service and diagnostic orders</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">DiagnosticReport.Read / DiagnosticReport.Search (R4)</span><span class="damaros-api-note">Diagnostic reports</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Specimen.Read / Specimen.Search (R4)</span><span class="damaros-api-note">Specimen records</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Binary.Read (R4)</span><span class="damaros-api-note">Authorized document payload retrieval</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">CarePlan.Read / CarePlan.Search (R4)</span><span class="damaros-api-note">Care plan context</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">CareTeam.Read / CareTeam.Search (R4)</span><span class="damaros-api-note">Care team context</span></li>
+</ul></div>
+
+<div><div class="damaros-api-group-label">Research Workflow</div><ul class="damaros-api-list">
+<li class="damaros-api-item"><span class="damaros-api-name">ResearchStudy.Read / ResearchStudy.Search (R4)</span><span class="damaros-api-note">Research study metadata</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">ResearchSubject.Read / ResearchSubject.Search (R4)</span><span class="damaros-api-note">Research subject records</span></li>
+<li class="damaros-api-item"><span class="damaros-api-name">Patient.$match (R4)</span><span class="damaros-api-note">Patient matching and de-duplication</span></li>
+</ul></div>
+
+</div></section>
+
+<div class="damaros-docs-divider"></div>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">04_PHI_BOUNDARY</div><h2 class="damaros-docs-section-heading">PHI Boundary and Data Flow</h2><ul class="damaros-bullet-list">
+<li>Cohorts are defined by approved protocol logic or institutional configuration.</li>
+<li>Patient data is retrieved through FHIR read APIs or Bulk FHIR export depending on cohort size and site policy.</li>
+<li>PHI is processed inside the institution-approved deployment boundary.</li>
+<li>Patient-level clinical data is blocked from entering external LLM API calls by enforced classification gates at the application layer. Protocol parsing and non-PHI configuration tasks may use cloud-hosted inference; patient records do not pass through those paths.</li>
+<li>Eligibility is computed deterministically against protocol inclusion and exclusion criteria.</li>
+<li>Results are surfaced to authorized clinical research users with criterion-level evidence.</li>
+<li>Audit artifacts preserve source FHIR resource references for review and reconstruction.</li>
+<li>Data handling outside the deployment boundary is governed by executed data-use terms and institutional policy.</li>
+</ul></section>
+
+<div class="damaros-docs-divider"></div>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">05_AUDIT_AND_REPLAY</div><h2 class="damaros-docs-section-heading">Audit, Determinism, and Replay</h2><ul class="damaros-bullet-list">
+<li>Eligibility decisions are deterministic and reproducible for a fixed protocol version, cohort definition, evidence snapshot, and evaluation_as_of timestamp.</li>
+<li>Every patient decision is recorded at criterion level with PASS, FAIL, or REVIEW status and associated rationale.</li>
+<li>Evidence links back to source FHIR resource references where available.</li>
+<li>Protocol amendments generate versioned re-evaluation outputs linked to a protocol_version_id and engine_version.</li>
+<li>Replay uses the same protocol version, evaluation_as_of timestamp, normalized evidence snapshot, and deterministic ordering rules. Outcomes are classified as replay_ok, replay_diverged, or replay_blocked to surface any deviation from the original run.</li>
+<li>No opaque decisioning is used for clinical eligibility outputs.</li>
+<li>Audit logs are institution-scoped and access-controlled.</li>
+</ul></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">05A_ACCESS_CONTROL</div><h2 class="damaros-docs-section-heading">Identity and Access Control</h2><ul class="damaros-bullet-list">
+<li>User access is role-scoped. Defined roles include coordinator, investigator, sub-investigator, research nurse, data manager, IRB reviewer, DSMB member, monitor, sponsor, site administrator, organization administrator, and related operator roles.</li>
+<li>Each principal carries a subject identifier, role, organization scope, and authorized trial scope. Users access only studies, cohorts, evidence, and audit records within their authorized scope.</li>
+<li>Administrative actions, export operations, and write-capable configuration changes are restricted to authorized roles.</li>
+<li>Web sessions are issued with a fixed TTL; token expiry enforces time-bounded access.</li>
+<li>Access events are logged for security review and operational audit.</li>
+</ul></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">05B_WRITE_BACK</div><h2 class="damaros-docs-section-heading">Write-Back Controls</h2><ul class="damaros-bullet-list">
+<li>Write-back is disabled by default in all deployment configurations.</li>
+<li>Write-back requires explicit site approval and must be enabled by setting DAMAROS_FHIR_WRITE_ENABLED=1 at deployment time. Attempting a write operation without this flag raises a runtime error with an explicit configuration message.</li>
+<li>Permitted write-back is limited to institution-approved resource types such as consent or screening-status observations.</li>
+<li>Standard eligibility screening does not require write-back to Epic.</li>
+</ul></section>
+
+<div class="damaros-docs-divider"></div>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">06_PERFORMANCE</div><h2 class="damaros-docs-section-heading">Performance and API Usage</h2><ul class="damaros-bullet-list">
+<li>FHIR API usage is designed to follow Epic operational performance guidance, targeting non-disruptive load on the Epic server.</li>
+<li>Bulk FHIR export is the preferred mechanism for large cohort workflows, reducing per-patient query volume relative to individual FHIR reads.</li>
+<li>Per-host rate limiting and bounded exponential backoff are applied to all FHIR requests on 429 and 5xx responses.</li>
+<li>Bulk export polling uses a configurable interval (default 2 seconds) with a bounded maximum polling window.</li>
+<li>Point queries use per-request retry caps to prevent unbounded retry behavior.</li>
+</ul></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">06A_ERROR_HANDLING</div><h2 class="damaros-docs-section-heading">Error Handling and Resiliency</h2><ul class="damaros-bullet-list">
+<li>Token acquisition failures use bounded retry with exponential backoff and surface as operator-visible failure states.</li>
+<li>Transient FHIR errors (429, 5xx) trigger exponential backoff with per-request retry caps.</li>
+<li>Individual resource fetch failures are isolated; a failure on one resource type does not block retrieval of other resource types in the same patient bundle.</li>
+<li>Missing or insufficient data is surfaced as REVIEW status rather than silently converting to eligibility PASS.</li>
+<li>Failed ingestion, screening, and replay jobs preserve diagnostic metadata for authorized operators.</li>
+<li>Retry operations are idempotent by design; no duplicate write behavior occurs when write-back is disabled.</li>
+</ul></section>
+
+<div class="damaros-docs-divider"></div>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">07_SECURITY_AND_PRIVACY</div><h2 class="damaros-docs-section-heading">Security and Privacy</h2><ul class="damaros-bullet-list">
+<li>Private signing keys are loaded from a configured secret store or secure file path and are never committed to source control.</li>
+<li>Access tokens are short-lived and held only in process memory; they are not persisted to disk or database.</li>
+<li>All FHIR API traffic is encrypted in transit (https:// enforced at the connector layer).</li>
+<li>Application logging is designed to redact PHI patterns using a structured log processor active across all log output paths.</li>
+<li>Data at rest encryption is deployment- and site-configured.</li>
+<li>Clinical data is used only for approved research screening workflows.</li>
+<li>Data is not sold, licensed, used for advertising, or used to train commercial AI models.</li>
+<li>Retention, deletion, export handling, and purge behavior are site-configured and governed by executed data-use agreements and institutional policy.</li>
+</ul></section>
+
+<section class="damaros-docs-section"><div class="damaros-docs-section-label">08_CONTACT</div><h2 class="damaros-docs-section-heading">Contact</h2><div class="damaros-contact-block"><div>Organization &nbsp;&nbsp; Damaros, LLC</div><div>Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:anirudh@damaros.ai">anirudh@damaros.ai</a></div><div>Website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://damaros.ai">damaros.ai</a></div></div></section>
+
+</div></div></div>
+
+<script>
+(function(){const SRC="https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png";function init(){document.body.classList.add("damaros-home-lock");const grid=document.getElementById("damarosMonogramGrid");if(grid){const test=new Image();test.onload=function(){grid.classList.remove("error");grid.innerHTML="";const n=window.innerWidth<700?150:220;for(let i=0;i<n;i++){const img=document.createElement("img");const r=(Math.random()*6-3).toFixed(2),s=(.94+Math.random()*.12).toFixed(3),o=(.78+Math.random()*.22).toFixed(3);img.src=SRC;img.alt="";img.draggable=false;img.loading="eager";img.decoding="async";img.style.transform="rotate("+r+"deg) scale("+s+")";img.style.opacity=o;grid.appendChild(img)}};test.onerror=function(){grid.classList.add("error");grid.innerHTML='<div class="damaros-monogram-error">monogram image failed to load</div>';console.error("Damaros monogram failed:",SRC)};test.src=SRC}
+let px=0,py=0;window.addEventListener("mousemove",function(e){if(!grid||grid.classList.contains("error"))return;const x=(e.clientX/window.innerWidth-.5)*16,y=(e.clientY/window.innerHeight-.5)*10;px+=(x-px)*.08;py+=(y-py)*.08;grid.style.animation="none";grid.style.transform="rotate(-8deg) translate3d("+px+"px,"+py+"px,0)"});window.addEventListener("mouseleave",function(){if(!grid||grid.classList.contains("error"))return;grid.style.animation="drift 12s linear infinite";grid.style.transform=""});
+document.querySelectorAll(".damaros-tab-btn").forEach(function(btn){btn.addEventListener("click",function(){const t=btn.dataset.panel;document.querySelectorAll(".damaros-tab-btn").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".damaros-panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");const panel=document.getElementById("damaros-panel-"+t);if(panel)panel.classList.add("active");const docs=t==="docs";document.body.classList.toggle("damaros-docs-active",docs);document.body.classList.toggle("damaros-home-lock",!docs);if(docs){history.replaceState(null,"","#docs");window.scrollTo(0,0)}else history.replaceState(null,"",window.location.pathname)})});if(location.hash==="#docs"){const b=document.querySelector('.damaros-tab-btn[data-panel="docs"]');if(b)b.click()}
+const phrases=["own your trial workflow","automate the screening bottleneck","surface patients, not paperwork","supercharge form generation","streamline accrual at scale"],typed=document.getElementById("damarosTyped");let pi=0,ci=0,del=false;function tick(){if(!typed)return;const p=phrases[pi];if(!del){typed.textContent=p.slice(0,ci+1);ci++;if(ci===p.length){setTimeout(function(){del=true;tick()},3200);return}}else{typed.textContent=p.slice(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,350);return}}setTimeout(tick,del?28:65)}setTimeout(tick,900);
+const loc=document.getElementById("damarosVisitorLocation");if(loc)fetch("https://ipapi.co/json/").then(r=>r.ok?r.json():null).then(d=>{if(d&&d.city&&d.region)loc.textContent=d.city+", "+d.region}).catch(()=>{})}
+if(document.readyState==="complete")init();else window.addEventListener("load",init)})();
+</script>
