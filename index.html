@@ -1,17 +1,323 @@
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
-  :root{--fh:'Chakra Petch',sans-serif;--fb:'Plus Jakarta Sans',sans-serif;--fm:'IBM Plex Mono',monospace;--blue:#7B96B2;--bd:rgba(123,150,178,.25);--bg:#000;--tp:#E8E8E8;--ts:rgba(232,232,232,.72);--td:rgba(232,232,232,.38);--tab:52px}
-  *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#000!important;color:var(--tp);font-family:var(--fb)}body.damaros-home-lock{overflow:hidden}body.damaros-docs-active{overflow-y:auto;overflow-x:hidden}
-  .damaros-site{min-height:100vh;background:#000!important;color:var(--tp);position:relative;overflow:hidden}.damaros-site:before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(123,150,178,.006) 2px,rgba(123,150,178,.006) 4px);pointer-events:none;z-index:100}.damaros-site:after{display:none!important}
-  .damaros-tab-bar{position:fixed;top:0;left:0;right:0;height:var(--tab);display:flex;align-items:center;justify-content:flex-start!important;padding:0 0 0 1.15rem!important;z-index:200;background:#000!important;border-bottom:1px solid rgba(123,150,178,.09);backdrop-filter:none!important;-webkit-backdrop-filter:none!important}.damaros-tab-brand{display:none!important}.damaros-tab-links{display:flex;align-items:center;margin:0!important;padding:0!important;gap:.05rem}.damaros-tab-btn{height:var(--tab);padding:0 .9rem;border:0;background:transparent;color:var(--td);cursor:pointer;font-family:var(--fm);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;position:relative}.damaros-tab-btn:after{content:'';position:absolute;left:.9rem;right:.9rem;bottom:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .25s}.damaros-tab-btn.active,.damaros-tab-btn:hover{color:var(--tp)}.damaros-tab-btn.active:after{transform:scaleX(1)}
-  .damaros-panel{display:none}.damaros-panel.active{display:block}#damaros-panel-home.active{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;padding:calc(var(--tab) + 2rem) 2rem 4rem;overflow:hidden;background:#000!important}
-  .damaros-monogram-bg{position:fixed;top:18%;left:0;right:0;height:66%;z-index:0;pointer-events:none;overflow:hidden;background:#000!important;-webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.55) 9%,#000 22%,#000 78%,rgba(0,0,0,.55) 91%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.55) 9%,#000 22%,#000 78%,rgba(0,0,0,.55) 91%,transparent 100%)}.damaros-monogram-grid{position:absolute;top:-24%;left:-14%;width:128%;height:148%;display:grid;grid-template-columns:repeat(auto-fill,104px);grid-auto-rows:104px;gap:34px;opacity:.10;transform:rotate(-8deg) translate3d(0,0,0);animation:drift 12s linear infinite;will-change:transform}.damaros-monogram-grid img{width:104px;height:104px;object-fit:contain;display:block;opacity:.055;filter:grayscale(1) brightness(.63) contrast(1.25);mix-blend-mode:screen}.damaros-monogram-grid.error{display:flex;align-items:center;justify-content:center;transform:none!important;animation:none;opacity:1}.damaros-monogram-error{font-family:var(--fm);font-size:.7rem;letter-spacing:.08em;color:var(--blue);border:1px solid var(--bd);padding:.8rem 1rem;background:#000}
-  @keyframes drift{0%{transform:rotate(-8deg) translate3d(0,0,0)}50%{transform:rotate(-8deg) translate3d(38px,-6px,0)}100%{transform:rotate(-8deg) translate3d(0,0,0)}}@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-  .damaros-terminal-wrap{position:relative;z-index:10;text-align:center;max-width:820px}.damaros-terminal-prefix{font-family:var(--fh);font-size:1.2rem;letter-spacing:.1em;margin-bottom:1.8rem;opacity:0;animation:fade .6s ease .25s both}.damaros-blink-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--blue);margin-left:.42rem;vertical-align:middle;animation:pulse 2.2s ease-in-out infinite}.damaros-typed-line{min-height:2.4em;display:flex;align-items:center;justify-content:center;white-space:nowrap;font-family:var(--fh);font-size:clamp(1.15rem,3vw,2.4rem);line-height:1.3}.damaros-cursor{display:inline-block;width:2px;height:1.05em;background:var(--blue);margin-left:3px;animation:blink 1.5s step-end infinite;box-shadow:0 0 10px var(--bd)}.damaros-subtext{margin-top:2.5rem;color:var(--blue);font-family:var(--fh);font-size:.9rem;font-weight:500;letter-spacing:.03em;opacity:0;animation:fade .8s ease 3s both}.damaros-cta-wrap{margin-top:3rem;opacity:0;animation:fade .8s ease 3.35s both}.damaros-cta-btn{display:inline-flex;align-items:center;gap:.65rem;color:var(--tp);border:1px solid var(--bd);padding:.9rem 2.2rem;text-decoration:none;text-transform:uppercase;font-family:var(--fh);font-size:.8rem;font-weight:500;letter-spacing:.12em;position:relative;overflow:hidden;background:transparent;transition:all .4s cubic-bezier(.16,1,.3,1)}.damaros-cta-btn:before{content:'';position:absolute;inset:0;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1);z-index:-1}.damaros-cta-btn:hover{color:#000;border-color:var(--blue);box-shadow:0 0 30px rgba(123,150,178,.12)}.damaros-cta-btn:hover:before{transform:scaleX(1)}.damaros-cta-arrow{transition:transform .3s}.damaros-cta-btn:hover .damaros-cta-arrow{transform:translateX(4px)}.damaros-bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.2rem;color:var(--td);font-family:var(--fm);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;animation:fade .8s ease 3.6s both;background:#000!important}
-  .damaros-docs-wrap{max-width:900px;margin:0 auto;padding:calc(var(--tab) + 4rem) 2.2rem 6rem;background:#000!important}.damaros-docs-eyebrow,.damaros-docs-section-label,.damaros-api-group-label{font-family:var(--fm);text-transform:uppercase;color:var(--blue)}.damaros-docs-eyebrow{font-size:.6rem;letter-spacing:.18em;opacity:.75;margin-bottom:.6rem}.damaros-docs-title{font-family:var(--fh);font-size:clamp(1.45rem,3vw,2.05rem);font-weight:500;letter-spacing:.02em;margin-bottom:.5rem}.damaros-docs-subtitle{color:var(--td);font-size:.86rem;line-height:1.65;margin-bottom:3.5rem}.damaros-docs-divider{width:100%;height:1px;background:rgba(123,150,178,.08);margin:3rem 0}.damaros-docs-section{margin-bottom:3rem}.damaros-docs-section-label{font-size:.6rem;letter-spacing:.18em;opacity:.6;margin-bottom:.4rem}.damaros-docs-section-label:before{content:'// '}.damaros-docs-section-heading{font-family:var(--fh);font-size:1rem;font-weight:500;letter-spacing:.06em;padding-bottom:.6rem;border-bottom:1px solid rgba(123,150,178,.08);margin-bottom:1.2rem}.damaros-docs-body{color:var(--ts);font-size:.85rem;line-height:1.75}.damaros-docs-body p+p{margin-top:.8rem}.damaros-docs-body code{font-family:var(--fm);color:var(--blue);font-size:.8rem}
-  .damaros-kv-table{width:100%;border-collapse:collapse;font-family:var(--fm);font-size:.7rem;background:#000!important}.damaros-kv-table tr{border-bottom:1px solid rgba(123,150,178,.055)}.damaros-kv-table tr:last-child{border-bottom:0}.damaros-kv-table td{padding:.58rem 0;vertical-align:top;line-height:1.5;background:#000!important}.damaros-kv-table td:first-child{width:250px;padding-right:1.5rem;color:var(--blue);opacity:.75;white-space:nowrap}.damaros-kv-table td:last-child{color:rgba(232,232,232,.72);word-break:break-word}.damaros-kv-link{color:var(--blue);text-decoration:none}.damaros-kv-link:hover{text-decoration:underline}
-  .damaros-api-groups{display:flex;flex-direction:column;gap:1.8rem}.damaros-api-group-label{font-size:.58rem;letter-spacing:.14em;opacity:.58;margin:1.4rem 0 .5rem}.damaros-api-group-label:before{content:'> '}.damaros-api-list{list-style:none;display:flex;flex-direction:column;padding-left:0;margin:0;background:#000!important}.damaros-api-item{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding:.38rem 0;border-bottom:1px solid rgba(123,150,178,.05);font-family:var(--fm);font-size:.68rem;background:#000!important}.damaros-api-name{color:rgba(232,232,232,.82)}.damaros-api-note{color:var(--td);font-size:.62rem;text-align:right;white-space:nowrap}.damaros-optional-tag{display:inline-block;margin-left:.5rem;padding:.1rem .4rem;border:1px solid rgba(123,150,178,.24);color:var(--blue);font-size:.55rem;letter-spacing:.1em;background:#000}.damaros-bullet-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;color:var(--ts);font-size:.85rem;line-height:1.6;padding-left:0;margin:0;background:#000!important}.damaros-bullet-list li:before{content:'— ';color:var(--blue);opacity:.65;font-family:var(--fm)}.damaros-callout{margin-top:1rem;padding:.8rem 1.2rem;border-left:2px solid rgba(123,150,178,.28);background:#000!important;color:rgba(232,232,232,.58);font-family:var(--fm);font-size:.68rem;line-height:1.7}.damaros-docs-pre-caption{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(--blue);opacity:.85;margin:1.35rem 0 .4rem;text-transform:uppercase}.damaros-docs-pre{margin:.35rem 0 0;padding:1rem 1.15rem;border:1px solid rgba(123,150,178,.2);background:#0a0a0a;font-family:var(--fm);font-size:.62rem;line-height:1.55;color:rgba(232,232,232,.78);overflow-x:auto;white-space:pre-wrap;word-break:break-word}.damaros-docs-pre-note{margin:.5rem 0 0;font-family:var(--fm);font-size:.6rem;color:var(--td);line-height:1.6}.damaros-contact-block{font-family:var(--fm);font-size:.75rem;line-height:2;color:rgba(232,232,232,.68);background:#000!important}.damaros-contact-block a{color:var(--blue);text-decoration:none}
-  @media(max-width:700px){.damaros-tab-bar{padding:0 0 0 .8rem!important;justify-content:flex-start!important}.damaros-tab-brand{display:none!important}.damaros-tab-links{margin:0!important;padding:0!important}.damaros-tab-btn{padding:0 .65rem}.damaros-tab-btn:after{left:.65rem;right:.65rem}.damaros-monogram-grid{grid-template-columns:repeat(auto-fill,72px);grid-auto-rows:72px;gap:22px;opacity:.11}.damaros-monogram-grid img{width:72px;height:72px;opacity:.055;filter:grayscale(1) brightness(.48) contrast(1.25);mix-blend-mode:screen}.damaros-typed-line{white-space:normal}.damaros-bottom-bar{padding:.85rem 1.2rem}.damaros-docs-wrap{padding:calc(var(--tab) + 2.5rem) 1.4rem 4rem}.damaros-kv-table td:first-child{width:145px;font-size:.62rem}.damaros-api-item{grid-template-columns:1fr;gap:.1rem}.damaros-api-note{text-align:left;white-space:normal}}
+  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+  :root{--fh:'Chakra Petch',sans-serif;--fb:'Plus Jakarta Sans',sans-serif;--fm:'Plus Jakarta Sans',sans-serif;--blue:#7B96B2;--blue2:#A9C0D6;--bd:rgba(123,150,178,.25);--bg:#000;--panel:#07090b;--panel2:#0b1016;--tp:#E8E8E8;--ts:rgba(232,232,232,.72);--td:rgba(232,232,232,.38);--muted:rgba(232,232,232,.52);--tab:52px;--green:#4ADE80;--amber:#FACC15;--red:#FB7185}
+  *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#000!important;color:var(--tp);font-family:var(--fb)}body.damaros-home-lock{overflow:hidden}body.damaros-docs-active{overflow-y:auto;overflow-x:hidden}.damaros-site{min-height:100vh;background:#000!important;color:var(--tp);position:relative;overflow:hidden}.damaros-site:before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(123,150,178,.007) 2px,rgba(123,150,178,.007) 4px),linear-gradient(90deg,rgba(123,150,178,.025),transparent 18%,transparent 82%,rgba(123,150,178,.025));pointer-events:none;z-index:100}.damaros-site:after{content:'';position:fixed;inset:-12%;background:radial-gradient(circle at 44% 36%,rgba(123,150,178,.13),transparent 25%),radial-gradient(circle at 85% 72%,rgba(123,150,178,.055),transparent 18%);pointer-events:none;z-index:0}
+  .damaros-tab-bar{position:fixed;top:0;left:0;right:0;height:var(--tab);display:flex;align-items:center;justify-content:space-between!important;padding:0 1.15rem!important;z-index:200;background:rgba(0,0,0,.94)!important;border-bottom:1px solid rgba(123,150,178,.11);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}.damaros-tab-links{display:flex;align-items:center;margin:0!important;padding:0!important;gap:.05rem}.damaros-tab-btn{height:var(--tab);padding:0 .9rem;border:0;background:transparent;color:var(--td);cursor:pointer;font-family:var(--fm);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;position:relative}.damaros-tab-btn:after{content:'';position:absolute;left:.9rem;right:.9rem;bottom:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .25s}.damaros-tab-btn.active,.damaros-tab-btn:hover{color:var(--tp)}.damaros-tab-btn.active:after{transform:scaleX(1)}.damaros-top-status{display:flex;align-items:center;gap:.75rem;font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--td)}.damaros-env{border:1px solid rgba(123,150,178,.28);border-radius:999px;padding:.32rem .65rem;color:var(--blue2);background:rgba(123,150,178,.08)}.damaros-health{display:inline-flex;align-items:center;gap:.35rem}.damaros-health:before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(74,222,128,.45)}
+  .damaros-blink-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 16px rgba(123,150,178,.55);animation:pulse 2.2s ease-in-out infinite}.damaros-panel{display:none}.damaros-panel.active{display:block}#damaros-panel-home.active{min-height:100vh;position:relative;padding:calc(var(--tab) + 2rem) 2rem 4rem;overflow:hidden;background:#000!important}.damaros-monogram-bg{position:fixed;top:9%;left:-4%;right:-4%;height:84%;z-index:0;pointer-events:none;overflow:hidden;background:#000!important;-webkit-mask-image:radial-gradient(ellipse at center,#000 0%,#000 42%,rgba(0,0,0,.35) 70%,transparent 88%);mask-image:radial-gradient(ellipse at center,#000 0%,#000 42%,rgba(0,0,0,.35) 70%,transparent 88%)}.damaros-monogram-grid{position:absolute;top:-24%;left:-14%;width:128%;height:148%;display:grid;grid-template-columns:repeat(auto-fill,104px);grid-auto-rows:104px;gap:34px;opacity:.10;transform:rotate(-8deg) translate3d(0,0,0);animation:drift 12s linear infinite;will-change:transform}.damaros-monogram-grid img{width:104px;height:104px;object-fit:contain;display:block;opacity:.055;filter:grayscale(1) brightness(.63) contrast(1.25);mix-blend-mode:screen}.damaros-monogram-grid.error{display:flex;align-items:center;justify-content:center;transform:none!important;animation:none;opacity:1}.damaros-monogram-error{font-family:var(--fm);font-size:.7rem;letter-spacing:.08em;color:var(--blue);border:1px solid var(--bd);padding:.8rem 1rem;background:#000}
+  @keyframes drift{0%{transform:rotate(-8deg) translate3d(0,0,0)}50%{transform:rotate(-8deg) translate3d(38px,-6px,0)}100%{transform:rotate(-8deg) translate3d(0,0,0)}}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}@keyframes scan{0%{transform:translateY(-100%);opacity:0}10%,70%{opacity:.45}100%{transform:translateY(100%);opacity:0}}
+  .damaros-home-stage{position:relative;z-index:10;min-height:calc(100vh - var(--tab) - 6rem);display:grid;grid-template-columns:minmax(0,.92fr) minmax(540px,.88fr);gap:2.5rem;align-items:center;max-width:1480px;margin:0 auto}.damaros-hero{opacity:0;animation:fade .75s ease .1s both;display:flex;flex-direction:column;align-items:center;text-align:center}.damaros-hero-logo{display:flex;align-items:center;justify-content:center;gap:.7rem;font-family:var(--fh);font-size:clamp(3.4rem,8vw,7.2rem);font-weight:700;letter-spacing:-.065em;line-height:.88;text-shadow:0 0 42px rgba(123,150,178,.14)}.damaros-hero-logo .damaros-blink-dot{width:11px;height:11px}.damaros-command-line{margin-top:1.3rem;min-height:2.25em;display:flex;align-items:center;justify-content:center;white-space:nowrap;font-family:var(--fm);font-size:clamp(.78rem,1.45vw,1.05rem);line-height:1.5;color:var(--blue2);letter-spacing:.035em}.damaros-command-prefix{display:none}.damaros-command-line{font-size:clamp(.82rem,1.35vw,1rem);color:rgba(169,192,214,.92)}.damaros-cursor{display:inline-block;width:2px;height:1.1em;background:var(--blue);margin-left:5px;animation:blink 1.5s step-end infinite;box-shadow:0 0 12px rgba(123,150,178,.45)}.damaros-hero-chips{margin-top:1.35rem;display:flex;justify-content:center;gap:.55rem;flex-wrap:wrap}.damaros-chip{font-family:var(--fm);font-size:.55rem;letter-spacing:.12em;text-transform:uppercase;color:var(--td);border:1px solid rgba(123,150,178,.14);border-radius:999px;padding:.42rem .7rem;background:rgba(0,0,0,.28)}.damaros-chip.live{color:var(--blue2);border-color:rgba(123,150,178,.22);background:rgba(123,150,178,.045)}.damaros-cta-row{margin-top:2rem;display:flex;gap:.9rem;align-items:center;justify-content:center;flex-wrap:wrap}.damaros-cta-btn{display:inline-flex;align-items:center;gap:.65rem;color:var(--tp);border:1px solid var(--bd);padding:.9rem 1.45rem;text-decoration:none;text-transform:uppercase;font-family:var(--fh);font-size:.72rem;font-weight:500;letter-spacing:.12em;position:relative;overflow:hidden;background:rgba(0,0,0,.36);transition:all .4s cubic-bezier(.16,1,.3,1)}.damaros-cta-btn:before{content:'';position:absolute;inset:0;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1);z-index:-1}.damaros-cta-btn:hover{color:#000;border-color:var(--blue);box-shadow:0 0 30px rgba(123,150,178,.14)}.damaros-cta-btn:hover:before{transform:scaleX(1)}.damaros-mini-proof{font-family:var(--fm);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--td)}
+  .damaros-workflow-panel{opacity:0;animation:fade .8s ease .35s both;border:1px solid rgba(123,150,178,.2);background:linear-gradient(180deg,rgba(9,11,13,.92),rgba(0,0,0,.76));box-shadow:0 0 70px rgba(123,150,178,.08),inset 0 0 0 1px rgba(255,255,255,.018);position:relative;overflow:hidden}.damaros-workflow-panel:before{content:'';position:absolute;inset:0;background:linear-gradient(transparent 0%,rgba(123,150,178,.07) 50%,transparent 100%);height:35%;animation:scan 6s linear infinite;pointer-events:none}.damaros-workflow-head{height:46px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(123,150,178,.12);padding:0 1rem;font-family:var(--fm);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--td)}.damaros-workflow-head b{color:var(--blue);font-weight:500}.damaros-workflow-body{position:relative;z-index:1;padding:1rem;display:grid;gap:1rem}.damaros-workflow-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.damaros-workflow-btn{appearance:none;text-align:left;border:1px solid rgba(123,150,178,.15);background:rgba(123,150,178,.035);padding:.75rem;min-height:86px;cursor:pointer;color:var(--tp);transition:border-color .22s,background .22s,transform .22s}.damaros-workflow-btn:hover{border-color:rgba(123,150,178,.42);background:rgba(123,150,178,.07);transform:translateY(-1px)}.damaros-workflow-btn.active{border-color:rgba(123,150,178,.55);background:linear-gradient(135deg,rgba(123,150,178,.16),rgba(123,150,178,.045));box-shadow:inset 0 0 0 1px rgba(255,255,255,.025)}.damaros-workflow-btn span{display:block;font-family:var(--fm);font-size:.48rem;letter-spacing:.14em;color:var(--td);text-transform:uppercase;margin-bottom:.35rem}.damaros-workflow-btn b{display:block;font-family:var(--fh);font-size:.9rem;font-weight:600;letter-spacing:.04em}.damaros-workflow-btn small{display:block;margin-top:.34rem;font-family:var(--fm);font-size:.48rem;color:var(--blue);letter-spacing:.08em;text-transform:uppercase}.damaros-detail{border:1px solid rgba(123,150,178,.17);background:rgba(0,0,0,.38);padding:1rem;min-height:244px}.damaros-detail-top{display:flex;justify-content:space-between;gap:1rem;align-items:start;border-bottom:1px solid rgba(123,150,178,.09);padding-bottom:.8rem;margin-bottom:.8rem}.damaros-detail h3{font-family:var(--fh);font-weight:600;font-size:1.35rem;margin:.1rem 0 .4rem;min-height:1.55em}.damaros-detail.typing{border-color:rgba(123,150,178,.38);box-shadow:0 0 34px rgba(123,150,178,.075), inset 0 0 0 1px rgba(123,150,178,.04)}.damaros-detail p{margin:0;color:var(--ts);font-size:.82rem;line-height:1.58;min-height:3.1em}.damaros-status-pill{font-family:var(--fm);font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .5rem;border-radius:999px;border:1px solid rgba(74,222,128,.25);color:#86efac;background:rgba(74,222,128,.07);white-space:nowrap}.damaros-detail-matrix{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}.damaros-metric{border:1px solid rgba(123,150,178,.1);background:rgba(123,150,178,.025);padding:.65rem}.damaros-metric span{display:block;font-family:var(--fm);font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:var(--td);margin-bottom:.28rem}.damaros-metric b{display:block;font-family:var(--fm);font-weight:400;font-size:.66rem;color:var(--blue2);line-height:1.45}.damaros-bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 2.2rem;color:var(--td);font-family:var(--fm);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;opacity:0;animation:fade .8s ease .7s both;background:linear-gradient(180deg,transparent,#000 35%)}.damaros-bottom-center{color:rgba(123,150,178,.7)}
+  .damaros-docs-wrap{max-width:900px;margin:0 auto;padding:calc(var(--tab) + 4rem) 2.2rem 6rem;background:#000!important;position:relative;z-index:5}.damaros-docs-eyebrow,.damaros-docs-section-label,.damaros-api-group-label{font-family:var(--fm);text-transform:uppercase;color:var(--blue)}.damaros-docs-eyebrow{font-size:.6rem;letter-spacing:.18em;opacity:.75;margin-bottom:.6rem}.damaros-docs-title{font-family:var(--fh);font-size:clamp(1.45rem,3vw,2.05rem);font-weight:500;letter-spacing:.02em;margin-bottom:.5rem}.damaros-docs-subtitle{color:var(--td);font-size:.86rem;line-height:1.65;margin-bottom:3.5rem}.damaros-docs-divider{width:100%;height:1px;background:rgba(123,150,178,.08);margin:3rem 0}.damaros-docs-section{margin-bottom:3rem}.damaros-docs-section-label{font-size:.6rem;letter-spacing:.18em;opacity:.6;margin-bottom:.4rem}.damaros-docs-section-label:before{content:'// '}.damaros-docs-section-heading{font-family:var(--fh);font-size:1rem;font-weight:500;letter-spacing:.06em;padding-bottom:.6rem;border-bottom:1px solid rgba(123,150,178,.08);margin-bottom:1.2rem}.damaros-docs-body{color:var(--ts);font-size:.85rem;line-height:1.75}.damaros-docs-body p+p{margin-top:.8rem}.damaros-docs-body code{font-family:var(--fm);color:var(--blue);font-size:.8rem}.damaros-kv-table{width:100%;border-collapse:collapse;font-family:var(--fm);font-size:.7rem;background:#000!important}.damaros-kv-table tr{border-bottom:1px solid rgba(123,150,178,.055)}.damaros-kv-table tr:last-child{border-bottom:0}.damaros-kv-table td{padding:.58rem 0;vertical-align:top;line-height:1.5;background:#000!important}.damaros-kv-table td:first-child{width:250px;padding-right:1.5rem;color:var(--blue);opacity:.75;white-space:nowrap}.damaros-kv-table td:last-child{color:rgba(232,232,232,.72);word-break:break-word}.damaros-kv-link{color:var(--blue);text-decoration:none}.damaros-kv-link:hover{text-decoration:underline}.damaros-bullet-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;color:var(--ts);font-size:.85rem;line-height:1.6;padding-left:0;margin:0;background:#000!important}.damaros-bullet-list li:before{content:'• ';color:var(--blue);opacity:.65;font-family:var(--fm)}.damaros-callout{margin-top:1rem;padding:.8rem 1.2rem;border-left:2px solid rgba(123,150,178,.28);background:#000!important;color:rgba(232,232,232,.58);font-family:var(--fm);font-size:.68rem;line-height:1.7}.damaros-contact-block{font-family:var(--fm);font-size:.75rem;line-height:2;color:rgba(232,232,232,.68);background:#000!important}.damaros-contact-block a{color:var(--blue);text-decoration:none}
+
+  /* luxury interaction pass */
+  .damaros-workflow-panel{min-height:640px;transition:border-color .55s cubic-bezier(.16,1,.3,1),box-shadow .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+  .damaros-workflow-panel:hover{border-color:rgba(123,150,178,.32);box-shadow:0 0 90px rgba(123,150,178,.105),inset 0 0 0 1px rgba(255,255,255,.026)}
+  .damaros-workflow-btn{position:relative;overflow:hidden;transition:border-color .45s cubic-bezier(.16,1,.3,1),background .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1),box-shadow .65s cubic-bezier(.16,1,.3,1);transition-delay:.035s}
+  .damaros-workflow-btn:before{content:'';position:absolute;inset:-1px;background:linear-gradient(120deg,transparent 0%,rgba(123,150,178,.11) 42%,rgba(169,192,214,.18) 50%,rgba(123,150,178,.08) 58%,transparent 100%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.16,1,.3,1);pointer-events:none}
+  .damaros-workflow-btn:hover:before{transform:translateX(120%)}
+  .damaros-workflow-btn:hover{border-color:rgba(169,192,214,.48);background:rgba(123,150,178,.075);transform:translateY(-2px);box-shadow:0 18px 46px rgba(0,0,0,.28),0 0 34px rgba(123,150,178,.07)}
+  .damaros-workflow-btn.active{border-color:rgba(169,192,214,.62);box-shadow:inset 0 0 0 1px rgba(255,255,255,.035),0 0 42px rgba(123,150,178,.105)}
+  .damaros-workflow-btn b,.damaros-workflow-btn small{position:relative;z-index:1;transition:color .35s ease,opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1)}
+  .damaros-workflow-btn:hover b{transform:translateX(2px);color:#f2f6fa}
+  .damaros-detail{min-height:300px;transition:border-color .55s cubic-bezier(.16,1,.3,1),box-shadow .65s cubic-bezier(.16,1,.3,1),background .55s cubic-bezier(.16,1,.3,1)}
+  .damaros-detail:hover{border-color:rgba(123,150,178,.3);box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 0 42px rgba(123,150,178,.055);background:rgba(5,8,11,.46)}
+  .damaros-detail-matrix{grid-template-columns:1fr 1fr;gap:.7rem}
+  .damaros-metric{min-height:118px;transition:border-color .45s cubic-bezier(.16,1,.3,1),background .45s cubic-bezier(.16,1,.3,1),transform .45s cubic-bezier(.16,1,.3,1)}
+  .damaros-metric:hover{border-color:rgba(123,150,178,.24);background:rgba(123,150,178,.045);transform:translateY(-1px)}
+  .damaros-metric b{font-family:var(--fb);font-weight:600;font-size:.78rem;letter-spacing:.01em;color:rgba(232,232,232,.86)}
+  .damaros-metric span{font-family:var(--fb);font-weight:700;font-size:.52rem;color:rgba(169,192,214,.52)}
+  .damaros-cta-btn{transition-delay:.04s;box-shadow:0 0 0 rgba(123,150,178,0)}
+  .damaros-cta-btn:hover{transform:translateY(-1px);box-shadow:0 20px 58px rgba(123,150,178,.105),0 0 30px rgba(123,150,178,.14)}
+  .damaros-tab-btn{transition:color .35s ease,opacity .35s ease}
+  .damaros-bottom-bar{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+
+  @media(max-width:980px){body.damaros-home-lock{overflow-y:auto}.damaros-home-stage{grid-template-columns:1fr;align-items:start;padding-top:2rem}.damaros-hero{text-align:center}.damaros-workflow-panel{max-width:760px;width:100%;margin:0 auto}.damaros-bottom-bar{position:relative;margin-top:2rem;padding:1rem 0;background:transparent}.damaros-bottom-center{display:none}}@media(max-width:700px){.damaros-tab-bar{padding:0 .8rem!important}.damaros-top-status{display:none}.damaros-tab-btn{padding:0 .62rem;font-size:.54rem}.damaros-tab-btn:after{left:.62rem;right:.62rem}#damaros-panel-home.active{padding:calc(var(--tab) + 1.4rem) 1rem 2rem}.damaros-monogram-grid{grid-template-columns:repeat(auto-fill,72px);grid-auto-rows:72px;gap:22px;opacity:.11}.damaros-monogram-grid img{width:72px;height:72px;opacity:.055;filter:grayscale(1) brightness(.48) contrast(1.25);mix-blend-mode:screen}.damaros-command-line{white-space:normal}.damaros-workflow-grid{grid-template-columns:1fr}.damaros-detail-matrix{grid-template-columns:1fr}.damaros-docs-wrap{padding:calc(var(--tab) + 2.5rem) 1.4rem 4rem}.damaros-kv-table td:first-child{width:145px;font-size:.62rem}}
+
+  /* Restored documentation tab support from original site */
+  .damaros-api-groups{display:flex;flex-direction:column;gap:1.8rem}.damaros-api-group-label{font-family:var(--fm);text-transform:uppercase;color:var(--blue);font-size:.58rem;letter-spacing:.14em;opacity:.58;margin:1.4rem 0 .5rem}.damaros-api-group-label:before{content:'> '}.damaros-api-list{list-style:none;display:flex;flex-direction:column;padding-left:0;margin:0;background:#000!important}.damaros-api-item{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:baseline;padding:.38rem 0;border-bottom:1px solid rgba(123,150,178,.05);font-family:var(--fm);font-size:.68rem;background:#000!important}.damaros-api-name{color:rgba(232,232,232,.82)}.damaros-api-note{color:var(--td);font-size:.62rem;text-align:right;white-space:nowrap}.damaros-optional-tag{display:inline-block;margin-left:.5rem;padding:.1rem .4rem;border:1px solid rgba(123,150,178,.24);color:var(--blue);font-size:.55rem;letter-spacing:.1em;background:#000}.damaros-docs-pre-caption{font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;color:var(--blue);opacity:.85;margin:1.35rem 0 .4rem;text-transform:uppercase}.damaros-docs-pre{margin:.35rem 0 0;padding:1rem 1.15rem;border:1px solid rgba(123,150,178,.2);background:#0a0a0a;font-family:var(--fm);font-size:.62rem;line-height:1.55;color:rgba(232,232,232,.78);overflow-x:auto;white-space:pre-wrap;word-break:break-word}.damaros-docs-pre-note{margin:.5rem 0 0;font-family:var(--fm);font-size:.6rem;color:var(--td);line-height:1.6}.damaros-bullet-list li:before{content:'— ';color:var(--blue);opacity:.65;font-family:var(--fm)}@media(max-width:700px){.damaros-api-item{grid-template-columns:1fr;gap:.1rem}.damaros-api-note{text-align:left;white-space:normal}}
+.damaros-workflow-head{display:none!important}.damaros-bottom-center{display:none!important}
+
+/* Minor refinement pass: static workflow details, larger object text, no retyping jitter */
+.damaros-detail{min-height:244px;overflow:hidden}
+.damaros-detail h3{min-height:1.55em}
+.damaros-detail p{min-height:3.1em}
+.damaros-detail-matrix{grid-template-columns:1fr 1fr 1fr}
+.damaros-metric b{font-size:.76rem;line-height:1.5;color:rgba(211,226,240,.92)}
+.damaros-metric span{font-size:.5rem}
+@media(max-width:700px){.damaros-detail-matrix{grid-template-columns:1fr}}
+
+/* Final polish pass: wider fixed workflow panel, two meaningful blocks, screening outcome colors */
+.damaros-workflow-panel{min-width:540px;min-height:650px}
+.damaros-workflow-body{min-height:650px}
+.damaros-detail{min-height:370px;display:flex;flex-direction:column;justify-content:flex-start}
+.damaros-detail-top{min-height:142px}
+.damaros-detail p{min-height:4.4em}
+.damaros-detail-matrix{grid-template-columns:1fr 1fr!important;gap:.7rem}
+.damaros-metric{min-height:118px}
+.damaros-metric b{font-size:.82rem;line-height:1.55}
+.damaros-status-pill{display:none}
+.damaros-outcomes{display:none;align-items:center;gap:.35rem;white-space:nowrap}
+.damaros-outcomes.show{display:flex}
+.damaros-outcome{font-family:var(--fm);font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .5rem;border-radius:999px}
+.damaros-outcome.pass{color:#86efac;border:1px solid rgba(74,222,128,.34);background:rgba(74,222,128,.08)}
+.damaros-outcome.review{color:#fde68a;border:1px solid rgba(250,204,21,.34);background:rgba(250,204,21,.08)}
+.damaros-outcome.fail{color:#fca5a5;border:1px solid rgba(251,113,133,.34);background:rgba(251,113,133,.08)}
+@media(max-width:980px){.damaros-workflow-panel{min-width:0;min-height:auto}.damaros-workflow-body{min-height:auto}}
+@media(max-width:700px){.damaros-detail-matrix{grid-template-columns:1fr!important}.damaros-detail,.damaros-detail-top,.damaros-metric{min-height:auto}}
+
+/* v8 signal-density polish: reduce empty detail space and make workflow content easier to scan */
+.damaros-detail{min-height:355px}
+.damaros-detail-top{min-height:128px}
+.damaros-detail p{min-height:3.7em}
+.damaros-detail-matrix{align-items:stretch}
+.damaros-metric{min-height:142px;padding:.78rem .82rem}
+.damaros-metric b{font-family:var(--fb);font-weight:600;font-size:.84rem;line-height:1.52;color:rgba(232,232,232,.86)}
+.damaros-metric ul{margin:.1rem 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.34rem}
+.damaros-metric li{position:relative;padding-left:.85rem}
+.damaros-metric li:before{content:'';position:absolute;left:0;top:.62em;width:4px;height:4px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px rgba(123,150,178,.32)}
+.damaros-metric span{margin-bottom:.42rem}
+@media(max-width:700px){.damaros-metric{min-height:auto}}
+
+
+/* v9 workflow map refinement: fixed right block, intuitive command-to-execution path */
+.damaros-home-stage{grid-template-columns:minmax(0,.86fr) minmax(660px,.96fr);gap:2.8rem;max-width:1540px}
+.damaros-workflow-panel{width:660px!important;min-width:660px!important;height:690px!important;min-height:690px!important;max-height:690px!important;align-self:center;overflow:hidden!important}
+.damaros-workflow-body{height:690px!important;min-height:690px!important;max-height:690px!important;padding:1.05rem;display:flex!important;flex-direction:column;gap:1rem;overflow:hidden!important}
+.damaros-workflow-path{display:grid;grid-template-columns:1fr;gap:.62rem;position:relative;flex:0 0 auto}
+.damaros-command-node{min-height:82px!important;padding:.86rem 1rem!important;background:linear-gradient(135deg,rgba(123,150,178,.13),rgba(123,150,178,.035))!important}
+.damaros-flow-line{height:1px;background:linear-gradient(90deg,transparent,rgba(123,150,178,.28),transparent);position:relative;margin:.02rem .5rem}
+.damaros-flow-line:before,.damaros-flow-line:after{content:'';position:absolute;top:-3px;width:7px;height:7px;border-radius:50%;border:1px solid rgba(123,150,178,.34);background:#000}
+.damaros-flow-line:before{left:0}.damaros-flow-line:after{right:0}
+.damaros-flow-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:.44rem;position:relative}
+.damaros-flow-steps:before{content:'';position:absolute;left:7%;right:7%;top:18px;height:1px;background:rgba(123,150,178,.16);z-index:0}
+.damaros-flow-steps .damaros-workflow-btn{position:relative;z-index:1;min-height:106px!important;padding:.72rem .62rem!important;background:rgba(0,0,0,.24)}
+.damaros-flow-steps .damaros-workflow-btn:after{content:'';position:absolute;top:15px;left:50%;width:7px;height:7px;border-radius:50%;transform:translateX(-50%);background:rgba(123,150,178,.42);box-shadow:0 0 12px rgba(123,150,178,.16)}
+.damaros-flow-steps .damaros-workflow-btn.active:after{background:var(--blue2);box-shadow:0 0 16px rgba(169,192,214,.38)}
+.damaros-workflow-btn b{font-size:.82rem!important;line-height:1.12}.damaros-workflow-btn small{font-size:.51rem!important;line-height:1.35;text-transform:none;letter-spacing:.035em;color:rgba(169,192,214,.68)}.damaros-workflow-btn span{font-size:.49rem!important;margin-bottom:.48rem!important}.damaros-command-node b{font-size:1rem!important}.damaros-command-node small{text-transform:uppercase!important;letter-spacing:.08em!important;color:var(--blue)!important}
+.damaros-detail{height:392px!important;min-height:392px!important;max-height:392px!important;flex:1 0 auto;overflow:hidden!important;padding:1rem!important}.damaros-detail-top{height:142px!important;min-height:142px!important;max-height:142px!important}.damaros-detail h3{font-size:1.28rem!important;min-height:1.55em!important}.damaros-detail p{min-height:4.1em!important;max-height:4.1em!important;overflow:hidden}.damaros-detail-matrix{height:190px!important;min-height:190px!important;max-height:190px!important}.damaros-metric{min-height:190px!important;max-height:190px!important;overflow:hidden}.damaros-metric b{font-size:.82rem!important;line-height:1.48!important}.damaros-metric ul{gap:.29rem!important}.damaros-metric li{padding-left:.8rem!important}.damaros-outcomes{min-width:164px;justify-content:flex-end}
+@media(max-width:1120px){.damaros-home-stage{grid-template-columns:1fr}.damaros-workflow-panel{width:min(100%,760px)!important;min-width:0!important;height:auto!important;min-height:auto!important;max-height:none!important;margin:0 auto}.damaros-workflow-body{height:auto!important;min-height:auto!important;max-height:none!important}.damaros-detail{height:auto!important;min-height:360px!important;max-height:none!important}.damaros-detail-top,.damaros-detail-matrix,.damaros-metric{height:auto!important;max-height:none!important}.damaros-detail p{max-height:none!important}.damaros-flow-steps{grid-template-columns:1fr}.damaros-flow-steps:before,.damaros-flow-line{display:none}.damaros-flow-steps .damaros-workflow-btn{min-height:76px!important}.damaros-flow-steps .damaros-workflow-btn:after{display:none}}
+
+
+/* v10 hierarchy and spacing refinement: Command Center as control layer, execution numbering starts at Protocol Ops */
+.damaros-home-stage{grid-template-columns:minmax(0,.82fr) minmax(660px,.98fr)!important;gap:4.25rem!important;max-width:1640px!important}
+.damaros-workflow-panel{justify-self:end!important;margin-right:-.35rem!important}
+.damaros-workflow-btn span{color:rgba(255,255,255,.72)!important;font-weight:700!important;letter-spacing:.14em!important}
+.damaros-workflow-btn.active span{color:rgba(232,238,245,.96)!important}
+.damaros-command-node{padding:1rem 1.05rem!important}
+.damaros-command-node b{color:#fff!important;font-weight:700!important}
+.damaros-command-node small{margin-top:.45rem!important}
+.damaros-flow-steps .damaros-workflow-btn b{color:rgba(245,248,252,.94)!important}
+.damaros-flow-steps .damaros-workflow-btn.active b{color:#fff!important}
+@media(max-width:1120px){.damaros-home-stage{grid-template-columns:1fr!important;gap:2rem!important;max-width:100%!important}.damaros-workflow-panel{justify-self:center!important;margin-right:0!important}}
+
+
+/* v11 final workflow hierarchy: no separator dots/line, active node emphasis, subtle hover propagation */
+.damaros-flow-line{display:none!important}
+.damaros-flow-steps:before,.damaros-flow-steps .damaros-workflow-btn:after{display:none!important;content:none!important}
+.damaros-workflow-btn span{color:rgba(255,255,255,.68)!important;font-weight:700!important}
+.damaros-workflow-btn b{color:rgba(242,246,250,.9)!important}
+.damaros-workflow-btn.active span{color:#8fbfff!important}
+.damaros-workflow-btn.active b{color:#fff!important}
+.damaros-workflow-btn.flow-downstream{border-color:rgba(143,191,255,.22)!important;background:rgba(123,150,178,.052)!important;box-shadow:inset 0 0 0 1px rgba(143,191,255,.018),0 0 22px rgba(123,150,178,.035)!important}
+.damaros-workflow-btn.flow-upstream{opacity:.82}
+.damaros-command-node.active b{color:#fff!important}
+.damaros-command-node.active{border-color:rgba(143,191,255,.5)!important;background:linear-gradient(135deg,rgba(123,150,178,.15),rgba(123,150,178,.04))!important}
+.damaros-flow-steps .damaros-workflow-btn{padding-top:.86rem!important}
+
+
+/* v13 decomposed right rail: Palantir-grade system surfaces, not one monolithic card */
+.damaros-workflow-panel{
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  height:690px!important;
+  min-height:690px!important;
+  max-height:690px!important;
+}
+.damaros-workflow-panel:before{display:none!important;content:none!important}
+.damaros-workflow-panel:hover{border-color:transparent!important;box-shadow:none!important;transform:none!important}
+.damaros-workflow-body{
+  padding:0!important;
+  height:690px!important;
+  min-height:690px!important;
+  max-height:690px!important;
+  display:grid!important;
+  grid-template-rows:236px 1fr!important;
+  gap:.9rem!important;
+  overflow:visible!important;
+}
+.damaros-workflow-path{
+  border:1px solid rgba(123,150,178,.19)!important;
+  background:linear-gradient(180deg,rgba(9,12,15,.82),rgba(0,0,0,.64))!important;
+  box-shadow:0 0 62px rgba(123,150,178,.055),inset 0 0 0 1px rgba(255,255,255,.018)!important;
+  padding:.9rem!important;
+  gap:.7rem!important;
+  overflow:hidden!important;
+  transition:border-color .65s cubic-bezier(.16,1,.3,1),box-shadow .75s cubic-bezier(.16,1,.3,1),background .75s cubic-bezier(.16,1,.3,1)!important;
+}
+.damaros-workflow-path:hover{
+  border-color:rgba(169,192,214,.32)!important;
+  box-shadow:0 0 74px rgba(123,150,178,.08),inset 0 0 0 1px rgba(255,255,255,.025)!important;
+}
+.damaros-command-node{
+  min-height:72px!important;
+  padding:.82rem .95rem!important;
+  border-color:rgba(169,192,214,.24)!important;
+  background:linear-gradient(135deg,rgba(123,150,178,.12),rgba(0,0,0,.22))!important;
+}
+.damaros-command-node small{font-size:.54rem!important;color:rgba(169,192,214,.72)!important}
+.damaros-flow-steps{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:.5rem!important;
+}
+.damaros-flow-steps .damaros-workflow-btn{
+  min-height:118px!important;
+  padding:.86rem .66rem!important;
+  background:linear-gradient(180deg,rgba(123,150,178,.042),rgba(0,0,0,.24))!important;
+}
+.damaros-flow-steps .damaros-workflow-btn b{font-size:.82rem!important;line-height:1.16!important}
+.damaros-flow-steps .damaros-workflow-btn small{margin-top:.42rem!important;font-size:.52rem!important;color:rgba(169,192,214,.6)!important}
+.damaros-detail{
+  height:438px!important;
+  min-height:438px!important;
+  max-height:438px!important;
+  border:1px solid rgba(123,150,178,.19)!important;
+  background:linear-gradient(180deg,rgba(5,8,11,.78),rgba(0,0,0,.58))!important;
+  box-shadow:0 0 58px rgba(123,150,178,.045),inset 0 0 0 1px rgba(255,255,255,.016)!important;
+  padding:1.08rem!important;
+  overflow:hidden!important;
+}
+.damaros-detail:hover{
+  border-color:rgba(169,192,214,.32)!important;
+  box-shadow:0 0 68px rgba(123,150,178,.075),inset 0 0 0 1px rgba(255,255,255,.024)!important;
+  background:linear-gradient(180deg,rgba(7,11,15,.82),rgba(0,0,0,.62))!important;
+}
+.damaros-detail-top{
+  height:150px!important;
+  min-height:150px!important;
+  max-height:150px!important;
+  margin-bottom:.85rem!important;
+  padding-bottom:.85rem!important;
+}
+.damaros-detail h3{font-size:1.36rem!important;letter-spacing:.015em!important}
+.damaros-label{font-family:var(--fb)!important;font-size:.58rem!important;letter-spacing:.15em!important;text-transform:uppercase!important;color:rgba(169,192,214,.64)!important;font-weight:700!important}
+.damaros-detail p{font-size:.86rem!important;line-height:1.58!important;color:rgba(232,232,232,.68)!important;min-height:4.1em!important;max-height:4.1em!important}
+.damaros-detail-matrix{
+  height:224px!important;
+  min-height:224px!important;
+  max-height:224px!important;
+  gap:.82rem!important;
+}
+.damaros-metric{
+  min-height:224px!important;
+  max-height:224px!important;
+  padding:.92rem!important;
+  border-color:rgba(123,150,178,.12)!important;
+  background:rgba(123,150,178,.026)!important;
+}
+.damaros-metric:hover{border-color:rgba(169,192,214,.24)!important;background:rgba(123,150,178,.043)!important}
+.damaros-metric span{font-size:.55rem!important;color:rgba(169,192,214,.58)!important;margin-bottom:.55rem!important}
+.damaros-metric b{font-size:.86rem!important;line-height:1.5!important;color:rgba(232,232,232,.88)!important}
+.damaros-metric ul{gap:.42rem!important}
+.damaros-metric li:before{background:rgba(169,192,214,.78)!important}
+.damaros-workflow-btn.active span{color:#8fbfff!important}
+.damaros-workflow-btn.active b{color:#fff!important}
+@media(max-width:1120px){
+  .damaros-workflow-panel{width:min(100%,760px)!important;height:auto!important;min-height:auto!important;max-height:none!important}
+  .damaros-workflow-body{height:auto!important;min-height:auto!important;max-height:none!important;display:flex!important;flex-direction:column!important}
+  .damaros-workflow-path,.damaros-detail{height:auto!important;min-height:auto!important;max-height:none!important}
+  .damaros-detail-top,.damaros-detail-matrix,.damaros-metric{height:auto!important;min-height:auto!important;max-height:none!important}
+}
+
+
+
+/* v14 precision polish: prevent detail copy clipping and align hero dot optically */
+.damaros-hero-logo{
+  gap:.42rem!important;
+  line-height:.94!important;
+  align-items:center!important;
+}
+.damaros-hero-logo .damaros-blink-dot{
+  width:10px!important;
+  height:10px!important;
+  flex:0 0 10px!important;
+  margin-left:.03em!important;
+  transform:translateY(.03em)!important;
+}
+.damaros-detail-top{
+  height:174px!important;
+  min-height:174px!important;
+  max-height:174px!important;
+  margin-bottom:.78rem!important;
+  padding-bottom:.78rem!important;
+}
+.damaros-detail p{
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+}
+.damaros-detail-matrix{
+  height:198px!important;
+  min-height:198px!important;
+  max-height:198px!important;
+}
+.damaros-metric{
+  min-height:198px!important;
+  max-height:198px!important;
+}
+.damaros-metric b{
+  font-size:.84rem!important;
+  line-height:1.46!important;
+}
+.damaros-metric ul{gap:.36rem!important}
+@media(max-width:1120px){
+  .damaros-detail-top,.damaros-detail-matrix,.damaros-metric{height:auto!important;min-height:auto!important;max-height:none!important}
+}
+
+
+/* v15 unique section badges: keep Screening status vibe without changing wrap behavior */
+.damaros-detail{position:relative!important}
+.damaros-detail-top{position:relative!important}
+.damaros-detail-copy{padding-right:190px!important;max-width:100%!important}
+.damaros-detail-badges{position:absolute;top:0;right:0;display:flex;justify-content:flex-end;align-items:flex-start;gap:.34rem;flex-wrap:wrap;width:178px;min-height:24px;z-index:2}
+.damaros-outcomes{display:none!important}
+.damaros-outcome{font-family:var(--fb)!important;font-weight:800!important;font-size:.48rem!important;letter-spacing:.115em!important;text-transform:uppercase;padding:.28rem .52rem;border-radius:999px;white-space:nowrap}
+.damaros-outcome.pass,.damaros-outcome.green{color:#86efac;border:1px solid rgba(74,222,128,.34);background:rgba(74,222,128,.08)}
+.damaros-outcome.review,.damaros-outcome.amber{color:#fde68a;border:1px solid rgba(250,204,21,.34);background:rgba(250,204,21,.08)}
+.damaros-outcome.fail{color:#fca5a5;border:1px solid rgba(251,113,133,.34);background:rgba(251,113,133,.08)}
+.damaros-outcome.blue{color:#bfdbfe;border:1px solid rgba(143,191,255,.34);background:rgba(143,191,255,.075)}
+.damaros-outcome.steel{color:rgba(232,232,232,.72);border:1px solid rgba(169,192,214,.22);background:rgba(169,192,214,.04)}
+@media(max-width:700px){.damaros-detail-copy{padding-right:0!important}.damaros-detail-badges{position:relative;width:auto;justify-content:flex-start;margin-top:.7rem}}
+
+
+/* v16 final client-facing polish: differentiated status colorways + documentation glow system */
+.damaros-outcome.teal{color:#99f6e4;border:1px solid rgba(45,212,191,.34);background:rgba(45,212,191,.075);box-shadow:0 0 16px rgba(45,212,191,.055)}
+.damaros-outcome.gold{color:#fed7aa;border:1px solid rgba(251,146,60,.36);background:rgba(251,146,60,.075);box-shadow:0 0 16px rgba(251,146,60,.055)}
+.damaros-outcome.violet{color:#ddd6fe;border:1px solid rgba(167,139,250,.36);background:rgba(167,139,250,.075);box-shadow:0 0 16px rgba(167,139,250,.055)}
+.damaros-outcome.cyan{color:#bae6fd;border:1px solid rgba(56,189,248,.34);background:rgba(56,189,248,.075);box-shadow:0 0 16px rgba(56,189,248,.055)}
+.damaros-outcome.rose{color:#fecdd3;border:1px solid rgba(244,63,94,.32);background:rgba(244,63,94,.065);box-shadow:0 0 16px rgba(244,63,94,.05)}
+
+body.damaros-docs-active .damaros-site{overflow:visible!important}
+body.damaros-docs-active .damaros-site:after{background:radial-gradient(circle at 50% 8%,rgba(123,150,178,.105),transparent 28%),radial-gradient(circle at 86% 28%,rgba(167,139,250,.04),transparent 18%)!important}
+body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(123,150,178,.006) 2px,rgba(123,150,178,.006) 4px),linear-gradient(90deg,rgba(123,150,178,.024),transparent 22%,transparent 78%,rgba(123,150,178,.024))!important}
+.damaros-docs-wrap{font-family:var(--fb)!important;max-width:980px!important}
+.damaros-docs-title,.damaros-docs-section-heading{font-family:var(--fh)!important}
+.damaros-docs-eyebrow,.damaros-docs-section-label,.damaros-api-group-label,.damaros-kv-table,.damaros-docs-pre-caption,.damaros-docs-pre,.damaros-docs-pre-note,.damaros-contact-block{font-family:var(--fb)!important}
+.damaros-docs-title{text-shadow:0 0 34px rgba(123,150,178,.08)}
+.damaros-docs-subtitle{border:1px solid rgba(123,150,178,.13);background:linear-gradient(135deg,rgba(123,150,178,.055),rgba(0,0,0,.18));padding:1rem 1.1rem;box-shadow:0 0 46px rgba(123,150,178,.045),inset 0 0 0 1px rgba(255,255,255,.012)}
+.damaros-docs-section{border:1px solid rgba(123,150,178,.105);background:linear-gradient(180deg,rgba(8,11,15,.54),rgba(0,0,0,.24));padding:1.1rem 1.15rem;margin-bottom:1.25rem;box-shadow:0 0 38px rgba(123,150,178,.032),inset 0 0 0 1px rgba(255,255,255,.01);transition:border-color .55s cubic-bezier(.16,1,.3,1),box-shadow .65s cubic-bezier(.16,1,.3,1),background .55s cubic-bezier(.16,1,.3,1),transform .55s cubic-bezier(.16,1,.3,1)}
+.damaros-docs-section:hover{border-color:rgba(123,150,178,.24);box-shadow:0 0 58px rgba(123,150,178,.065),inset 0 0 0 1px rgba(255,255,255,.018);background:linear-gradient(180deg,rgba(10,15,21,.66),rgba(0,0,0,.26));transform:translateY(-1px)}
+.damaros-docs-section-heading{border-bottom-color:rgba(123,150,178,.14)!important;color:rgba(245,248,252,.94)}
+.damaros-docs-body,.damaros-bullet-list{font-size:.86rem!important;color:rgba(232,232,232,.72)!important}
+.damaros-callout{border-left-color:rgba(123,150,178,.38)!important;background:linear-gradient(90deg,rgba(123,150,178,.06),rgba(0,0,0,.18))!important;box-shadow:inset 0 0 0 1px rgba(123,150,178,.04)}
+.damaros-kv-table tr{border-bottom-color:rgba(123,150,178,.08)!important}
+.damaros-kv-table td{font-family:var(--fb)!important}
+.damaros-kv-table td:first-child{font-weight:700;letter-spacing:.04em;color:rgba(169,192,214,.78)!important}
+.damaros-docs-pre{font-family:var(--fb)!important;border-color:rgba(123,150,178,.22)!important;background:linear-gradient(180deg,rgba(7,10,14,.85),rgba(0,0,0,.55))!important;box-shadow:0 0 34px rgba(123,150,178,.035)}
+.damaros-docs-divider{background:linear-gradient(90deg,transparent,rgba(123,150,178,.18),transparent)!important;margin:2rem 0!important}
+@media(max-width:700px){.damaros-docs-section{padding:.95rem .9rem}.damaros-docs-subtitle{padding:.9rem}}
+
 </style>
 
 <div class="damaros-site">
@@ -19,8 +325,37 @@
 
 <div id="damaros-panel-home" class="damaros-panel active">
 <div class="damaros-monogram-bg"><div class="damaros-monogram-grid" id="damarosMonogramGrid"></div></div>
-<main class="damaros-terminal-wrap"><div class="damaros-terminal-prefix">Damaros<span class="damaros-blink-dot"></span></div><div class="damaros-typed-line"><span id="damarosTyped"></span><span class="damaros-cursor"></span></div><div class="damaros-subtext">clinical investigation, rewired.</div><div class="damaros-cta-wrap"><a href="mailto:anirudh@damaros.ai" class="damaros-cta-btn">Request a Demo <span class="damaros-cta-arrow">→</span></a></div></main>
-<div class="damaros-bottom-bar"><span id="damarosVisitorLocation">secure session</span><span>© 2026 Damaros</span></div>
+<section class="damaros-home-stage">
+  <main class="damaros-hero">
+    <div class="damaros-hero-logo">Damaros<span class="damaros-blink-dot"></span></div>
+    <div class="damaros-command-line"><span id="damarosTyped"></span><span class="damaros-cursor"></span></div>
+    <div class="damaros-cta-row"><a href="mailto:anirudh@damaros.ai" class="damaros-cta-btn">Request a Demo <span>→</span></a></div>
+  </main>
+
+  <aside class="damaros-workflow-panel" aria-label="Damaros hero workflow">
+    <div class="damaros-workflow-body">
+      <div class="damaros-workflow-path" aria-label="Damaros workflow map">
+        <button class="damaros-workflow-btn damaros-command-node active" data-step="command"><b>Command Center</b><small>one ranked next action across the system</small></button>
+        <div class="damaros-flow-steps">
+          <button class="damaros-workflow-btn" data-step="protocol"><span>01</span><b>Protocol Ops</b><small>lock the protocol</small></button>
+          <button class="damaros-workflow-btn" data-step="population"><span>02</span><b>Population</b><small>promote the snapshot</small></button>
+          <button class="damaros-workflow-btn" data-step="screening"><span>03</span><b>Screening</b><small>triage the worklist</small></button>
+          <button class="damaros-workflow-btn" data-step="forms"><span>04</span><b>Forms</b><small>review the outputs</small></button>
+          <button class="damaros-workflow-btn" data-step="audit"><span>05</span><b>Evidence &amp; Audit</b><small>replay the trail</small></button>
+        </div>
+      </div>
+      <div class="damaros-detail" id="workflowDetail" aria-live="polite">
+        <div class="damaros-detail-top"><div class="damaros-detail-copy"><div class="damaros-label" id="detailLabel">COMMAND CENTER</div><h3 id="detailTitle">One ranked next action</h3><p id="detailText">The cockpit tells the coordinator what blocks execution now, what object it belongs to, and which surface fixes it.</p></div><div class="damaros-detail-badges" id="detailBadges"><span class="damaros-outcome blue">NEXT ACTION</span><span class="damaros-outcome steel">CONTROL</span></div></div>
+        <div class="damaros-detail-matrix">
+          <div class="damaros-metric"><span>What it does</span><b id="detailDoes">Ranks readiness signals across the trial workflow and points the coordinator to the next surface.</b></div>
+          <div class="damaros-metric"><span>Why it matters</span><b id="detailWhy">No hunting across tabs. The system tells the operator what needs attention.</b></div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</section>
+<!-- FUTURE: demo walkthrough module. command center → protocol ops → population → screening → forms → evidence & audit. keep terminal aesthetic. -->
+<div class="damaros-bottom-bar"><span id="damarosVisitorLocation">geocache</span><span>© 2026 Damaros</span></div>
 </div>
 
 <div id="damaros-panel-docs" class="damaros-panel"><div class="damaros-docs-wrap">
@@ -290,10 +625,39 @@ spec:
 </div></div></div>
 
 <script>
-(function(){const SRC="https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png";function init(){document.body.classList.add("damaros-home-lock");const grid=document.getElementById("damarosMonogramGrid");if(grid){const test=new Image();test.onload=function(){grid.classList.remove("error");grid.innerHTML="";const n=window.innerWidth<700?150:220;for(let i=0;i<n;i++){const img=document.createElement("img");const r=(Math.random()*6-3).toFixed(2),s=(.94+Math.random()*.12).toFixed(3),o=(.78+Math.random()*.22).toFixed(3);img.src=SRC;img.alt="";img.draggable=false;img.loading="eager";img.decoding="async";img.style.transform="rotate("+r+"deg) scale("+s+")";img.style.opacity=o;grid.appendChild(img)}};test.onerror=function(){grid.classList.add("error");grid.innerHTML='<div class="damaros-monogram-error">monogram image failed to load</div>';console.error("Damaros monogram failed:",SRC)};test.src=SRC}
+(function(){
+const SRC="https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png";
+const workflow={
+ command:{label:"COMMAND CENTER",title:"The cockpit for trial execution",text:"Command Center turns scattered trial state into one clear instruction: what is blocked, why it matters, and where the coordinator should act.",does:["Ranks blockers across Protocol Ops, Population, Screening, Forms, and Evidence & Audit.","Separates signal from noise before the operator starts clicking.","Routes the next action to the surface that can actually fix it."],why:["Coordinators should not hunt through tabs to understand trial readiness.","Damaros makes ambiguity visible, assigned, and actionable."],badges:[['teal','NEXT ACTION'],['cyan','CONTROL']]},
+ protocol:{label:"01 / PROTOCOL OPS",title:"The protocol becomes executable",text:"Protocol Ops turns the study document into a controlled operating object with identity, criteria, version context, and amendment awareness.",does:["Locks study identity, trial brief, criteria, and version state.","Creates the structured logic downstream workflows depend on.","Keeps amendments tied to the decisions they change."],why:["Clinical trial work breaks when protocol truth is scattered across PDFs, notes, and memory.","Damaros gives the trial one anchored source of execution logic."],badges:[['gold','LOCKED LOGIC'],['violet','VERSIONED']]},
+ population:{label:"02 / POPULATION",title:"The cohort becomes usable",text:"Population validates the data layer before screening, so broken imports, missing facts, and questionable snapshots are caught upstream.",does:["Promotes a usable population snapshot from patient rows, labs, biomarkers, files, and registry data.","Quarantines ingest issues before they become screening noise.","Makes the cohort ready for deterministic evaluation."],why:["Screening bottlenecks often start as messy data, not bad rules.","Damaros forces data readiness before decisions are trusted."],badges:[['blue','SNAPSHOT'],['green','READY']]},
+ screening:{label:"03 / SCREENING",title:"Candidates become decisions",text:"Screening converts the locked protocol and promoted population into a coordinator worklist with criterion-level outcomes, blockers, and Delta Mode.",does:["Runs deterministic eligibility rules across the cohort snapshot.","Produces PASS, REVIEW, and FAIL with criterion, issue, source, and next step.","Uses Delta Mode to show what changed since the prior run."],why:["The coordinator gets a prioritized worklist with evidence and change awareness.","The system raises signal, exposes blockers, and avoids black-box screening."],badges:[['pass','PASS'],['review','REVIEW'],['fail','FAIL']]},
+ forms:{label:"04 / FORMS",title:"Forms stop being manual work",text:"Forms turns protocol intelligence into coordinator-reviewable facts, grounded templates, review flags, comments, and traceable exports.",does:["Extracts document facts from the locked protocol.","Builds registry rows, readiness flags, comments, and export-ready outputs.","Turns form work into review and approval instead of retyping."],why:["Study startup is slowed by repeated translation from protocol text into operational documents.","Damaros compresses that ambiguity into structured, reviewable work."],badges:[['amber','REVIEW FLAGS'],['blue','EXPORTS']]},
+ audit:{label:"05 / EVIDENCE & AUDIT",title:"Every decision leaves a trail",text:"Evidence & Audit preserves source pointers, corrections, adjudication, replay context, and packet readiness behind the workflow.",does:["Records lineage behind screening decisions, corrections, and review trail.","Keeps replay context attached to protocol and population state.","Prepares audit packets from the same workflow coordinators used."],why:["Trial teams need to know why a decision existed, not only what it said.","Damaros makes execution defensible, replayable, and ready for review."],badges:[['violet','REPLAYABLE'],['teal','LINEAGE']]}
+}
+function setPanel(target){document.querySelectorAll(".damaros-tab-btn").forEach(b=>b.classList.toggle("active",b.dataset.panel===target));document.querySelectorAll(".damaros-panel").forEach(p=>p.classList.toggle("active",p.id==="damaros-panel-"+target));const docs=target==="docs";document.body.classList.toggle("damaros-docs-active",docs);document.body.classList.toggle("damaros-home-lock",!docs);if(docs){history.replaceState(null,"","#docs");setTimeout(()=>window.scrollTo(0,0),0)}else{history.replaceState(null,"",window.location.pathname)}}
+function renderList(items){return "<ul>"+items.map(item=>"<li>"+item+"</li>").join("")+"</ul>"}
+const flowOrder=["protocol","population","screening","forms","audit"];
+function applyFlowPropagation(key){
+ const idx=flowOrder.indexOf(key);
+ document.querySelectorAll(".damaros-workflow-btn").forEach(btn=>{btn.classList.remove("flow-upstream","flow-downstream")});
+ if(idx<0)return;
+ document.querySelectorAll(".damaros-workflow-btn").forEach(btn=>{
+   const bidx=flowOrder.indexOf(btn.dataset.step);
+   if(bidx>-1&&bidx>idx)btn.classList.add("flow-downstream");
+   if(bidx>-1&&bidx<idx)btn.classList.add("flow-upstream");
+ });
+}
+function clearFlowPropagation(){document.querySelectorAll(".damaros-workflow-btn").forEach(btn=>btn.classList.remove("flow-upstream","flow-downstream"))}
+function renderBadges(items){return (items||[]).map(([kind,label])=>"<span class=\"damaros-outcome "+kind+"\">"+label+"</span>").join("")}
+function setWorkflow(key){const d=workflow[key];if(!d)return;document.querySelectorAll(".damaros-workflow-btn").forEach(b=>b.classList.toggle("active",b.dataset.step===key));clearFlowPropagation();document.getElementById("detailLabel").textContent=d.label;document.getElementById("detailTitle").textContent=d.title;document.getElementById("detailText").textContent=d.text;document.getElementById("detailDoes").innerHTML=renderList(d.does);document.getElementById("detailWhy").innerHTML=renderList(d.why);const badges=document.getElementById("detailBadges");if(badges)badges.innerHTML=renderBadges(d.badges);}
+function init(){document.body.classList.add("damaros-home-lock");const grid=document.getElementById("damarosMonogramGrid");if(grid){const test=new Image();test.onload=function(){grid.classList.remove("error");grid.innerHTML="";const n=window.innerWidth<700?150:235;for(let i=0;i<n;i++){const img=document.createElement("img");const r=(Math.random()*6-3).toFixed(2),s=(.94+Math.random()*.12).toFixed(3),o=(.72+Math.random()*.24).toFixed(3);img.src=SRC;img.alt="";img.draggable=false;img.loading="eager";img.decoding="async";img.style.transform="rotate("+r+"deg) scale("+s+")";img.style.opacity=o;grid.appendChild(img)}};test.onerror=function(){grid.classList.add("error");grid.innerHTML='<div class="damaros-monogram-error">monogram image failed to load</div>'};test.src=SRC}
 let px=0,py=0;window.addEventListener("mousemove",function(e){if(!grid||grid.classList.contains("error"))return;const x=(e.clientX/window.innerWidth-.5)*16,y=(e.clientY/window.innerHeight-.5)*10;px+=(x-px)*.08;py+=(y-py)*.08;grid.style.animation="none";grid.style.transform="rotate(-8deg) translate3d("+px+"px,"+py+"px,0)"});window.addEventListener("mouseleave",function(){if(!grid||grid.classList.contains("error"))return;grid.style.animation="drift 12s linear infinite";grid.style.transform=""});
-document.querySelectorAll(".damaros-tab-btn").forEach(function(btn){btn.addEventListener("click",function(){const t=btn.dataset.panel;document.querySelectorAll(".damaros-tab-btn").forEach(b=>b.classList.remove("active"));document.querySelectorAll(".damaros-panel").forEach(p=>p.classList.remove("active"));btn.classList.add("active");const panel=document.getElementById("damaros-panel-"+t);if(panel)panel.classList.add("active");const docs=t==="docs";document.body.classList.toggle("damaros-docs-active",docs);document.body.classList.toggle("damaros-home-lock",!docs);if(docs){history.replaceState(null,"","#docs");window.scrollTo(0,0)}else history.replaceState(null,"",window.location.pathname)})});if(location.hash==="#docs"){const b=document.querySelector('.damaros-tab-btn[data-panel="docs"]');if(b)b.click()}
-const phrases=["own your trial workflow","automate the screening bottleneck","surface patients, not paperwork","supercharge form generation","streamline accrual at scale"],typed=document.getElementById("damarosTyped");let pi=0,ci=0,del=false;function tick(){if(!typed)return;const p=phrases[pi];if(!del){typed.textContent=p.slice(0,ci+1);ci++;if(ci===p.length){setTimeout(function(){del=true;tick()},3200);return}}else{typed.textContent=p.slice(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,350);return}}setTimeout(tick,del?28:65)}setTimeout(tick,900);
-const loc=document.getElementById("damarosVisitorLocation");if(loc)fetch("https://ipapi.co/json/").then(r=>r.ok?r.json():null).then(d=>{if(d&&d.city&&d.region)loc.textContent=d.city+", "+d.region}).catch(()=>{})}
-if(document.readyState==="complete")init();else window.addEventListener("load",init)})();
+document.querySelectorAll(".damaros-tab-btn").forEach(btn=>btn.addEventListener("click",()=>setPanel(btn.dataset.panel)));if(location.hash==="#docs")setPanel("docs");
+document.querySelectorAll(".damaros-workflow-btn").forEach(btn=>{btn.addEventListener("click",()=>setWorkflow(btn.dataset.step));btn.addEventListener("mouseenter",()=>applyFlowPropagation(btn.dataset.step));btn.addEventListener("mouseleave",clearFlowPropagation)});setWorkflow("command");
+const phrases=["own your trial workflow","automate the screening bottleneck","surface patients, not paperwork","supercharge form generation","streamline accrual at scale"],typed=document.getElementById("damarosTyped");let pi=0,ci=0,del=false;function tick(){if(!typed)return;const p=phrases[pi];if(!del){typed.textContent=p.slice(0,ci+1);ci++;if(ci===p.length){setTimeout(()=>{del=true;tick()},3200);return}}else{typed.textContent=p.slice(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,350);return}}setTimeout(tick,del?28:65)}setTimeout(tick,900);
+const loc=document.getElementById("damarosVisitorLocation");if(loc)loc.textContent="geocache";
+}
+if(document.readyState==="complete")init();else window.addEventListener("load",init);
+})();
 </script>
