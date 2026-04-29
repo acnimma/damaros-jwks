@@ -30,6 +30,7 @@
   .damaros-cta-btn:hover{transform:translateY(-1px);box-shadow:0 20px 58px rgba(123,150,178,.105),0 0 30px rgba(123,150,178,.14)}
   .damaros-tab-btn{transition:color .35s ease,opacity .35s ease}
   .damaros-bottom-bar{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  #damarosVisitorLocation{flex:1;min-width:0;margin-right:1rem;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
   @media(max-width:980px){body.damaros-home-lock{overflow-y:auto}.damaros-home-stage{grid-template-columns:1fr;align-items:start;padding-top:2rem}.damaros-hero{text-align:center}.damaros-workflow-panel{max-width:760px;width:100%;margin:0 auto}.damaros-bottom-bar{position:relative;margin-top:2rem;padding:1rem 0;background:transparent}.damaros-bottom-center{display:none}}@media(max-width:700px){.damaros-tab-bar{padding:0 .8rem!important}.damaros-top-status{display:none}.damaros-tab-btn{padding:0 .62rem;font-size:.54rem}.damaros-tab-btn:after{left:.62rem;right:.62rem}#damaros-panel-home.active{padding:calc(var(--tab) + 1.4rem) 1rem 2rem}.damaros-monogram-grid{grid-template-columns:repeat(auto-fill,72px);grid-auto-rows:72px;gap:22px;opacity:.11}.damaros-monogram-grid img{width:72px;height:72px;opacity:.055;filter:grayscale(1) brightness(.48) contrast(1.25);mix-blend-mode:screen}.damaros-command-line{white-space:normal}.damaros-workflow-grid{grid-template-columns:1fr}.damaros-detail-matrix{grid-template-columns:1fr}.damaros-docs-wrap{padding:calc(var(--tab) + 2.5rem) 1.4rem 4rem}.damaros-kv-table td:first-child{width:145px;font-size:.62rem}}
 
@@ -507,7 +508,7 @@ body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradie
   </aside>
 </section>
 <!-- FUTURE: demo walkthrough module. command center → protocol ops → population → screening → forms → evidence & audit. keep terminal aesthetic. -->
-<div class="damaros-bottom-bar"><span id="damarosVisitorLocation">geocache</span><span>© 2026 Damaros</span></div>
+<div class="damaros-bottom-bar"><span id="damarosVisitorLocation" title="">…</span><span>© 2026 Damaros</span></div>
 </div>
 
 <div id="damaros-panel-docs" class="damaros-panel"><div class="damaros-docs-wrap">
@@ -808,7 +809,29 @@ let px=0,py=0;window.addEventListener("mousemove",function(e){if(!grid||grid.cla
 document.querySelectorAll(".damaros-tab-btn").forEach(btn=>btn.addEventListener("click",()=>setPanel(btn.dataset.panel)));if(location.hash==="#docs")setPanel("docs");
 document.querySelectorAll(".damaros-workflow-btn").forEach(btn=>{btn.addEventListener("click",()=>setWorkflow(btn.dataset.step));btn.addEventListener("mouseenter",()=>applyFlowPropagation(btn.dataset.step));btn.addEventListener("mouseleave",clearFlowPropagation)});setWorkflow("command");
 const phrases=["own your trial workflow","automate the screening bottleneck","surface patients, not paperwork","supercharge form generation","streamline accrual at scale"],typed=document.getElementById("damarosTyped");let pi=0,ci=0,del=false;function tick(){if(!typed)return;const p=phrases[pi];if(!del){typed.textContent=p.slice(0,ci+1);ci++;if(ci===p.length){setTimeout(()=>{del=true;tick()},3200);return}}else{typed.textContent=p.slice(0,ci-1);ci--;if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(tick,350);return}}setTimeout(tick,del?28:65)}setTimeout(tick,900);
-const loc=document.getElementById("damarosVisitorLocation");if(loc)loc.textContent="geocache";
+const loc=document.getElementById("damarosVisitorLocation");
+if(loc){
+const ac=new AbortController();
+const to=setTimeout(function(){try{ac.abort()}catch(e){}},5000);
+fetch("https://get.geojs.io/v1/ip/geo.json",{credentials:"omit",signal:ac.signal})
+.then(function(r){if(!r.ok)throw new Error();return r.json()})
+.then(function(d){
+clearTimeout(to);
+var c=(d.city||"").trim(),reg=(d.region||"").trim(),nat=(d.country||"").trim();
+var parts=[];
+if(c)parts.push(c);
+if(reg&&reg.toLowerCase()!==c.toLowerCase())parts.push(reg);
+if(nat)parts.push(nat);
+var line=parts.length?parts.join(", "):"origin unknown";
+loc.textContent=line;
+loc.setAttribute("title",line);
+})
+.catch(function(){
+clearTimeout(to);
+loc.textContent="origin unknown";
+loc.setAttribute("title","");
+});
+}
 }
 if(document.readyState==="complete")init();else window.addEventListener("load",init);
 })();
