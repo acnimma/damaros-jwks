@@ -318,6 +318,158 @@ body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradie
 .damaros-docs-divider{background:linear-gradient(90deg,transparent,rgba(123,150,178,.18),transparent)!important;margin:2rem 0!important}
 @media(max-width:700px){.damaros-docs-section{padding:.95rem .9rem}.damaros-docs-subtitle{padding:.9rem}}
 
+
+
+/* v17 responsive stage normalization: preserve 1920x1080 composition on smaller laptops */
+:root{
+  --home-safe-x:clamp(1rem,2.2vw,2rem);
+  --home-gap:clamp(2.1rem,4.2vw,4.25rem);
+  --wf-w:clamp(560px,43vw,660px);
+  --wf-h:clamp(590px,74svh,690px);
+  --wf-path-h:clamp(214px,25svh,236px);
+}
+#damaros-panel-home.active{
+  padding:calc(var(--tab) + clamp(1.1rem,2.2vh,2rem)) var(--home-safe-x) clamp(2.8rem,5vh,4rem)!important;
+}
+.damaros-home-stage{
+  min-height:calc(100svh - var(--tab) - clamp(4rem,8vh,6rem))!important;
+  width:min(1640px,calc(100vw - (var(--home-safe-x) * 2)))!important;
+  max-width:min(1640px,calc(100vw - (var(--home-safe-x) * 2)))!important;
+  grid-template-columns:minmax(0,1fr) var(--wf-w)!important;
+  gap:var(--home-gap)!important;
+  align-items:center!important;
+}
+.damaros-hero-logo{
+  font-size:clamp(4.15rem,6.2vw,7.2rem)!important;
+  gap:clamp(.26rem,.52vw,.42rem)!important;
+}
+.damaros-hero-logo .damaros-blink-dot{
+  width:clamp(7px,.55vw,10px)!important;
+  height:clamp(7px,.55vw,10px)!important;
+  flex-basis:clamp(7px,.55vw,10px)!important;
+}
+.damaros-command-line{
+  margin-top:clamp(.85rem,1.6vh,1.3rem)!important;
+  font-size:clamp(.78rem,1.05vw,1rem)!important;
+  min-height:2.1em!important;
+}
+.damaros-cta-row{margin-top:clamp(1.25rem,2.6vh,2rem)!important}
+.damaros-cta-btn{
+  padding:clamp(.72rem,1.35vh,.9rem) clamp(1.1rem,1.65vw,1.45rem)!important;
+  font-size:clamp(.62rem,.72vw,.72rem)!important;
+}
+.damaros-workflow-panel{
+  width:var(--wf-w)!important;
+  min-width:var(--wf-w)!important;
+  height:var(--wf-h)!important;
+  min-height:var(--wf-h)!important;
+  max-height:var(--wf-h)!important;
+  margin-right:0!important;
+}
+.damaros-workflow-body{
+  height:var(--wf-h)!important;
+  min-height:var(--wf-h)!important;
+  max-height:var(--wf-h)!important;
+  grid-template-rows:var(--wf-path-h) minmax(0,1fr)!important;
+  gap:clamp(.72rem,1.4vh,.9rem)!important;
+}
+.damaros-workflow-path{
+  height:var(--wf-path-h)!important;
+  min-height:var(--wf-path-h)!important;
+  max-height:var(--wf-path-h)!important;
+  padding:clamp(.72rem,1.25vh,.9rem)!important;
+  gap:clamp(.5rem,1vh,.7rem)!important;
+}
+.damaros-command-node{
+  min-height:clamp(62px,7.9vh,72px)!important;
+  padding:clamp(.65rem,1.1vh,.82rem) clamp(.72rem,1.3vw,.95rem)!important;
+}
+.damaros-command-node b{font-size:clamp(.88rem,1vw,1rem)!important}
+.damaros-command-node small{font-size:clamp(.46rem,.58vw,.54rem)!important}
+.damaros-flow-steps{gap:clamp(.36rem,.65vw,.5rem)!important}
+.damaros-flow-steps .damaros-workflow-btn{
+  min-height:clamp(94px,12.2vh,118px)!important;
+  padding:clamp(.62rem,1.15vh,.86rem) clamp(.48rem,.78vw,.66rem)!important;
+}
+.damaros-flow-steps .damaros-workflow-btn b{
+  font-size:clamp(.7rem,.86vw,.82rem)!important;
+  line-height:1.14!important;
+}
+.damaros-flow-steps .damaros-workflow-btn small{
+  margin-top:clamp(.28rem,.65vh,.42rem)!important;
+  font-size:clamp(.43rem,.53vw,.52rem)!important;
+  line-height:1.28!important;
+}
+.damaros-workflow-btn span{font-size:clamp(.42rem,.5vw,.49rem)!important}
+.damaros-detail{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  display:grid!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  padding:clamp(.84rem,1.45vh,1.08rem)!important;
+  overflow:hidden!important;
+}
+.damaros-detail-top{
+  height:auto!important;
+  min-height:clamp(142px,18vh,174px)!important;
+  max-height:none!important;
+  margin-bottom:clamp(.58rem,1.1vh,.78rem)!important;
+  padding-bottom:clamp(.58rem,1.1vh,.78rem)!important;
+}
+.damaros-detail h3{font-size:clamp(1.08rem,1.45vw,1.36rem)!important}
+.damaros-label{font-size:clamp(.49rem,.58vw,.58rem)!important}
+.damaros-detail p{
+  font-size:clamp(.74rem,.92vw,.86rem)!important;
+  line-height:1.55!important;
+}
+.damaros-detail-copy{padding-right:clamp(150px,12.5vw,190px)!important}
+.damaros-detail-badges{width:clamp(142px,12vw,178px)!important;gap:.3rem!important}
+.damaros-outcome{font-size:clamp(.39rem,.48vw,.48rem)!important;padding:.25rem .46rem!important}
+.damaros-detail-matrix{
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  gap:clamp(.58rem,1vw,.82rem)!important;
+}
+.damaros-metric{
+  min-height:0!important;
+  max-height:none!important;
+  padding:clamp(.72rem,1.25vh,.92rem)!important;
+  overflow:hidden!important;
+}
+.damaros-metric span{font-size:clamp(.46rem,.55vw,.55rem)!important;margin-bottom:clamp(.38rem,.7vh,.55rem)!important}
+.damaros-metric b{font-size:clamp(.74rem,.9vw,.86rem)!important;line-height:1.48!important}
+.damaros-metric ul{gap:clamp(.28rem,.5vh,.42rem)!important}
+.damaros-metric li{padding-left:.78rem!important}
+.damaros-bottom-bar{padding:clamp(.72rem,1.5vh,1.1rem) var(--home-safe-x)!important}
+
+@media(max-width:1500px) and (min-width:1121px){
+  :root{--wf-w:clamp(560px,42vw,620px);--wf-h:clamp(585px,72svh,650px);--wf-path-h:clamp(208px,24svh,224px);--home-gap:clamp(2rem,3.4vw,3.2rem)}
+  .damaros-home-stage{width:min(1420px,calc(100vw - (var(--home-safe-x) * 2)))!important;max-width:min(1420px,calc(100vw - (var(--home-safe-x) * 2)))!important}
+  .damaros-hero-logo{font-size:clamp(4rem,6vw,6.25rem)!important}
+}
+@media(max-height:850px) and (min-width:1121px){
+  :root{--wf-h:clamp(560px,72svh,615px);--wf-path-h:clamp(198px,24svh,214px)}
+  .damaros-detail-top{min-height:clamp(130px,17vh,150px)!important}
+  .damaros-metric b{font-size:clamp(.7rem,.86vw,.8rem)!important;line-height:1.43!important}
+  .damaros-metric ul{gap:.25rem!important}
+}
+@media(max-width:1120px){
+  body.damaros-home-lock{overflow-y:auto!important}
+  .damaros-home-stage{grid-template-columns:1fr!important;gap:2rem!important;width:min(760px,calc(100vw - 2rem))!important;max-width:min(760px,calc(100vw - 2rem))!important;align-items:start!important;padding-top:1rem!important}
+  .damaros-workflow-panel{width:100%!important;min-width:0!important;height:auto!important;min-height:auto!important;max-height:none!important;justify-self:center!important}
+  .damaros-workflow-body{height:auto!important;min-height:auto!important;max-height:none!important;display:flex!important;flex-direction:column!important}
+  .damaros-workflow-path{height:auto!important;min-height:auto!important;max-height:none!important}
+  .damaros-flow-steps{grid-template-columns:1fr!important}
+  .damaros-flow-steps .damaros-workflow-btn{min-height:76px!important}
+  .damaros-detail{height:auto!important;min-height:auto!important;max-height:none!important}
+  .damaros-detail-top{min-height:auto!important}
+  .damaros-detail-matrix{grid-template-columns:1fr!important}
+  .damaros-detail-copy{padding-right:0!important}
+  .damaros-detail-badges{position:relative!important;width:auto!important;justify-content:flex-start!important;margin-top:.7rem!important}
+}
+
 </style>
 
 <div class="damaros-site">
