@@ -431,6 +431,14 @@ body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradie
 .damaros-metric li{padding-left:.78rem!important}
 .damaros-bottom-bar{padding:clamp(.72rem,1.5vh,1.1rem) var(--home-safe-x)!important}
 
+@media(min-width:1121px){
+  .damaros-detail{gap:clamp(.55rem,1.35vh,1rem)!important}
+  .damaros-detail-top{
+    margin-bottom:clamp(.55rem,1.5vh,.92rem)!important;
+    padding-bottom:clamp(.52rem,1.35vh,.82rem)!important;
+  }
+}
+
 @media(max-width:1500px) and (min-width:1121px){
   :root{--wf-w:clamp(560px,42vw,620px);--wf-h:clamp(585px,72svh,650px);--wf-path-h:clamp(208px,24svh,224px);--home-gap:clamp(2rem,3.4vw,3.2rem)}
   .damaros-home-stage{width:min(1420px,calc(100vw - (var(--home-safe-x) * 2)))!important;max-width:min(1420px,calc(100vw - (var(--home-safe-x) * 2)))!important}
