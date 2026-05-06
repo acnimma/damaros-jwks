@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Damaros</title>
-<meta name="description" content="Damaros runs deterministic, replayable eligibility on Epic-native cohorts. Built for hospital trial teams. Verifiable for sponsors, IRB, and FDA.">
+<title>Damaros™</title>
+<meta name="description" content="Damaros™ runs deterministic, replayable eligibility on Epic-native cohorts. Built for hospital trial teams. Verifiable for sponsors, IRB, and FDA.">
 <link rel="canonical" href="https://www.damaros.ai/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Damaros">
+<meta property="og:site_name" content="Damaros™">
 <meta property="og:url" content="https://www.damaros.ai/">
-<meta property="og:title" content="Damaros — Deterministic, replayable clinical-trial eligibility">
-<meta property="og:description" content="Engineering Note 01: content-derived run IDs, idempotent replays, and criterion-level provenance. Why Damaros eligibility decisions are reproducible by construction.">
+<meta property="og:title" content="Damaros™ — Deterministic, replayable clinical-trial eligibility">
+<meta property="og:description" content="Engineering Note 01: content-derived run IDs, idempotent replays, and criterion-level provenance. Why Damaros™ eligibility decisions are reproducible by construction.">
 <meta property="og:image" content="https://www.damaros.ai/assets/damaros-white-on-black.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Damaros — Deterministic Replay">
+<meta name="twitter:title" content="Damaros™ — Deterministic Replay">
 <meta name="twitter:description" content="Content-derived run IDs, idempotent replays, criterion-level provenance for clinical-trial eligibility evaluation.">
 <meta name="twitter:image" content="https://www.damaros.ai/assets/damaros-white-on-black.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Deterministic Replay","alternativeHeadline":"Damaros Engineering Note 01","author":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai"},"publisher":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai","logo":{"@type":"ImageObject","url":"https://www.damaros.ai/assets/damaros-white-on-black.png"}},"datePublished":"2026-05-06","dateModified":"2026-05-06","version":"1.0","url":"https://www.damaros.ai/#engineering","mainEntityOfPage":"https://www.damaros.ai/#engineering","description":"Engineering note on deterministic, replayable clinical-trial eligibility evaluation: content-derived run identifiers, idempotent replay semantics, and criterion-level provenance.","keywords":"clinical trials, eligibility, deterministic replay, FHIR, Epic, audit, AMC, IRB, FDA, provenance, content-derived run identifiers","isAccessibleForFree":true,"inLanguage":"en","about":["Clinical trial eligibility","Deterministic evaluation","Replay and audit","FHIR","SMART on FHIR Backend Services"]}
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Deterministic Replay","alternativeHeadline":"Damaros™ Engineering Note 01","author":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai"},"publisher":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai","logo":{"@type":"ImageObject","url":"https://www.damaros.ai/assets/damaros-white-on-black.png"}},"datePublished":"2026-05-06","dateModified":"2026-05-06","version":"1.0","url":"https://www.damaros.ai/#engineering","mainEntityOfPage":"https://www.damaros.ai/#engineering","description":"Engineering note on deterministic, replayable clinical-trial eligibility evaluation: content-derived run identifiers, idempotent replay semantics, and criterion-level provenance.","keywords":"clinical trials, eligibility, deterministic replay, FHIR, Epic, audit, AMC, IRB, FDA, provenance, content-derived run identifiers","isAccessibleForFree":true,"inLanguage":"en","about":["Clinical trial eligibility","Deterministic evaluation","Replay and audit","FHIR","SMART on FHIR Backend Services"]}
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
@@ -520,7 +520,7 @@ body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradie
 <div class="damaros-monogram-bg"><div class="damaros-monogram-grid" id="damarosMonogramGrid"></div></div>
 <section class="damaros-home-stage">
   <main class="damaros-hero">
-    <div class="damaros-hero-logo">Damaros<span class="damaros-blink-dot"></span></div>
+    <div class="damaros-hero-logo">Damaros™<span class="damaros-blink-dot"></span></div>
     <div class="damaros-command-line"><span id="damarosTyped"></span><span class="damaros-cursor"></span></div>
     <div class="damaros-cta-row"><a href="mailto:anirudh@damaros.ai" class="damaros-cta-btn">Request a Demo <span>&rarr;</span></a></div>
   </main>
@@ -547,7 +547,7 @@ body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradie
     </div>
   </aside>
 </section>
-<div class="damaros-bottom-bar"><span id="damarosVisitorLocation" title="">…</span><span>© 2026 Damaros</span></div>
+<div class="damaros-bottom-bar"><span id="damarosVisitorLocation" title="">…</span><span>© 2026 Damaros™</span></div>
 </div>
 
 <div id="damaros-panel-docs" class="damaros-panel"><div class="damaros-docs-wrap">
@@ -817,7 +817,7 @@ spec:
 </div></div>
 
 <div id="damaros-panel-engineering" class="damaros-panel"><div class="damaros-docs-wrap">
-<div class="damaros-docs-eyebrow">Engineering Note 01 — Damaros Eligibility Engine</div><h1 class="damaros-docs-title">Deterministic Replay</h1>
+<div class="damaros-docs-eyebrow">Engineering Note 01 — Damaros™ Eligibility Engine</div><h1 class="damaros-docs-title">Deterministic Replay</h1>
 <p class="damaros-docs-subtitle">Why the Damaros eligibility engine produces the same answer to the same question, every time. A short technical note for hospital IT, AMC trial offices, sponsors, and reviewers. Pinned to engine semantics, not marketing copy; citable per §07.</p>
 
 <section class="damaros-docs-section" id="engineering-00"><div class="damaros-docs-section-label">00_PROBLEM_STATEMENT</div><h2 class="damaros-docs-section-heading">The audit gap in generative-only screening</h2><div class="damaros-docs-body">
@@ -879,12 +879,12 @@ spec:
 
 <section class="damaros-docs-section" id="engineering-07"><div class="damaros-docs-section-label">07_CITATION</div><h2 class="damaros-docs-section-heading">How to cite this note</h2><table class="damaros-kv-table">
 <tr><td>TITLE</td><td>Deterministic Replay</td></tr>
-<tr><td>SERIES</td><td>Damaros Engineering Note 01</td></tr>
+<tr><td>SERIES</td><td>Damaros™ Engineering Note 01</td></tr>
 <tr><td>AUTHOR</td><td>Damaros, LLC</td></tr>
 <tr><td>VERSION</td><td>1.0</td></tr>
 <tr><td>PUBLISHED</td><td>2026-05-06</td></tr>
 <tr><td>PERMALINK</td><td><a class="damaros-kv-link" href="https://www.damaros.ai/#engineering" target="_blank" rel="noopener">https://www.damaros.ai/#engineering</a></td></tr>
-<tr><td>SUGGESTED_CITATION</td><td>Damaros, LLC (2026). <em>Deterministic Replay.</em> Damaros Engineering Note 01, v1.0. Retrieved from <a class="damaros-kv-link" href="https://www.damaros.ai/#engineering">https://www.damaros.ai/#engineering</a></td></tr>
+<tr><td>SUGGESTED_CITATION</td><td>Damaros, LLC (2026). <em>Deterministic Replay.</em> Damaros™ Engineering Note 01, v1.0. Retrieved from <a class="damaros-kv-link" href="https://www.damaros.ai/#engineering">https://www.damaros.ai/#engineering</a></td></tr>
 <tr><td>RELATED</td><td><a class="damaros-kv-link" href="#docs">Production Integration Documentation</a> (Epic FHIR / SMART Backend Services, audit, write-back controls)</td></tr>
 </table><div class="damaros-callout"><strong>Versioning policy:</strong> this note describes pinned engine semantics. Substantive changes to the determinism guarantee, run-id construction, replay scope, or criterion-level provenance will be published as a new versioned note rather than overwritten in place. Older versions remain reachable for citation.</div></section>
 
