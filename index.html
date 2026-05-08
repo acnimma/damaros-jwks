@@ -1675,11 +1675,11 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
 </header>
 <div class="cockpit">
 <div class="workflow-map" aria-label="Workflow stages">
-<button type="button" class="step active stage-in" data-step="protocol" aria-label="Step 01 Protocol Ops"><span>01</span><b>Protocol Ops</b><small>lock the protocol as logic</small></button>
+<button type="button" class="step active stage-in" data-step="protocol" aria-label="Step 01 Protocol"><span>01</span><b>Protocol</b><small>lock the protocol as logic</small></button>
 <button type="button" class="step stage-in" data-step="population" aria-label="Step 02 Population"><span>02</span><b>Population</b><small>validate the cohort</small></button>
 <button type="button" class="step stage-in" data-step="screening" aria-label="Step 03 Screening"><span>03</span><b>Screening</b><small>decide and replay</small></button>
 <button type="button" class="step stage-in" data-step="forms" aria-label="Step 04 Forms"><span>04</span><b>Forms</b><small>fill site documents</small></button>
-<button type="button" class="step stage-in" data-step="audit" aria-label="Step 05 Evidence and Audit"><span>05</span><b>Evidence &amp; Audit</b><small>replay every decision</small></button>
+<button type="button" class="step stage-in" data-step="replay" aria-label="Step 05 Replay"><span>05</span><b>Replay</b><small>replay every decision</small></button>
 </div>
 <article class="detail-panel" aria-live="polite">
 <div class="detail-top">
@@ -2189,9 +2189,9 @@ curl -s https://www.damaros.ai/.well-known/jwks-nonprod.json | jq .</pre>
     "https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png";
     const workflow = {
     protocol: {
-      label: "01 / PROTOCOL OPS",
+      label: "01 / PROTOCOL",
       title: "The protocol, encoded as versioned execution logic",
-      text: "Protocol Ops compiles the study into a versioned, auditable execution substrate: criteria, amendments, and decision rules. Every downstream screen runs against one anchored protocol state, not a PDF or coordinator memory.",
+      text: "Protocol compiles the study into a versioned, auditable execution substrate: criteria, amendments, and decision rules. Every downstream screen runs against one anchored protocol state, not a PDF or coordinator memory.",
       does: [
         "Turns inclusion and exclusion criteria into structured, version-pinned rules.",
         "Tracks amendments back to the patients and decisions they change.",
@@ -2262,10 +2262,10 @@ curl -s https://www.damaros.ai/.well-known/jwks-nonprod.json | jq .</pre>
         ["blue", "STARTUP-READY"],
       ],
     },
-    audit: {
-      label: "05 / EVIDENCE & AUDIT",
+    replay: {
+      label: "05 / REPLAY",
       title: "A replay engine for every screening decision",
-      text: "Evidence & Audit captures the protocol version, cohort snapshot, evidence, and reviewer trail behind every decision. Any screen, any patient, any amendment reconstructs cold for IRB, sponsor, or FDA review.",
+      text: "Replay captures the protocol version, cohort snapshot, evidence, and reviewer trail behind every decision. Any screen, any patient, any amendment reconstructs cold for IRB, sponsor, or FDA review.",
       does: [
         "Preserves lineage behind every screening decision and correction.",
         "Replays decisions against historical protocol and cohort state.",
