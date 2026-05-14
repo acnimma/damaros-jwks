@@ -1167,6 +1167,11 @@ body.damaros-ignition-home-active.ig-return #damaros-panel-home.active .damaros-
   border-color: rgba(45, 212, 191, 0.26);
   background: rgba(45, 212, 191, 0.052);
 }
+#damaros-panel-home.active .damaros-ignition .badge.steel {
+  color: #cbd5e1;
+  border-color: rgba(148, 163, 184, 0.28);
+  background: rgba(148, 163, 184, 0.07);
+}
 #damaros-panel-home.active .damaros-ignition .matrix {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1702,15 +1707,29 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
 <section class="workspace" id="workspace" aria-label="Damaros workspace: Protocol, Population, Screening, Forms, Replay">
 <header class="workspace-head">
 <button type="button" class="workspace-logo" id="workspaceLogo" aria-label="Return to Damaros homepage"><span class="workspace-logo-wordmark">Damaros</span><span class="workspace-logo-dot" id="workspaceLogoDot" aria-hidden="true"></span></button>
-<p class="workspace-tagline">clinical trial execution, simplified</p>
+<p class="workspace-tagline">hospital-side execution substrate for clinical trials</p>
 </header>
 <div class="cockpit">
 <div class="workflow-map" aria-label="Protocol, Population, Screening, Forms, Replay">
-<button type="button" class="step active stage-in" data-step="protocol" aria-label="Step 01 Protocol"><span>01</span><b>Protocol</b><small>versioned trial logic</small></button>
-<button type="button" class="step stage-in" data-step="population" aria-label="Step 02 Population"><span>02</span><b>Population</b><small>validated patient set</small></button>
-<button type="button" class="step stage-in" data-step="screening" aria-label="Step 03 Screening"><span>03</span><b>Screening</b><small>PASS / REVIEW / FAIL</small></button>
-<button type="button" class="step stage-in" data-step="forms" aria-label="Step 04 Forms"><span>04</span><b>Forms</b><small>site-ready outputs</small></button>
-<button type="button" class="step stage-in" data-step="replay" aria-label="Step 05 Replay"><span>05</span><b>Replay</b><small>reconstruct every decision</small></button>
+<button type="button" class="step active stage-in" data-step="protocol" aria-label="Step 01 Protocol">
+  <span>01</span><b>Protocol</b><small>executable trial logic</small>
+</button>
+
+<button type="button" class="step stage-in" data-step="population" aria-label="Step 02 Population">
+  <span>02</span><b>Population</b><small>governed evidence</small>
+</button>
+
+<button type="button" class="step stage-in" data-step="screening" aria-label="Step 03 Screening">
+  <span>03</span><b>Screening</b><small>criterion adjudication</small>
+</button>
+
+<button type="button" class="step stage-in" data-step="forms" aria-label="Step 04 Forms">
+  <span>04</span><b>Forms</b><small>operational packets</small>
+</button>
+
+<button type="button" class="step stage-in" data-step="replay" aria-label="Step 05 Replay">
+  <span>05</span><b>Replay</b><small>institutional memory</small>
+</button>
 </div>
 <article class="detail-panel" aria-live="polite">
 <div class="detail-top">
@@ -2396,99 +2415,117 @@ spec:
   const MONOGRAM_SRC =
     "https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png";
     const workflow = {
-    protocol: {
-      label: "01 / PROTOCOL",
-      title: "Protocols become canonical execution state",
-      text: "Damaros converts CT.gov records and protocol documents into version-pinned operational logic through Trident, then anchors every downstream action to a locked protocol state. Screening, replay, amendments, coordinator workflows, and audit all execute against the same canonical execution substrate instead of fragmented PDFs, spreadsheets, and institutional memory.",
-      highlights: [
-        "Structured inclusion and exclusion logic pinned to immutable protocol versions.",
-        "Amendment propagation linked directly to impacted patients, criteria, workflows, and historical decisions.",
-        "One protocol authority across screening, replay, forms, and multi-site execution.",
-      ],
-      outcomes: [
-        "Protocol drift becomes operationally visible instead of silently accumulating across sites and coordinators.",
-        "Execution remains reproducible because every downstream state resolves back to the same anchored protocol lineage.",
-      ],
-      badges: [
-        ["gold", "CANONICAL"],
-        ["violet", "VERSION-LOCKED"],
-      ],
-    },
-    population: {
-      label: "02 / POPULATION",
-      title: "Patient populations become defensible evidence state",
-      text: "The population layer ingests approved FHIR cohorts and institutional datasets, normalizes fragmented evidence, reconciles conflicting facts, and materializes a protocol-scoped evidence state with preserved provenance. Every downstream screening decision inherits a reproducible population snapshot instead of transient extracts or analyst-defined cohorts.",
-      highlights: [
-        "Normalized evidence across labs, biomarkers, diagnoses, medications, therapies, and FHIR resources.",
-        "Missing evidence, conflicting facts, mapping overrides, and ingest degradation surfaced before execution.",
-        "Reproducible population snapshots anchored to upstream source lineage.",
-      ],
-      outcomes: [
-        "Most institutional screening failure originates in evidence inconsistency, not protocol logic.",
-        "Source-resolved evidence layers preserve defensibility while recovering candidates routine workflows miss.",
-      ],
-      badges: [
-        ["blue", "SOURCE-RESOLVED"],
-        ["green", "DEFENSIBLE"],
-      ],
-    },
-    screening: {
-      label: "03 / SCREENING",
-      title: "Eligibility becomes deterministic execution",
-      text: "Damaros executes locked protocol logic against anchored population evidence and returns criterion-level PASS, REVIEW, or FAIL outcomes with reproducible provenance. Trident expands deterministic oncology coverage through source-cited semantics; uncertainty stays bounded in REVIEW and no LLM runs on the patient-eligibility path.",
-      highlights: [
-        "Identical protocol state and evidence produce identical outcomes.",
-        "Criterion-level adjudication with evidence lineage and source attribution.",
-        "State transitions show exactly what changed when evidence refreshes or amendments propagate.",
-      ],
-      outcomes: [
-        "Execution variability collapses across coordinators, sites, and repeated screening cycles.",
-        "Every PASS, REVIEW, and FAIL remains reconstructable as operational evidence rather than opaque software output.",
-      ],
-      badges: [
-        ["pass", "PASS"],
-        ["review", "REVIEW"],
-        ["fail", "FAIL"],
-        ["violet", "DELTA MODE"],
-      ],
-    },
-    forms: {
-      label: "04 / FORMS",
-      title: "Operational workflows materialize from execution state",
-      text: "The forms layer transforms validated protocol, screening, and operational evidence into coordinator-ready execution workflows: startup packets, eligibility workflows, schedule-of-activities artifacts, source templates, consent operations, deviation tracking, and activation infrastructure. Human review boundaries remain explicit wherever operational ambiguity exists.",
-      highlights: [
-        "Coordinator artifacts generated from validated operational state and source-linked evidence.",
-        "Unresolved or ambiguous fields escalate for human review before release.",
-        "Protocol operationalization compressed into reproducible site-ready workflows.",
-      ],
-      outcomes: [
-        "Coordinator effort shifts away from repetitive reconstruction and back toward clinical judgment and patient operations.",
-        "Forms intelligence remains bounded to non-PHI operational and protocol surfaces outside deterministic eligibility execution.",
-      ],
-      badges: [
-        ["amber", "HUMAN-REVIEW"],
-        ["blue", "SITE-READY"],
-      ],
-    },
-    replay: {
-      label: "05 / REPLAY",
-      title: "Execution becomes replayable institutional proof",
-      text: "Replay preserves the full causal chain behind trial execution: protocol state, population evidence, screening outcomes, coordinator corrections, lineage mutations, and operational transitions. The same replay substrate produces portable proof packets for audit, sponsor diligence, validation studies, IRB inspection, and institutional review without introducing parallel reporting systems.",
-      highlights: [
-        "Full lineage preservation across screening decisions, evidence mutations, overrides, amendments, and coordinator actions.",
-        "Historical replay against exact protocol, population, and operational state boundaries.",
-        "Portable proof generation directly from canonical replay events and deterministic provenance.",
-      ],
-      outcomes: [
-        "Institutional trust depends on causal reconstruction, not static audit retention.",
-        "Sponsors, regulators, and sites review the same underlying execution truth instead of fragmented reporting layers.",
-      ],
-      badges: [
-        ["violet", "REPLAYABLE"],
-        ["teal", "CAUSAL LINEAGE"],
-      ],
-    },
-  };
+      protocol: {
+        label: "01 / PROTOCOL",
+        title: "Can Damaros make the study executable?",
+        text: "Protocol is the ontology layer for trial execution. Damaros Trident converts eligibility language, amendments, arms, windows, exceptions, schedules, and operational dependencies into versioned executable logic before patient evidence or coordinator packets enter the system. Ambiguity is preserved for review; downstream Screening, Forms, and Replay inherit the same locked protocol state.",
+        highlights: [
+          "Trident normalizes inclusion, exclusion, arms, windows, exceptions, amendments, and operational dependencies into an inspectable criterion structure.",
+          "Versioned protocol logic becomes the execution authority for Screening decisions, Forms packets, and Replay reconstruction.",
+          "Ambiguous, investigator-discretion, or operationally underspecified criteria surface as reviewable protocol objects rather than hidden assumptions.",
+        ],
+        outcomes: [
+          "The study becomes a governed execution object, not a static PDF.",
+          "Protocol interpretation can be inspected before patient evidence is evaluated.",
+          "Downstream outputs inherit the same versioned logic, amendment context, and criterion lineage.",
+        ],
+        badges: [
+          ["TRIDENT", "blue"],
+          ["EXECUTABLE LOGIC", "violet"],
+          ["VERSIONED", "green"],
+          ["AMBIGUITY SURFACED", "amber"],
+        ],
+      },
+
+      population: {
+        label: "02 / POPULATION",
+        title: "Can Damaros work from governed site evidence?",
+        text: "Population is the evidence normalization layer. Damaros begins from the data pathway the institution can govern first: retrospective extracts, CSV, Excel, REDCap exports, JSON, NDJSON, FHIR Bundle, Bulk FHIR-shaped exports, or warehouse flat files. Patient facts are normalized into a deterministic evidence contract while missing, conflicting, stale, or unmapped evidence remains visible instead of being coerced into certainty.",
+        highlights: [
+          "Supports retrospective validation from governed file-based extracts before any live EHR integration is required.",
+          "Normalizes labs, diagnosis, staging, ECOG, biomarkers, prior therapy, medications, measurable disease, dates, and source pointers into a trial-scoped evidence contract.",
+          "Preserves missingness, conflicts, stale evidence, unit issues, and mapping gaps as explicit review states.",
+        ],
+        outcomes: [
+          "The first validation can run against site reality without becoming an Epic implementation project.",
+          "Informatics teams can inspect what mapped, what did not, and what evidence the protocol requires.",
+          "Screening receives governed evidence, not raw source-system ambiguity.",
+        ],
+        badges: [
+          ["RETROSPECTIVE FIRST", "green"],
+          ["EVIDENCE CONTRACT", "blue"],
+          ["SITE-REALISTIC INPUTS", "steel"],
+          ["MISSINGNESS PRESERVED", "amber"],
+        ],
+      },
+
+      screening: {
+        label: "03 / SCREENING",
+        title: "Can Damaros adjudicate criteria with evidence?",
+        text: "Screening is deterministic adjudication against the protocol state and evidence contract. Damaros evaluates each patient against each criterion and returns PASS, REVIEW, or FAIL with source-linked reasoning. Eligibility is not delegated to a black-box model; no generative AI decides patient eligibility on the PHI path. Every result is built for retrospective comparison, discrepancy review, and Replay.",
+        highlights: [
+          "Executes patient × criterion adjudication against locked protocol logic and normalized evidence.",
+          "Returns PASS, REVIEW, or FAIL with evidence references, rationale, and source context.",
+          "Routes insufficient, stale, conflicting, ambiguous, or unmapped evidence to REVIEW rather than false certainty.",
+        ],
+        outcomes: [
+          "Validation can measure criterion-level agreement against coordinator or PI adjudication.",
+          "False-PASS, false-FAIL, REVIEW rate, evidence completeness, and disagreement drivers become reportable metrics.",
+          "Coordinators receive defensible triage, not autonomous enrollment decisions.",
+        ],
+        badges: [
+          ["DETERMINISTIC", "green"],
+          ["PASS / REVIEW / FAIL", "blue"],
+          ["EVIDENCE-LINKED", "violet"],
+          ["NO BLACK-BOX ELIGIBILITY", "steel"],
+        ],
+      },
+
+      forms: {
+        label: "04 / FORMS",
+        title: "Can Damaros operationalize the study for coordinators?",
+        text: "Forms is governed operational packet infrastructure. Damaros converts protocol and sponsor materials into canonical startup packets with source-linked artifacts, provenance, correction lineage, readiness blockers, packet diffs, controlled regeneration, institutional exports, manifests, and appendices. AI assists extraction from non-patient study materials, but the packet remains governed, reviewable, and exportable through institutional controls.",
+        highlights: [
+          "Builds canonical operational packet aggregates from protocols, sponsor packets, schedules of activities, lab manuals, consent materials, and study documents.",
+          "Produces source-linked startup artifacts: study summaries, visit checklists, SoA tables, source guidance, calendars, sample worksheets, and nursing, pharmacy, and lab handoffs.",
+          "Maintains provenance, degraded provenance semantics, correction ledger, packet diff summaries, readiness blockers, controlled regeneration, and append-only operational lineage.",
+        ],
+        outcomes: [
+          "Coordinators start from governed operational infrastructure instead of rebuilding study materials from raw PDFs.",
+          "Trial offices can review, correct, regenerate, export, and defend packet state across activation and startup workflows.",
+          "Forms validation can compare Damaros packets against coordinator-built materials for completeness, usefulness, error rate, review burden, and time saved.",
+        ],
+        badges: [
+          ["OPERATIONAL PACKETS", "blue"],
+          ["SOURCE-LINKED", "green"],
+          ["CORRECTION LEDGER", "amber"],
+          ["EXPORT MANIFESTS", "violet"],
+          ["NO AUTO-SUBMIT", "steel"],
+        ],
+      },
+
+      replay: {
+        label: "05 / REPLAY",
+        title: "Can the institution reconstruct what happened?",
+        text: "Replay is institutional memory for trial execution. Damaros preserves the protocol version, population snapshot, evidence contract, criterion logic, packet state, correction history, operator activity, and run lineage behind Screening and Forms outputs. Decisions and operational artifacts can be reconstructed later for QA, PI review, sponsor questions, IRB conversations, discrepancy analysis, and internal audit.",
+        highlights: [
+          "Reconstructs Screening outcomes from protocol state, evidence snapshot, evaluation timestamp, criterion logic, and audit lineage.",
+          "Reconstructs Forms packet evolution from source materials, provenance state, correction ledger, regeneration events, blockers, diffs, exports, and manifests.",
+          "Separates engine behavior, source evidence, mapping gaps, human corrections, and institutional review activity.",
+        ],
+        outcomes: [
+          "A site can inspect why a patient or criterion was marked PASS, REVIEW, or FAIL months later.",
+          "A coordinator packet can be traced back to its source evidence, correction history, export state, and readiness blockers.",
+          "Discrepancies become reviewable institutional records instead of lost Slack messages, spreadsheet edits, or undocumented judgment calls.",
+        ],
+        badges: [
+          ["INSTITUTIONAL MEMORY", "blue"],
+          ["RECONSTRUCTABLE", "green"],
+          ["LINEAGE", "violet"],
+          ["AUDIT READY", "steel"],
+        ],
+      },
+    };
 
   const dot = document.getElementById("ignitionDot");
   const workspaceLogo = document.getElementById("workspaceLogo");
@@ -2563,7 +2600,7 @@ spec:
     return "<ul>" + items.map((item) => "<li>" + item + "</li>").join("") + "</ul>";
   }
   function renderBadges(items) {
-    return items.map(([kind, label]) => '<span class="badge ' + kind + '">' + label + "</span>").join("");
+    return items.map(([label, kind]) => '<span class="badge ' + kind + '">' + label + "</span>").join("");
   }
 
   function setWorkflow(key) {
