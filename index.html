@@ -1030,20 +1030,21 @@ body.damaros-ignition-home-active.ig-return #damaros-panel-home.active .damaros-
   gap: 0.85rem;
   height: auto;
   min-height: min(460px, calc(100svh - var(--tab) - 9.2rem));
-  align-items: start;
+  align-items: stretch;
 }
 #damaros-panel-home.active .damaros-ignition .workflow-map {
   border: 1px solid rgba(123, 150, 178, 0.18);
   background: linear-gradient(180deg, rgba(7, 10, 14, 0.74), rgba(0, 0, 0, 0.54));
   box-shadow: 0 0 50px rgba(123, 150, 178, 0.032), inset 0 0 0 1px rgba(255, 255, 255, 0.012);
   overflow: hidden;
-  height: auto;
-  align-self: start;
+  height: 100%;
+  min-height: 0;
+  align-self: stretch;
   padding: 0.55rem;
   display: grid;
-  grid-template-rows: repeat(6, 3.95rem);
+  grid-template-rows: repeat(6, minmax(3.05rem, 1fr));
   gap: 0.42rem;
-  align-content: start;
+  align-content: stretch;
   box-sizing: border-box;
 }
 #damaros-panel-home.active .damaros-ignition .step {
@@ -1095,6 +1096,7 @@ body.damaros-ignition-home-active.ig-return #damaros-panel-home.active .damaros-
   align-content: start;
   gap: 1.72rem;
   min-height: 0;
+  height: auto;
   align-self: start;
 }
 #damaros-panel-home.active .damaros-ignition .detail-top,
@@ -1730,7 +1732,7 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
   #damaros-panel-home.active .damaros-ignition .workflow-map {
     gap: 0.28rem;
     padding: 0.4rem;
-    grid-template-rows: repeat(6, 3.65rem);
+    grid-template-rows: repeat(6, minmax(2.65rem, 1fr));
   }
   #damaros-panel-home.active .damaros-ignition .step {
     padding: 0.34rem 0.5rem;
