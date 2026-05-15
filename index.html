@@ -2420,7 +2420,7 @@ spec:
           The validation packet includes protocol identity, cohort manifest, deterministic screening outputs, historical adjudication comparison, criterion-level agreement, false PASS / false FAIL analysis, REVIEW drivers, evidence completeness, unresolved ambiguity, limitations, and a Replay packet.
         </p>
         <p>A cancer center can evaluate Damaros now, safely, against its own closed protocols and own adjudication records—without live Epic FHIR access, production EHR integration, real-time feeds, or identified data in most cases.</p>
-        <p><strong>Current limitation:</strong> retrospective validation currently uses a fixture screening adapter rather than full production <code>run_screening</code> until that next tranche lands.</p>
+        <p><strong>Current limitation:</strong> retrospective validation is currently scoped to closed-protocol validation packets and does not represent production EHR deployment or live-trial operation.</p>
       </div>
     </section>
 
@@ -2475,7 +2475,7 @@ spec:
     <section class="damaros-docs-section" id="val-09">
       <div class="damaros-docs-section-label">09_WHAT_THIS_DOES_NOT_CLAIM</div>
       <h2 class="damaros-docs-section-heading">What this does not claim.</h2>
-      <div class="damaros-docs-body"><p>Not clinical validation as a regulated label; not FDA validation; not autonomous enrollment; not sponsor endorsement; not production EHR readiness from the retrospective package alone. Retrospective screening linkage in the current package uses a fixture adapter pending full production <code>run_screening</code> integration.</p></div>
+      <div class="damaros-docs-body"><p>Not clinical validation as a regulated label; not FDA validation; not autonomous enrollment; not sponsor endorsement; not production EHR readiness from the retrospective package alone. Retrospective validation in this package remains scoped to closed-protocol validation packets and does not represent production EHR deployment or live-trial operation.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-10">
