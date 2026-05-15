@@ -7,7 +7,7 @@
 <link rel="icon" href="/assets/damaros-favicon.png" type="image/png" sizes="32x32">
 <link rel="shortcut icon" href="/assets/damaros-favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/assets/damaros-favicon.png">
-<meta name="description" content="Damaros™ is hospital-side AI-native execution infrastructure for oncology trials: Protocol Brain through Trident, Population, Screening, governed Forms, correction memory, validation runs, and Replay. Deterministic screening, evidence lineage, operator workstate, and audit reconstruction.">
+<meta name="description" content="Damaros™ is hospital-side infrastructure for clinical trial execution: Protocol Brain through Trident, deterministic screening, governed Forms, retrospective validation, and Replay.">
 <link rel="canonical" href="https://www.damaros.ai/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Damaros™">
@@ -1787,7 +1787,7 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
     <div class="damaros-tab-links">
       <button class="damaros-tab-btn active" data-panel="home">HOME</button>
       <button class="damaros-tab-btn" data-panel="trust">TRUST</button>
-      <button class="damaros-tab-btn" data-panel="validation">PHASE 0</button>
+      <button class="damaros-tab-btn" data-panel="validation">VALIDATION</button>
       <button class="damaros-tab-btn" data-panel="docs">FHIR</button>
       <button class="damaros-tab-btn" data-panel="engineering">NOTES</button>
     </div>
@@ -1856,14 +1856,14 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
 
 <div id="damaros-panel-docs" class="damaros-panel"><div class="damaros-docs-wrap">
 <div class="damaros-docs-eyebrow">Epic / FHIR</div><h1 class="damaros-docs-title">Production integration reference</h1>
-<p class="damaros-docs-subtitle">Submission-facing technical reference, grounded in the open-source Damaros product tree (<code>connectors/epic_fhir.py</code>, <code>connectors/fhir_bulk.py</code>, <code>ingest/fhir_normalize.py</code>, <code>ingest/cohort_sync.py</code>). SMART on FHIR <strong>Backend Services</strong> (server-to-server) feeds <strong>population</strong> ingest (FHIR Group cohorts) and deterministic <strong>screening</strong>, with <strong>forms</strong> and <strong>replay</strong> on the same product path; JWKS, scope parity, bulk posture, and audit hooks as implemented, not aspirational marketing copy.</p>
+<p class="damaros-docs-subtitle">Damaros supports retrospective validation without Epic integration. When a site elects production integration, Damaros uses SMART on FHIR <strong>Backend Services</strong> (server-to-server), read-only scopes, bounded cohort sync, deterministic <strong>screening</strong>, and Replay-ready audit lineage.</p>
 <div class="damaros-docs-body damaros-docs-lead">
 <p><strong>Epic FHIR is a production integration track, not a prerequisite for retrospective validation.</strong></p>
 <p>Damaros supports file-based retrospective validation first. When a site elects production integration, the Epic/FHIR path uses SMART Backend Services, read-only access, bounded population sync, and protocol-scoped normalization.</p>
 </div>
 
 <section class="damaros-docs-section" id="docs-00"><div class="damaros-docs-section-label">00_SUBMISSION_NARRATIVE</div><h2 class="damaros-docs-section-heading">Epic classification: registry, cohort, and research execution. Not ad hoc analytics.</h2><div class="damaros-docs-body">
-<p>Damaros is a <strong>clinical-trial execution system</strong> ordered as <strong>protocol</strong> → <strong>population</strong> → <strong>screening</strong> → <strong>forms</strong> → <strong>replay</strong>: versioned trial logic, site-approved patient <strong>population</strong> on FHIR, deterministic <strong>screening</strong> verdicts, <strong>forms</strong> outputs, and <strong>replay</strong> for audit — using <strong>site-approved FHIR access patterns</strong>. This matches Epic’s mental model for registry, population health, and research cohort tooling (scheduled, system-level, auditable access), not discretionary per-user chart mining or external SaaS analytics.</p>
+<p>Damaros is a clinical-trial execution system for approved cohorts. It uses site-approved FHIR access to bind protocol logic to a defined patient population, evaluate eligibility deterministically, and preserve criterion-level evidence and Replay artifacts for audit. Correction history and validation packets remain on the same audit path.</p>
 <p><strong>population-level evaluation is required</strong> because inclusion and exclusion logic must be applied <strong>consistently across every potentially eligible patient</strong> attached to an approved cohort, not triggered ad hoc one patient at a time. That is why <strong>Bulk FHIR <code>$export</code></strong> sits in the architecture as an <strong>optional, site-gated</strong> complement to iterative REST reads: it aligns with Epic's <strong>population-level access model</strong> (read-only, explicitly enabled, bounded jobs), not continuous streaming or open-ended replication.</p>
 <p><strong>System identity (deterministic core):</strong> a <strong>deterministic eligibility evaluation engine</strong> operating on FHIR-native inputs with <strong>full audit traceability</strong>. <strong>protocol</strong> definitions supply versioned logic; <strong>REST and optional Bulk</strong> supply normalized facts; the <strong>engine</strong> executes the same rules on the same inputs for the same outcome class (PASS / REVIEW / FAIL); <strong>outputs</strong> are criterion-level decisions plus evidence and sync provenance, with no generative verdict on the <strong>screening</strong> path.</p>
 <p><strong>Reproducibility (non-stochastic on PHI):</strong> eligibility evaluation is <strong>deterministic and reproducible</strong>. Given the same protocol version and the same normalized inputs, the system produces <strong>identical criterion-level outcomes</strong>, and <strong>replay</strong> can reproduce them for audit with full provenance. There is <strong>no</strong> stochastic "AI" behavior on patient-identifiable clinical data in the <strong>screening</strong> execution path.</p>
@@ -2125,12 +2125,12 @@ spec:
 </div></div>
 
 <div id="damaros-panel-engineering" class="damaros-panel"><div class="damaros-docs-wrap">
-<div class="damaros-docs-eyebrow">Engineering Note 01 — Damaros™ Eligibility Engine</div><h1 class="damaros-docs-title">Deterministic replay</h1>
+<div class="damaros-docs-eyebrow">Engineering Note 01 - Damaros™ Eligibility Engine</div><h1 class="damaros-docs-title">Deterministic replay</h1>
 <p class="damaros-docs-subtitle">Why the Damaros eligibility engine produces the same answer to the same question, every time, across <strong>protocol</strong>, <strong>population</strong>, <strong>screening</strong>, <strong>forms</strong>, and <strong>replay</strong>. A short technical note for hospital IT, AMC trial offices, sponsors, and reviewers. Pinned to engine semantics, not marketing copy; citable per §07.</p>
-<div class="damaros-callout"><strong>Engineering Note 01 — invariant behind Screening and Replay:</strong> fixed protocol version, fixed population snapshot, fixed evidence snapshot, fixed evaluation timestamp, same criterion-level outcome.</div>
+<div class="damaros-callout"><strong>Engineering Note 01 - invariant behind Screening and Replay:</strong> fixed protocol version, fixed population snapshot, fixed evidence snapshot, fixed evaluation timestamp, same criterion-level outcome.</div>
 
 <section class="damaros-docs-section" id="engineering-00"><div class="damaros-docs-section-label">00_PROBLEM_STATEMENT</div><h2 class="damaros-docs-section-heading">The audit gap in generative-only screening</h2><div class="damaros-docs-body">
-<p>Two questions decide whether a clinical-trial eligibility decision survives audit. <strong>(1)</strong> Run the same <strong>screening</strong> again — do you get the same answer? <strong>(2)</strong> Show the specific evidence behind PASS / REVIEW / FAIL.</p>
+<p>Two questions decide whether a clinical-trial eligibility decision survives audit. <strong>(1)</strong> Run the same <strong>screening</strong> again, do you get the same answer? <strong>(2)</strong> Show the specific evidence behind PASS / REVIEW / FAIL.</p>
 <p>Stacks that put a generative model on the patient-<strong>screening</strong> hot path do not answer either question by construction. Stochastic decoding produces output variance even with identical inputs; a free-text rationale is not the same as a pointer to a FHIR <code>Observation</code> with a normalized fact. Pinning a model to greedy decoding does not make the rationale traceable; it just makes the variance smaller.</p>
 <p>That gap is not cosmetic. It is the difference between a <strong>screening</strong> decision a coordinator can sign off on, and one a sponsor or IRB pulls at audit because it cannot be reconstructed.</p>
 </div></section>
@@ -2149,7 +2149,7 @@ spec:
 <section class="damaros-docs-section" id="engineering-02"><div class="damaros-docs-section-label">02_RUN_IDS</div><h2 class="damaros-docs-section-heading">Content-derived run identifiers</h2><div class="damaros-docs-body">
 <p>A <strong>screening</strong> run identifier is not an opaque random UUID minted at execution start. It is a <strong>content-addressable identifier</strong> derived from the canonical fingerprint of the four pinned inputs above. Two evaluations with identical inputs collapse to the <strong>same</strong> run.</p>
 <p>The practical consequence: if nothing has moved, "run <strong>screening</strong> on this <strong>population</strong> again" is a record lookup, not a re-execution. The hospital does not pay an Epic API tax to reproduce a decision the coordinator already saw, and the audit trail does not accumulate spurious near-duplicate runs that have to be diffed later.</p>
-<p>If <em>any</em> pinned input moves — a <strong>protocol</strong> amendment lands, a <strong>population</strong> refresh promotes new patients, a lab result normalizes, the evaluation timestamp advances — the run identifier changes. Old runs remain immutable; the new run is a separately addressable record. There is no in-place mutation of a prior decision, even when the underlying facts have evolved.</p>
+<p>If <em>any</em> pinned input moves, a <strong>protocol</strong> amendment lands, a <strong>population</strong> refresh promotes new patients, a lab result normalizes, the evaluation timestamp advances, the run identifier changes. Old runs remain immutable; the new run is a separately addressable record. There is no in-place mutation of a prior decision, even when the underlying facts have evolved.</p>
 </div><div class="damaros-callout"><strong>Why content-derivation, not a UUID:</strong> a UUID lets the system <em>name</em> a run; a content-derived id lets the system <em>recognize</em> a run. Recognition is what makes idempotent <strong>replay</strong> possible without a reconciliation layer that itself has to be audited.</div></section>
 
 <section class="damaros-docs-section" id="engineering-03"><div class="damaros-docs-section-label">03_REPLAY_SEMANTICS</div><h2 class="damaros-docs-section-heading">Idempotent replay</h2><div class="damaros-docs-body">
@@ -2174,13 +2174,13 @@ spec:
 
 <section class="damaros-docs-section" id="engineering-05"><div class="damaros-docs-section-label">05_AMC_TRUST</div><h2 class="damaros-docs-section-heading">Why AMCs, IRBs, and audit reconstruction require this</h2><div class="damaros-docs-body">
 <p>"replayability" is the operational form of the long-standing FDA expectation that decisions affecting clinical-trial conduct be reconstructable. Academic medical centers translate this to a concrete question at audit: <em>"With the <strong>protocol</strong> that was in force on the screen date, against the <strong>population</strong> and evidence as they stood, do we get the same set of eligible patients?"</em></p>
-<p>A deterministic engine answers this in O(1) on stored runs. A generative engine cannot, because identical inputs are not guaranteed to map to identical outputs — that is a property of how generative decoding works, not a tunable.</p>
+<p>A deterministic engine answers this in O(1) on stored runs. A generative engine cannot, because identical inputs are not guaranteed to map to identical outputs, that is a property of how generative decoding works, not a tunable.</p>
 <p>For hospital IT the question is narrower and harder: <em>"Can we produce, at audit, a bit-identical reconstruction of the decision the coordinator acted on?"</em> Damaros answers <strong>yes by construction</strong>. The engine semantics in §01–§04 are the property; the rest of the integration documentation is the implementation.</p>
 </div><div class="damaros-callout"><strong>What this is not:</strong> a marketing claim about "explainable AI." There is no AI verdict on the <strong>screening</strong> hot path to explain. Determinism here is a structural absence of stochastic decision-making on PHI, not a post-hoc gloss on a generative output.</div></section>
 
 <section class="damaros-docs-section" id="engineering-06"><div class="damaros-docs-section-label">06_DIFFERENTIATION</div><h2 class="damaros-docs-section-heading">Why a generative-only stack cannot retrofit determinism</h2><div class="damaros-docs-body">
 <p>Determinism is an architectural property. It has to be enforced from the <strong>protocol</strong>-compile step through normalization to evaluation, and it has to hold for <em>every</em> patient × criterion pair, not just the ones a reviewer happens to spot-check.</p>
-<p>A generative model on the <strong>screening</strong> hot path has two doors. <strong>(a)</strong> Tolerate output variance — <strong>replay</strong> is best-effort, the audit gap above stands, and the model is one upstream change away from re-deciding <strong>screening</strong> runs that have already been signed. <strong>(b)</strong> Pin the model to deterministic decoding plus a templated formatter — at which point the "rationale" is no longer the model's reasoning; it is a deterministic transform of structured inputs. Damaros built the deterministic transform natively, without the model on the hot path.</p>
+<p>A generative model on the <strong>screening</strong> hot path has two doors. <strong>(a)</strong> Tolerate output variance, <strong>replay</strong> is best-effort, the audit gap above stands, and the model is one upstream change away from re-deciding <strong>screening</strong> runs that have already been signed. <strong>(b)</strong> Pin the model to deterministic decoding plus a templated formatter, at which point the "rationale" is no longer the model's reasoning; it is a deterministic transform of structured inputs. Damaros built the deterministic transform natively, without the model on the hot path.</p>
 <p>Damaros uses generative assistance only <em>outside</em> the <strong>screening</strong> execution path, on non-PHI <strong>protocol</strong> or synopsis text, behind deployment flags and pattern guards (see <a class="damaros-kv-link" href="#docs-04">Epic / FHIR §04</a>). The <strong>screening</strong> verdict is deterministic; the optional <strong>protocol</strong>-comprehension layer is clearly separated and never carries patient identifiers.</p>
 </div></section>
 
@@ -2205,7 +2205,7 @@ spec:
   <div class="damaros-docs-wrap" id="trust" style="scroll-margin-top:calc(var(--tab) + 12px)">
 
     <div class="damaros-docs-eyebrow">Trust</div>
-    <h1 class="damaros-docs-title">Diligence posture and explicit non-claims.</h1>
+    <h1 class="damaros-docs-title">Trust, validation, and non-claims.</h1>
     <p class="damaros-docs-subtitle">
       Trust is published as artifacts: retrospective validation first, synthetic substrate proofs, NIST CSF 2.0 and HIPAA SRA self-assessments,
       and Epic/FHIR integration boundaries. The public surface states what is proven, what is not claimed, and what remains covered-entity responsibility.
@@ -2363,11 +2363,11 @@ spec:
 
 <div id="damaros-panel-validation" class="damaros-panel">
   <div class="damaros-docs-wrap">
-    <div class="damaros-docs-eyebrow">Phase 0 playbook</div>
+    <div class="damaros-docs-eyebrow">Validation playbook</div>
     <h1 class="damaros-docs-title">Retrospective validation pathway.</h1>
     <p class="damaros-docs-subtitle">
       This page is the operational companion to the retrospective validation package: what the site supplies, what Damaros runs, what returns in the screening run and Replay packet,
-      and what remains explicitly out of scope until institutional agreements and production controls are in place. Epic/FHIR integration is documented under <a class="damaros-kv-link" href="#docs">Epic / FHIR</a>; it is not required for Phase 0.
+      and what remains explicitly out of scope until institutional agreements and production controls are in place. Epic/FHIR integration is documented under <a class="damaros-kv-link" href="#docs">Epic / FHIR</a>; it is not required for retrospective validation.
     </p>
 
     <section class="damaros-docs-section" id="val-00">
@@ -2375,7 +2375,7 @@ spec:
       <h2 class="damaros-docs-section-heading">End-to-end motion.</h2>
       <div class="damaros-docs-body">
         <p>Protocol source → deterministic criterion tree → site extract → controlled ontology normalization → deterministic screening → PASS / REVIEW / FAIL outputs → agreement report → replay packet.</p>
-        <p>A cancer center can evaluate Damaros now, safely, against its own closed protocols and own adjudication records—without live Epic FHIR access, production EHR integration, real-time feeds, or identified data in most cases.</p>
+        <p>A cancer center can evaluate Damaros now, safely, against its own closed protocols and own adjudication records, without live Epic FHIR access, production EHR integration, real-time feeds, or identified data in most cases.</p>
       </div>
     </section>
 
@@ -2424,7 +2424,7 @@ spec:
     <section class="damaros-docs-section" id="val-08">
       <div class="damaros-docs-section-label">08_DATA_PATHWAYS</div>
       <h2 class="damaros-docs-section-heading">Data pathways.</h2>
-      <div class="damaros-docs-body"><p>De-identified, limited-dataset, site-hosted, or hybrid models per institutional policy—same bounded evidence plane.</p></div>
+      <div class="damaros-docs-body"><p>De-identified, limited-dataset, site-hosted, or hybrid models per institutional policy, same bounded evidence plane.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-09">
@@ -2461,7 +2461,7 @@ spec:
         label: "00 / THESIS",
         title: "From NCT ID to criterion-level replay.",
         text:
-          "Damaros is the hospital-side execution substrate for oncology trials—Protocol, Population, Screening, Forms, and Replay compiled into criteria, a governed evidence plane, coordinator lineage, and audit-grade reconstruction, not a parallel analytics narrative. Critically, the first institutional question is not whether the interface persuades; it is whether Damaros validates against the institution's protocols, data, and adjudication standard.",
+          "Damaros is the hospital-side execution substrate for oncology trials, Protocol, Population, Screening, Forms, and Replay compiled into criteria, a governed evidence plane, coordinator lineage, and audit-grade reconstruction, not a parallel analytics narrative. Critically, the first institutional question is not whether the interface persuades; it is whether Damaros validates against the institution's protocols, data, and adjudication standard.",
         badges: [],
         ctas: [
           { href: "mailto:anirudh@damaros.ai?subject=Damaros%20Validation%20Brief", label: "Request Validation Brief", secondary: false },
