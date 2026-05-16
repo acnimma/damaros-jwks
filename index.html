@@ -20,7 +20,7 @@
 <meta name="twitter:description" content="Protocol to criterion tree. Site evidence to deterministic screening. PASS / REVIEW / FAIL with lineage, agreement analysis, and Replay. Retrospective validation before live EHR integration.">
 <meta name="twitter:image" content="https://www.damaros.ai/assets/damaros-white-on-black.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://www.damaros.ai/#software","name":"Damaros™","applicationCategory":"HealthApplication","softwareApplicationCategory":"Clinical trial execution software","operatingSystem":"Web","url":"https://www.damaros.ai/","description":"Hospital-side execution substrate for oncology trials: Protocol, Population, Screening, Forms, and Replay. Deterministic criterion-level screening, evidence lineage, and audit reconstruction.","provider":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai","logo":{"@type":"ImageObject","url":"https://www.damaros.ai/assets/damaros-white-on-black.png"}},"isAccessibleForFree":true,"inLanguage":"en"},{"@type":"TechArticle","@id":"https://www.damaros.ai/#engineering-article","headline":"Deterministic replay","alternativeHeadline":"Damaros™ Engineering Note 01","author":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai"},"publisher":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai","logo":{"@type":"ImageObject","url":"https://www.damaros.ai/assets/damaros-white-on-black.png"}},"datePublished":"2026-05-06","dateModified":"2026-05-06","version":"1.0","url":"https://www.damaros.ai/#engineering","mainEntityOfPage":"https://www.damaros.ai/#engineering","description":"Engineering note on deterministic, replayable clinical-trial Screening: content-derived run identifiers, idempotent Replay semantics, and criterion-level provenance.","keywords":"clinical trials, eligibility, deterministic Replay, FHIR, Epic, audit, AMC, IRB, provenance, content-derived run identifiers","isAccessibleForFree":true,"inLanguage":"en","about":["Protocol","Population","Screening","Forms","Replay","FHIR","SMART on FHIR Backend Services"]}]}
+{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://www.damaros.ai/#software","name":"Damaros™","applicationCategory":"HealthApplication","softwareApplicationCategory":"Clinical trial execution software","operatingSystem":"Web","url":"https://www.damaros.ai/","description":"Hospital-side execution substrate for oncology trials: Protocol, Population, Screening, Forms, and Replay. Deterministic criterion-level screening, evidence lineage, and audit reconstruction.","provider":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai","logo":{"@type":"ImageObject","url":"https://www.damaros.ai/assets/damaros-white-on-black.png"}},"isAccessibleForFree":true,"inLanguage":"en"}]}
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
@@ -1629,42 +1629,39 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
   }
   #damaros-panel-home.active .damaros-ignition .workflow-map {
     display: grid;
-    grid-template-columns: repeat(6, minmax(4.65rem, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     grid-template-rows: auto;
-    gap: 0.32rem;
-    overflow-x: auto;
+    gap: clamp(0.14rem, 1.1vw, 0.28rem);
+    overflow-x: visible;
     overflow-y: visible;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 0.42rem 0.38rem;
+    padding: 0.38rem clamp(0.22rem, 1.5vw, 0.36rem);
     height: auto;
-  }
-  #damaros-panel-home.active .damaros-ignition .workflow-map::-webkit-scrollbar {
-    display: none;
+    width: 100%;
   }
   #damaros-panel-home.active .damaros-ignition .step {
-    min-height: 3rem;
+    min-height: 2.65rem;
     max-height: none;
     min-width: 0;
     aspect-ratio: auto;
-    padding: 0.3rem 0.16rem;
+    padding: 0.28rem 0.08rem;
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 0.08rem;
+    gap: 0;
   }
   #damaros-panel-home.active .damaros-ignition .step span {
-    font-size: clamp(0.48rem, 2.5vw, 0.58rem);
+    font-family: var(--fh);
+    font-size: clamp(0.62rem, 3.35vw, 0.78rem);
     margin-bottom: 0;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
     text-align: center;
+    color: rgba(232, 238, 245, 0.88);
+  }
+  #damaros-panel-home.active .damaros-ignition .step.active span {
+    color: #8fbfff;
   }
   #damaros-panel-home.active .damaros-ignition .step b {
-    display: block !important;
-    font-size: clamp(0.56rem, 2.65vw, 0.72rem);
-    letter-spacing: 0.04em;
-    line-height: 1.08;
-    text-align: center;
+    display: none !important;
   }
   #damaros-panel-home.active .damaros-ignition .detail-panel {
     gap: 1rem;
@@ -1709,19 +1706,16 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
     font-size: clamp(1.6rem, 12vw, 2.45rem);
   }
   #damaros-panel-home.active .damaros-ignition .workflow-map {
-    gap: 0.24rem;
-    padding: 0.36rem 0.28rem;
-    grid-template-columns: repeat(6, minmax(4.35rem, 1fr));
+    gap: 0.12rem;
+    padding: 0.32rem 0.18rem;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
   #damaros-panel-home.active .damaros-ignition .step {
-    min-height: 2.85rem;
-    padding: 0.24rem 0.1rem;
+    min-height: 2.45rem;
+    padding: 0.22rem 0.04rem;
   }
   #damaros-panel-home.active .damaros-ignition .step span {
-    font-size: clamp(0.44rem, 3vw, 0.54rem);
-  }
-  #damaros-panel-home.active .damaros-ignition .step b {
-    font-size: clamp(0.52rem, 3.1vw, 0.66rem);
+    font-size: clamp(0.58rem, 3.8vw, 0.72rem);
   }
   #damaros-panel-home.active .damaros-ignition .matrix {
     grid-template-columns: 1fr;
@@ -1811,7 +1805,6 @@ body.damaros-ignition-home-active.ig-init #damaros-panel-home.active .damaros-ig
       <button class="damaros-tab-btn" data-panel="trust">TRUST</button>
       <button class="damaros-tab-btn" data-panel="validation">VALIDATION</button>
       <button class="damaros-tab-btn" data-panel="docs">FHIR</button>
-      <button class="damaros-tab-btn" data-panel="engineering">NOTES</button>
     </div>
   </nav>
 <div id="damaros-panel-home" class="damaros-panel active">
@@ -2143,83 +2136,6 @@ spec:
 </section>
 
 <section class="damaros-docs-section" id="docs-09"><div class="damaros-docs-section-label">09_CONTACT</div><h2 class="damaros-docs-section-heading">Contact</h2><div class="damaros-contact-block"><div>Website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://damaros.ai">damaros.ai</a></div><div>Contact &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:anirudh@damaros.ai">anirudh@damaros.ai</a></div></div></section>
-
-</div></div>
-
-<div id="damaros-panel-engineering" class="damaros-panel"><div class="damaros-docs-wrap">
-<div class="damaros-docs-eyebrow">Engineering Note 01 - Damaros™ Eligibility Engine</div><h1 class="damaros-docs-title">Deterministic replay</h1>
-<p class="damaros-docs-subtitle">Why the Damaros eligibility engine produces the same answer to the same question, every time, across <strong>protocol</strong>, <strong>population</strong>, <strong>screening</strong>, <strong>forms</strong>, and <strong>replay</strong>. A short technical note for hospital IT, AMC trial offices, sponsors, and reviewers. Pinned to engine semantics, not marketing copy; citable per §07.</p>
-<div class="damaros-callout"><strong>Engineering Note 01 - invariant behind Screening and Replay:</strong> fixed protocol version, fixed population snapshot, fixed evidence snapshot, fixed evaluation timestamp, same criterion-level outcome.</div>
-
-<section class="damaros-docs-section" id="engineering-00"><div class="damaros-docs-section-label">00_PROBLEM_STATEMENT</div><h2 class="damaros-docs-section-heading">The audit gap in generative-only screening</h2><div class="damaros-docs-body">
-<p>Two questions decide whether a clinical-trial eligibility decision survives audit. <strong>(1)</strong> Run the same <strong>screening</strong> again, do you get the same answer? <strong>(2)</strong> Show the specific evidence behind PASS / REVIEW / FAIL.</p>
-<p>Stacks that put a generative model on the patient-<strong>screening</strong> hot path do not answer either question by construction. Stochastic decoding produces output variance even with identical inputs; a free-text rationale is not the same as a pointer to a FHIR <code>Observation</code> with a normalized fact. Pinning a model to greedy decoding does not make the rationale traceable; it just makes the variance smaller.</p>
-<p>That gap is not cosmetic. It is the difference between a <strong>screening</strong> decision a coordinator can sign off on, and one a sponsor or IRB pulls at audit because it cannot be reconstructed.</p>
-</div></section>
-
-<section class="damaros-docs-section" id="engineering-01"><div class="damaros-docs-section-label">01_DESIGN_PRINCIPLE</div><h2 class="damaros-docs-section-heading">Eligibility as a pure function of pinned inputs</h2><div class="damaros-docs-body">
-<p>The Damaros eligibility evaluation engine is <strong>non-stochastic on patient-identifiable data in the screening execution path</strong> (see <a class="damaros-kv-link" href="#docs-00">Epic / FHIR §00</a>). For any patient × criterion pair, the outcome class and its rationale are fully determined by four pinned inputs:</p>
-</div><ul class="damaros-bullet-list">
-<li><strong>protocol version.</strong> The compiled, version-pinned form of the trial logic, including the criterion under evaluation and any amendments in force at <code>evaluation_as_of</code>.</li>
-<li><strong>population snapshot (cohort frame).</strong> The patient set bound to a durable <code>cohort_sync_run_id</code>, persisted on every successful FHIR ingest (see <a class="damaros-kv-link" href="#docs-05a">Epic / FHIR §05A</a>). One ingest, one run id, one Epic cohort frame for <strong>population</strong>.</li>
-<li><strong>Evidence snapshot.</strong> The normalized FHIR facts available within that <strong>population</strong> sync after <code>fhir_bundle_to_normalized</code> (see <a class="damaros-kv-link" href="#docs-02d">Epic / FHIR §02D</a>). Raw FHIR response bodies are not part of the evaluation surface; only the normalized contract is.</li>
-<li><strong><code>evaluation_as_of</code>.</strong> The explicit logical timestamp at which <strong>protocol</strong> logic is evaluated against evidence. Not "now."</li>
-</ul><div class="damaros-docs-body">
-<p>Same four inputs ⇒ same criterion outcome class (PASS / REVIEW / FAIL) ⇒ same structured rationale ⇒ same evidence references. This is the invariant the engine is built to enforce, not a property of any particular run.</p>
-</div></section>
-
-<section class="damaros-docs-section" id="engineering-02"><div class="damaros-docs-section-label">02_RUN_IDS</div><h2 class="damaros-docs-section-heading">Content-derived run identifiers</h2><div class="damaros-docs-body">
-<p>A <strong>screening</strong> run identifier is not an opaque random UUID minted at execution start. It is a <strong>content-addressable identifier</strong> derived from the canonical fingerprint of the four pinned inputs above. Two evaluations with identical inputs collapse to the <strong>same</strong> run.</p>
-<p>The practical consequence: if nothing has moved, "run <strong>screening</strong> on this <strong>population</strong> again" is a record lookup, not a re-execution. The hospital does not pay an Epic API tax to reproduce a decision the coordinator already saw, and the audit trail does not accumulate spurious near-duplicate runs that have to be diffed later.</p>
-<p>If <em>any</em> pinned input moves, a <strong>protocol</strong> amendment lands, a <strong>population</strong> refresh promotes new patients, a lab result normalizes, the evaluation timestamp advances, the run identifier changes. Old runs remain immutable; the new run is a separately addressable record. There is no in-place mutation of a prior decision, even when the underlying facts have evolved.</p>
-</div><div class="damaros-callout"><strong>Why content-derivation, not a UUID:</strong> a UUID lets the system <em>name</em> a run; a content-derived id lets the system <em>recognize</em> a run. Recognition is what makes idempotent <strong>replay</strong> possible without a reconciliation layer that itself has to be audited.</div></section>
-
-<section class="damaros-docs-section" id="engineering-03"><div class="damaros-docs-section-label">03_REPLAY_SEMANTICS</div><h2 class="damaros-docs-section-heading">Idempotent replay</h2><div class="damaros-docs-body">
-<p><strong>replay</strong> against an existing run is <strong>idempotent</strong>: it returns the same outputs as the original run, with the same criterion-level rationale and the same evidence references. <strong>replay</strong> does not re-fetch FHIR; it re-executes the versioned <strong>protocol</strong> logic against the pinned, already-normalized evidence. Epic is not in the <strong>replay</strong> path.</p>
-<p><strong>replay</strong> against a <em>different</em> reference run is a structured comparison. The engine classifies agreement, divergence, or new criterion outcomes, and the run lineage shows which of the four pinned inputs moved (see <a class="damaros-kv-link" href="#docs-05">Epic / FHIR §05</a>: "<strong>replay</strong> classifies agreement or divergence; no opaque 'model decided' eligibility."). Divergence is always attributable to a named delta on a named input.</p>
-</div><ul class="damaros-bullet-list">
-<li><strong>No silent re-execution.</strong> <strong>replay</strong> is a typed operation, not a stale-cache miss; the run id math means the system can tell.</li>
-<li><strong>No hidden side effects.</strong> <strong>replay</strong> does not write to the EHR; this connector does not request FHIR write scopes for initial deployment (see <a class="damaros-kv-link" href="#docs-03c">Epic / FHIR §03C</a> / <a class="damaros-kv-link" href="#docs-05b">§05B</a>).</li>
-<li><strong>No re-billing of Epic.</strong> Reproducing a prior decision exercises stored facts, not the FHIR API.</li>
-</ul></section>
-
-<section class="damaros-docs-section" id="engineering-04"><div class="damaros-docs-section-label">04_CRITERION_PROVENANCE</div><h2 class="damaros-docs-section-heading">Criterion-level provenance, not a flat verdict</h2><div class="damaros-docs-body">
-<p>Each (patient × criterion) pair is recorded as its own audit unit (see <a class="damaros-kv-link" href="#docs-05">Epic / FHIR §05</a>). The engine never collapses to a single eligibility flag with a generative explanation appended.</p>
-</div><ul class="damaros-bullet-list">
-<li><strong>Outcome class:</strong> PASS / REVIEW / FAIL, drawn from a fixed enum, not a confidence score.</li>
-<li><strong>Structured rationale:</strong> the path through the <strong>protocol</strong> criterion's compiled form (the operands and operators that produced the outcome), not a free-text paragraph synthesized at decision time.</li>
-<li><strong>Evidence references:</strong> pointers into normalized facts; where populated, source FHIR resource identifiers preserved per the integration boundary (see <a class="damaros-kv-link" href="#docs-04">Epic / FHIR §04</a>). Missing evidence surfaces as REVIEW, not silent PASS (<a class="damaros-kv-link" href="#docs-06a">§06A</a>).</li>
-<li><strong>Engine and protocol-criterion versions</strong> stamped on the record, so future <strong>replay</strong> resolves "the engine that ran this," not "the current engine."</li>
-</ul><div class="damaros-docs-body">
-<p>This is the unit a sponsor or IRB reviewer asks for: <em>"Show me criterion 4.2.1 for this patient on this run."</em> The answer is a deterministic record with sources, not a regenerated narrative.</p>
-</div></section>
-
-<section class="damaros-docs-section" id="engineering-05"><div class="damaros-docs-section-label">05_AMC_TRUST</div><h2 class="damaros-docs-section-heading">Why AMCs, IRBs, and audit reconstruction require this</h2><div class="damaros-docs-body">
-<p>"replayability" is the operational form of the long-standing FDA expectation that decisions affecting clinical-trial conduct be reconstructable. Academic medical centers translate this to a concrete question at audit: <em>"With the <strong>protocol</strong> that was in force on the screen date, against the <strong>population</strong> and evidence as they stood, do we get the same set of eligible patients?"</em></p>
-<p>A deterministic engine answers this in O(1) on stored runs. A generative engine cannot, because identical inputs are not guaranteed to map to identical outputs, that is a property of how generative decoding works, not a tunable.</p>
-<p>For hospital IT the question is narrower and harder: <em>"Can we produce, at audit, a bit-identical reconstruction of the decision the coordinator acted on?"</em> Damaros answers <strong>yes by construction</strong>. The engine semantics in §01–§04 are the property; the rest of the integration documentation is the implementation.</p>
-</div><div class="damaros-callout"><strong>What this is not:</strong> a marketing claim about "explainable AI." There is no AI verdict on the <strong>screening</strong> hot path to explain. Determinism here is a structural absence of stochastic decision-making on PHI, not a post-hoc gloss on a generative output.</div></section>
-
-<section class="damaros-docs-section" id="engineering-06"><div class="damaros-docs-section-label">06_DIFFERENTIATION</div><h2 class="damaros-docs-section-heading">Why a generative-only stack cannot retrofit determinism</h2><div class="damaros-docs-body">
-<p>Determinism is an architectural property. It has to be enforced from the <strong>protocol</strong>-compile step through normalization to evaluation, and it has to hold for <em>every</em> patient × criterion pair, not just the ones a reviewer happens to spot-check.</p>
-<p>A generative model on the <strong>screening</strong> hot path has two doors. <strong>(a)</strong> Tolerate output variance, <strong>replay</strong> is best-effort, the audit gap above stands, and the model is one upstream change away from re-deciding <strong>screening</strong> runs that have already been signed. <strong>(b)</strong> Pin the model to deterministic decoding plus a templated formatter, at which point the "rationale" is no longer the model's reasoning; it is a deterministic transform of structured inputs. Damaros built the deterministic transform natively, without the model on the hot path.</p>
-<p>Damaros uses generative assistance only <em>outside</em> the <strong>screening</strong> execution path, on non-PHI <strong>protocol</strong> or synopsis text, behind deployment flags and pattern guards (see <a class="damaros-kv-link" href="#docs-04">Epic / FHIR §04</a>). The <strong>screening</strong> verdict is deterministic; the optional <strong>protocol</strong>-comprehension layer is clearly separated and never carries patient identifiers.</p>
-</div></section>
-
-<div class="damaros-docs-divider"></div>
-
-<section class="damaros-docs-section" id="engineering-07"><div class="damaros-docs-section-label">07_CITATION</div><h2 class="damaros-docs-section-heading">How to cite this note</h2><table class="damaros-kv-table">
-<tr><td>TITLE</td><td>Deterministic replay</td></tr>
-<tr><td>SERIES</td><td>Damaros™ Engineering Note 01</td></tr>
-<tr><td>AUTHOR</td><td>Damaros, LLC</td></tr>
-<tr><td>VERSION</td><td>1.0</td></tr>
-<tr><td>PUBLISHED</td><td>2026-05-06</td></tr>
-<tr><td>PERMALINK</td><td><a class="damaros-kv-link" href="https://www.damaros.ai/#engineering" target="_blank" rel="noopener">https://www.damaros.ai/#engineering</a></td></tr>
-<tr><td>SUGGESTED_CITATION</td><td>Damaros, LLC (2026). <em>Deterministic replay.</em> Damaros™ Engineering Note 01, v1.0. Retrieved from <a class="damaros-kv-link" href="https://www.damaros.ai/#engineering">https://www.damaros.ai/#engineering</a></td></tr>
-<tr><td>RELATED</td><td><a class="damaros-kv-link" href="#docs">Epic / FHIR integration reference</a> (SMART Backend Services, audit, write-back controls)</td></tr>
-</table><div class="damaros-callout"><strong>Versioning policy:</strong> this note describes pinned engine semantics. Substantive changes to the determinism guarantee, run-id construction, <strong>replay</strong> scope, or criterion-level provenance will be published as a new versioned note rather than overwritten in place. Older versions remain reachable for citation.</div></section>
-
-<section class="damaros-docs-section" id="engineering-08"><div class="damaros-docs-section-label">08_CONTACT</div><h2 class="damaros-docs-section-heading">Contact</h2><div class="damaros-contact-block"><div>Website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://damaros.ai">damaros.ai</a></div><div>Contact &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:anirudh@damaros.ai">anirudh@damaros.ai</a></div></div></section>
 
 </div></div>
 
@@ -3017,7 +2933,7 @@ spec:
       return;
     }
     var panel = h.split("-")[0];
-    if (panel === "docs" || panel === "engineering" || panel === "trust" || panel === "validation") {
+    if (panel === "docs" || panel === "trust" || panel === "validation") {
       setPanel(panel, h.indexOf("-") > -1 ? h : h === "trust" ? "trust" : null);
     } else {
       setPanel("home");
