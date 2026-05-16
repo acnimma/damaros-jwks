@@ -1277,6 +1277,18 @@ body.damaros-ignition-home-active.ig-return #damaros-panel-home.active .damaros-
     min-height: 0;
     max-height: none;
   }
+  #damaros-panel-home.active.workflow-standard .damaros-ignition .detail-panel {
+    height: 540px;
+    min-height: 540px;
+    max-height: 540px;
+    grid-template-rows: 274px minmax(0, 1fr);
+    overflow: hidden;
+  }
+  #damaros-panel-home.active.workflow-standard .damaros-ignition .detail-top {
+    height: 274px;
+    min-height: 274px;
+    max-height: 274px;
+  }
 }
 #damaros-panel-home.active .damaros-ignition .metric {
   padding: 0.9rem 0.95rem;
@@ -2672,6 +2684,7 @@ spec:
     const bg = document.getElementById("badges");
     const ctaRow = document.getElementById("detailCtaRow");
     const matrix = document.querySelector("#damaros-panel-home .matrix");
+    const homePanelEl = document.getElementById("damaros-panel-home");
     const hi = Array.isArray(d.highlights) && d.highlights.length > 0;
     const ou = Array.isArray(d.outcomes) && d.outcomes.length > 0;
     if (dl) dl.textContent = d.label;
@@ -2702,6 +2715,11 @@ spec:
       } else {
         ctaRow.innerHTML = "";
         ctaRow.setAttribute("hidden", "");
+      }
+      if (homePanelEl) {
+        var hasCtas = !!(ctas && ctas.length);
+        homePanelEl.classList.toggle("workflow-has-cta", hasCtas);
+        homePanelEl.classList.toggle("workflow-standard", !hasCtas);
       }
     }
   }
