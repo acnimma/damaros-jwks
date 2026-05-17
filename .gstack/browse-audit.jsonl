@@ -322,3 +322,32 @@
 {"ts":"2026-05-17T22:25:40.076Z","cmd":"click","args":"#igHero","origin":"http://127.0.0.1:3535/","durationMs":2064,"status":"ok","hasCookies":false,"mode":"launched"}
 {"ts":"2026-05-17T22:25:41.238Z","cmd":"click","args":"#igSkip","origin":"http://127.0.0.1:3535/","durationMs":39,"status":"ok","hasCookies":false,"mode":"launched"}
 {"ts":"2026-05-17T22:25:43.539Z","cmd":"screenshot","args":"--viewport -o C:/repos/damaros-jwks/_sym.png","origin":"http://127.0.0.1:3535/","durationMs":176,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-05-17T22:34:59.084Z","cmd":"status","args":"","origin":"http://127.0.0.1:34567/welcome","durationMs":1,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:35:01.291Z","cmd":"goto","args":"http://127.0.0.1:3030/","origin":"http://127.0.0.1:3030/","durationMs":71,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:35:02.415Z","cmd":"viewport","args":"1440x900","origin":"http://127.0.0.1:3030/","durationMs":8,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:35:02.541Z","cmd":"click","args":"#igHero","origin":"http://127.0.0.1:3030/","durationMs":33,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:35:05.735Z","cmd":"screenshot","args":"--viewport -o C:/repos/damaros-jwks/_pp1.png","origin":"http://127.0.0.1:3030/","durationMs":71,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:35:05.829Z","cmd":"js","args":"document.getElementById('igCaption').textContent + ' / active=' + document.querySelector('.viz-layer.viz-active')?.id","origin":"http://127.0.0.1:3030/","durationMs":2,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:41:36.380Z","cmd":"status","args":"","origin":"http://127.0.0.1:34567/welcome","durationMs":1,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:41:38.614Z","cmd":"goto","args":"http://127.0.0.1:2929/","origin":"http://127.0.0.1:2929/","durationMs":73,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:41:39.778Z","cmd":"viewport","args":"1440x900","origin":"http://127.0.0.1:2929/","durationMs":11,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:41:39.924Z","cmd":"click","args":"#igHero","origin":"http://127.0.0.1:2929/","durationMs":37,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:41:44.119Z","cmd":"screenshot","args":"--viewport -o C:/repos/damaros-jwks/_pop.png","origin":"http://127.0.0.1:2929/","durationMs":80,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:41:44.235Z","cmd":"click","args":"#igSkip","origin":"http://127.0.0.1:2929/","durationMs":22,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:41:46.488Z","cmd":"screenshot","args":"--viewport -o C:/repos/damaros-jwks/_cock.png","origin":"http://127.0.0.1:2929/","durationMs":130,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:42:14.273Z","cmd":"viewport","args":"390x844","origin":"http://127.0.0.1:2929/","durationMs":9,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:42:14.389Z","cmd":"reload","args":"","origin":"http://127.0.0.1:2929/","durationMs":16,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:42:15.535Z","cmd":"click","args":"#igHero","origin":"http://127.0.0.1:2929/","durationMs":31,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:42:16.673Z","cmd":"click","args":"#igSkip","origin":"http://127.0.0.1:2929/","durationMs":20,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:42:18.841Z","cmd":"screenshot","args":"--viewport -o C:/repos/damaros-jwks/_m.png","origin":"http://127.0.0.1:2929/","durationMs":52,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:42:18.930Z","cmd":"js","args":"getComputedStyle(document.querySelector('.ig-cock-tagline')).display","origin":"http://127.0.0.1:2929/","durationMs":2,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:30.017Z","cmd":"status","args":"","origin":"http://127.0.0.1:34567/welcome","durationMs":1,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:32.267Z","cmd":"goto","args":"http://127.0.0.1:2727/","origin":"http://127.0.0.1:2727/","durationMs":97,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:33.405Z","cmd":"viewport","args":"1440x900","origin":"http://127.0.0.1:2727/","durationMs":11,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:33.543Z","cmd":"click","args":"#igHero","origin":"http://127.0.0.1:2727/","durationMs":33,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:34.694Z","cmd":"click","args":"#igSkip","origin":"http://127.0.0.1:2727/","durationMs":19,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:36.807Z","cmd":"js","args":"var z=document.querySelector('rect.viz-hotzone[data-stage=protocol]');z.dispatchEvent(new MouseEvent('mouseenter',{bubbles:true}))","origin":"http://127.0.0.1:2727/","durationMs":1,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:38.075Z","cmd":"screenshot","args":"--viewport -o C:/repos/damaros-jwks/_proto.png","origin":"http://127.0.0.1:2727/","durationMs":143,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:38.176Z","cmd":"js","args":"document.querySelector('.ig-info-card.visible')?.classList.remove('visible')","origin":"http://127.0.0.1:2727/","durationMs":2,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:38.272Z","cmd":"js","args":"var z=document.querySelector('rect.viz-hotzone[data-stage=replay]');z.dispatchEvent(new MouseEvent('mouseenter',{bubbles:true}))","origin":"http://127.0.0.1:2727/","durationMs":1,"status":"ok","hasCookies":false,"mode":"headed"}
+{"ts":"2026-05-17T22:47:39.542Z","cmd":"screenshot","args":"--viewport -o C:/repos/damaros-jwks/_replay.png","origin":"http://127.0.0.1:2727/","durationMs":152,"status":"ok","hasCookies":false,"mode":"headed"}
