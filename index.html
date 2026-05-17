@@ -23,7 +23,7 @@
 {"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://www.damaros.ai/#software","name":"Damaros™","applicationCategory":"HealthApplication","softwareApplicationCategory":"Clinical trial execution software","operatingSystem":"Web","url":"https://www.damaros.ai/","description":"Hospital-side execution substrate for oncology trials: Protocol, Population, Screening, Forms, and Replay. Deterministic criterion-level screening, evidence lineage, and audit reconstruction.","provider":{"@type":"Organization","name":"Damaros, LLC","url":"https://damaros.ai","logo":{"@type":"ImageObject","url":"https://www.damaros.ai/assets/damaros-white-on-black.png"}},"isAccessibleForFree":true,"inLanguage":"en"}]}
 </script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
   :root{--fh:'Chakra Petch',sans-serif;--fb:'Space Grotesk',sans-serif;--fm:'Space Grotesk',sans-serif;--blue:#7B96B2;--blue2:#A9C0D6;--bd:rgba(123,150,178,.25);--bg:#000;--panel:#07090b;--panel2:#0b1016;--tp:#E8E8E8;--ts:rgba(232,232,232,.72);--td:rgba(232,232,232,.38);--muted:rgba(232,232,232,.52);--tab:56px;--green:#4ADE80;--amber:#FACC15;--red:#FB7185}
   *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#000!important;color:var(--tp);font-family:var(--fb)}body.damaros-home-lock{overflow:hidden}body.damaros-docs-active{overflow-y:auto;overflow-x:hidden}.damaros-site{min-height:100vh;background:#000!important;color:var(--tp);position:relative;overflow:hidden}.damaros-site:before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(123,150,178,.007) 2px,rgba(123,150,178,.007) 4px),linear-gradient(90deg,rgba(123,150,178,.025),transparent 18%,transparent 82%,rgba(123,150,178,.025));pointer-events:none;z-index:100}.damaros-site:after{content:'';position:fixed;inset:-12%;background:radial-gradient(circle at 44% 36%,rgba(123,150,178,.13),transparent 25%),radial-gradient(circle at 85% 72%,rgba(123,150,178,.055),transparent 18%);pointer-events:none;z-index:0}
   .damaros-tab-bar{position:fixed;top:0;left:0;right:0;height:var(--tab);display:flex;align-items:center;justify-content:space-between!important;padding:0 1.15rem!important;z-index:200;background:rgba(0,0,0,.94)!important;border-bottom:1px solid rgba(123,150,178,.11);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}.damaros-tab-links{display:flex;align-items:center;margin:0!important;padding:0!important;gap:.05rem}.damaros-tab-btn{height:var(--tab);padding:0 1rem;border:0;background:transparent;color:rgba(232,232,232,.52);cursor:pointer;font-family:var(--fm);font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;position:relative}.damaros-tab-btn:after{content:'';position:absolute;left:1rem;right:1rem;bottom:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .25s}.damaros-tab-btn.active,.damaros-tab-btn:hover{color:#f0f4f8}.damaros-tab-btn.active:after{transform:scaleX(1)}.damaros-top-status{display:flex;align-items:center;gap:.75rem;font-family:var(--fm);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--td)}.damaros-env{border:1px solid rgba(123,150,178,.28);border-radius:999px;padding:.32rem .65rem;color:var(--blue2);background:rgba(123,150,178,.08)}.damaros-health{display:inline-flex;align-items:center;gap:.35rem}.damaros-health:before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(74,222,128,.45)}
@@ -519,7 +519,7 @@ body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradie
 
 
 /* ================================================================
-   Homepage v2 — Provenance substrate
+   Homepage v3 — Provenance substrate (revised)
    Body state: default=hero | body.is-playing | body.is-cockpit
    ================================================================ */
 
@@ -536,41 +536,38 @@ body.damaros-docs-active .damaros-site:before{background:repeating-linear-gradie
 body.damaros-home-lock{overflow:auto!important}
 
 /* Hero */
-.ig-hero{position:relative;z-index:10;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--tab) + 2rem) clamp(1rem,4vw,3rem) 3rem;text-align:center;transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1)}
-body.is-playing .ig-hero,body.is-playing .ig-cockpit,body.is-playing .ig-manifesto,body.is-playing .ig-stakeholders,body.is-playing .ig-bottom-bar{display:none}
-body.is-cockpit .ig-hero{display:none}
-.ig-hero-inner{display:flex;flex-direction:column;align-items:center;max-width:780px}
-.ig-wordmark{display:flex;align-items:center;gap:clamp(.26rem,.5vw,.42rem);font-family:var(--fh);font-size:clamp(4rem,7vw,7.4rem);font-weight:700;line-height:1;letter-spacing:normal;text-shadow:0 0 48px rgba(123,150,178,.12);animation:igFadeUp .75s ease .05s both}
-.ig-dot{appearance:none;border:none;background:none;padding:0;width:clamp(8px,.7vw,11px);height:clamp(8px,.7vw,11px);flex:0 0 clamp(8px,.7vw,11px);border-radius:50%;background:var(--blue);box-shadow:0 0 18px rgba(123,150,178,.58);cursor:pointer;animation:igDotPulse 2.2s ease-in-out infinite;transform:translateY(.06em);transition:transform .2s ease,box-shadow .2s ease}
+.ig-hero{position:relative;z-index:10;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--tab) + 2rem) clamp(1rem,4vw,3rem) 3rem;text-align:center;cursor:pointer;transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1)}
+body.is-playing .ig-hero,body.is-cockpit .ig-hero{display:none}
+.ig-hero-inner{display:flex;flex-direction:column;align-items:center;max-width:920px}
+.ig-wordmark{display:flex;align-items:center;gap:clamp(.26rem,.5vw,.42rem);font-family:var(--fh);font-size:clamp(4.4rem,8vw,8.4rem);font-weight:700;line-height:1;letter-spacing:normal;text-shadow:0 0 56px rgba(123,150,178,.14);animation:igFadeUp .75s ease .05s both}
+.ig-dot{appearance:none;border:none;background:none;padding:0;width:clamp(9px,.78vw,12px);height:clamp(9px,.78vw,12px);flex:0 0 clamp(9px,.78vw,12px);border-radius:50%;background:var(--blue);box-shadow:0 0 18px rgba(123,150,178,.58);cursor:pointer;animation:igDotPulse 2.2s ease-in-out infinite;transform:translateY(.06em);transition:transform .2s ease,box-shadow .2s ease}
 .ig-dot:hover,.ig-dot:focus-visible{box-shadow:0 0 30px rgba(123,150,178,.9),0 0 60px rgba(123,150,178,.4);outline:none;transform:translateY(.06em) scale(1.25)}
 @keyframes igDotPulse{0%,100%{opacity:1}50%{opacity:.22}}
-.ig-headline{font-family:'Playfair Display','Georgia',serif;font-size:clamp(1.65rem,3.6vw,3.2rem);font-weight:400;font-style:italic;letter-spacing:-.01em;line-height:1.15;margin:clamp(.9rem,2.2vh,1.4rem) 0 0;color:var(--tp);animation:igFadeUp .75s ease .2s both}
-.ig-subline{font-family:var(--fb);font-size:clamp(.82rem,1.25vw,1.05rem);line-height:1.62;color:var(--ts);margin:clamp(.55rem,1.2vh,.9rem) 0 0;max-width:610px;animation:igFadeUp .75s ease .35s both}
-.ig-cue{font-family:var(--fm);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--td);margin:clamp(.9rem,2vh,1.4rem) 0 0;animation:igFadeUp .75s ease .5s both}
 
-/* Audience switch */
-.ig-audience-switch{position:fixed;top:calc(var(--tab) + .6rem);right:.7rem;z-index:150;display:flex;flex-direction:column;align-items:flex-end;gap:.2rem;animation:igFadeUp .6s ease .7s both}
-body.is-playing .ig-audience-switch,body.is-cockpit .ig-audience-switch{display:none}
-.ig-aud-btn{appearance:none;border:1px solid transparent;background:transparent;font-family:var(--fm);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--td);cursor:pointer;padding:.28rem .52rem;border-radius:999px;transition:color .25s,background .25s,border-color .25s;text-align:right}
-.ig-aud-btn:hover{color:var(--ts)}
-.ig-aud-btn.active{color:var(--blue2);border-color:rgba(123,150,178,.28);background:rgba(123,150,178,.07)}
+/* Hero tagline (typewriter motif) */
+.ig-tagline{margin-top:clamp(1.6rem,3vh,2.2rem);font-family:var(--fm);font-size:clamp(.95rem,1.55vw,1.22rem);letter-spacing:.035em;line-height:1.5;animation:igFadeUp .75s ease .25s both;display:flex;align-items:baseline;justify-content:center;flex-wrap:wrap;gap:.18em}
+.ig-tagline-prefix{color:rgba(169,192,214,.85);font-weight:400}
+.ig-tagline-rotator{color:#f0f4f8;font-weight:500;display:inline-flex;align-items:baseline;min-width:1ch}
+.ig-tagline-rotator::after{content:'';display:inline-block;width:2px;height:.95em;align-self:center;background:var(--blue);margin-left:5px;animation:igCurBlink 1.15s steps(1) infinite;box-shadow:0 0 8px rgba(123,150,178,.55)}
+@keyframes igCurBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.ig-cue-bottom{position:absolute;bottom:clamp(1.4rem,3.5vh,2.4rem);left:50%;transform:translateX(-50%);font-family:var(--fm);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--td);opacity:.55;animation:igFadeUp .9s ease 1.6s both;pointer-events:none}
 
-/* Stage (autoplay) */
-.ig-stage{position:relative;z-index:10;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--tab) + 1.2rem) clamp(1rem,3vw,2rem) 2rem;opacity:0;pointer-events:none;transition:opacity .6s ease}
-body.is-playing .ig-stage{opacity:1;pointer-events:auto;position:fixed;top:0;left:0;right:0;bottom:0;background:#000;z-index:80;min-height:0}
+/* Stage (autoplay) — fullscreen takeover */
+.ig-stage{position:fixed;top:0;left:0;right:0;bottom:0;z-index:80;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--tab) + 1.2rem) clamp(1rem,3vw,2rem) 2rem;opacity:0;pointer-events:none;transition:opacity .5s ease}
+body.is-playing .ig-stage{opacity:1;pointer-events:auto}
 body.is-cockpit .ig-stage{display:none}
-.ig-caption{font-family:var(--fb);font-size:clamp(.88rem,1.4vw,1.12rem);line-height:1.55;color:var(--ts);text-align:center;max-width:600px;margin:0 auto 1.5rem;min-height:2.8em;transition:opacity .38s ease}
+.ig-caption{font-family:var(--fb);font-size:clamp(.92rem,1.45vw,1.18rem);line-height:1.5;color:var(--ts);text-align:center;max-width:640px;margin:0 auto 1.6rem;min-height:2.7em;transition:opacity .35s ease}
 .ig-caption.fading{opacity:0}
-.ig-viz-wrap{width:100%;max-width:940px;flex:1;display:flex;align-items:center}
-.ig-viz{width:100%;height:auto;max-height:min(500px,58svh);display:block;overflow:visible}
-.ig-skip{appearance:none;border:1px solid rgba(123,150,178,.2);background:rgba(0,0,0,.36);color:var(--td);font-family:var(--fm);font-size:.54rem;letter-spacing:.13em;text-transform:uppercase;padding:.42rem .88rem;cursor:pointer;margin-top:1.2rem;transition:color .25s,border-color .25s}
-.ig-skip:hover{color:var(--ts);border-color:rgba(123,150,178,.45)}
+.ig-viz-wrap{width:100%;max-width:1040px;flex:1;display:flex;align-items:center;justify-content:center}
+.ig-viz{width:100%;height:auto;max-height:min(540px,62svh);display:block;overflow:visible}
+.ig-skip{appearance:none;border:1px solid rgba(123,150,178,.22);background:rgba(0,0,0,.36);color:var(--td);font-family:var(--fm);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;padding:.5rem 1rem;cursor:pointer;margin-top:1.4rem;transition:color .25s,border-color .25s}
+.ig-skip:hover{color:var(--ts);border-color:rgba(123,150,178,.48)}
 
-/* SVG visualization */
+/* SVG visualization shared */
 .viz-layer{transition:opacity .65s cubic-bezier(.16,1,.3,1)}
 .viz-layer.viz-active{opacity:1!important}
-.viz-layer.viz-dim{opacity:.22!important}
-.viz-layer.viz-mid{opacity:.5!important}
+.viz-layer.viz-dim{opacity:.16!important}
+.viz-layer.viz-mid{opacity:.42!important}
 .viz-origin-glow{fill:none;stroke:rgba(123,150,178,.15);stroke-width:1;animation:igOriginGlow 3s ease-in-out infinite}
 .viz-origin-pulse{fill:none;stroke:rgba(123,150,178,.07);stroke-width:1;animation:igOriginGlow 3s ease-in-out infinite 1.2s}
 @keyframes igOriginGlow{0%,100%{r:36px;stroke-opacity:.15}50%{r:47px;stroke-opacity:.3}}
@@ -578,9 +575,9 @@ body.is-cockpit .ig-stage{display:none}
 .viz-conn{stroke:rgba(123,150,178,.4);stroke-width:1;stroke-dasharray:4 3;fill:none}
 .viz-conn-solid{stroke:rgba(123,150,178,.42);stroke-width:1.2;fill:none}
 .viz-particle{fill:rgba(123,150,178,.32)}
-.viz-particle.eligible{fill:rgba(169,192,214,.8);animation:igParticlePulse 2.4s ease-in-out infinite}
-.viz-particle.near-eligible{fill:rgba(123,150,178,.45)}
-@keyframes igParticlePulse{0%,100%{fill:rgba(169,192,214,.8)}50%{fill:rgba(169,192,214,.36)}}
+.viz-particle.eligible{fill:rgba(169,192,214,.82);animation:igParticlePulse 2.4s ease-in-out infinite}
+.viz-particle.near-eligible{fill:rgba(123,150,178,.5)}
+@keyframes igParticlePulse{0%,100%{fill:rgba(169,192,214,.82)}50%{fill:rgba(169,192,214,.4)}}
 .viz-criterion{fill:rgba(123,150,178,.28);stroke:rgba(169,192,214,.55);stroke-width:1.2}
 .viz-criterion.pass{fill:rgba(74,222,128,.22);stroke:rgba(74,222,128,.75)}
 .viz-criterion.review{fill:rgba(250,204,21,.22);stroke:rgba(250,204,21,.75)}
@@ -598,64 +595,103 @@ body.is-cockpit .ig-stage{display:none}
 .tl-stop-lbl{font-family:var(--fm);font-size:6.5px;fill:rgba(123,150,178,.42);letter-spacing:.1em;text-transform:uppercase;text-anchor:middle}
 .tl-cursor{fill:var(--amber);filter:drop-shadow(0 0 5px rgba(250,204,21,.55));transition:cx .75s cubic-bezier(.16,1,.3,1)}
 
-/* Cockpit */
-.ig-cockpit{position:relative;z-index:10;padding:calc(var(--tab) + clamp(1.4rem,3vh,2.4rem)) clamp(1rem,3vw,2.5rem) clamp(2rem,4vh,3.5rem);opacity:0;pointer-events:none;transition:opacity .6s ease .2s}
+/* Charge-up: all stages light simultaneously at end of autoplay */
+.viz-charged .viz-layer{opacity:1!important;transition:opacity .35s ease}
+.viz-charged .viz-conn,.viz-charged .viz-conn-solid{stroke:rgba(169,192,214,.78)!important;transition:stroke .3s ease}
+.viz-charged .tl-cursor{filter:drop-shadow(0 0 12px rgba(250,204,21,.9))}
+.viz-charge-flash{fill:none;stroke:rgba(169,192,214,.7);stroke-width:1.5;opacity:0;pointer-events:none}
+.viz-charged .viz-charge-flash{animation:igChargePulse .9s ease-out}
+@keyframes igChargePulse{0%{opacity:.85;stroke-width:1.5}100%{opacity:0;stroke-width:4}}
+
+/* Cockpit — fullscreen takeover */
+.ig-cockpit{position:relative;z-index:10;padding:calc(var(--tab) + 4rem) clamp(1rem,3vw,2.4rem) clamp(1.4rem,3vh,2.4rem);opacity:0;pointer-events:none;transition:opacity .55s ease .15s;min-height:100svh}
 body.is-cockpit .ig-cockpit{opacity:1;pointer-events:auto}
-.ig-cockpit-inner{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:1.35rem}
-.ig-stage-nav{display:flex;gap:.42rem;align-items:center;border-bottom:1px solid rgba(123,150,178,.1);padding-bottom:.68rem;flex-wrap:wrap}
-.ig-stage-btn{appearance:none;border:none;background:transparent;font-family:var(--fm);font-size:.61rem;letter-spacing:.13em;text-transform:uppercase;color:var(--td);cursor:pointer;padding:.38rem .7rem;transition:color .25s;position:relative;display:flex;align-items:center;gap:.34rem}
-.ig-stage-btn span{font-size:.46rem;opacity:.5}
-.ig-stage-btn:hover{color:var(--ts)}
-.ig-stage-btn.active{color:var(--blue2)}
-.ig-stage-btn.active::after{content:'';position:absolute;bottom:-.7rem;left:.7rem;right:.7rem;height:1px;background:var(--blue)}
-.ig-cockpit-body{display:grid;grid-template-columns:1fr 320px;gap:1.35rem;align-items:start}
-.ig-cockpit-viz-wrap{border:1px solid rgba(123,150,178,.15);background:linear-gradient(180deg,rgba(8,11,15,.88),rgba(0,0,0,.6));padding:1.1rem;box-shadow:0 0 48px rgba(123,150,178,.042),inset 0 0 0 1px rgba(255,255,255,.014);transition:border-color .5s,box-shadow .5s}
-.ig-cockpit-viz-wrap:hover{border-color:rgba(123,150,178,.26);box-shadow:0 0 62px rgba(123,150,178,.065),inset 0 0 0 1px rgba(255,255,255,.02)}
-.ig-cockpit-viz{width:100%;height:auto;display:block}
-.ig-cockpit-rail{border:1px solid rgba(123,150,178,.15);background:linear-gradient(180deg,rgba(5,8,11,.82),rgba(0,0,0,.58));padding:1.1rem;box-shadow:0 0 42px rgba(123,150,178,.035),inset 0 0 0 1px rgba(255,255,255,.012);min-height:280px;display:flex;flex-direction:column;gap:.68rem}
-.ig-rail-label{font-family:var(--fm);font-size:.5rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(169,192,214,.55);font-weight:700}
-.ig-rail-title{font-family:var(--fh);font-size:1.14rem;font-weight:600;letter-spacing:.01em;margin:0;color:var(--tp);line-height:1.22}
-.ig-rail-body{font-family:var(--fb);font-size:.83rem;line-height:1.6;color:var(--ts);margin:0}
-.ig-rail-note{font-family:var(--fm);font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(123,150,178,.5);margin-top:auto}
-.ig-rail-outcomes{display:flex;gap:.35rem;flex-wrap:wrap}
-.ig-rail-outcomes:empty{display:none}
-.ig-outcome{font-family:var(--fm);font-size:.44rem;letter-spacing:.12em;text-transform:uppercase;padding:.24rem .46rem;border-radius:999px}
-.ig-outcome.pass{color:#86efac;border:1px solid rgba(74,222,128,.34);background:rgba(74,222,128,.08)}
-.ig-outcome.review{color:#fde68a;border:1px solid rgba(250,204,21,.34);background:rgba(250,204,21,.08)}
-.ig-outcome.fail{color:#fca5a5;border:1px solid rgba(251,113,133,.34);background:rgba(251,113,133,.08)}
-.ig-rail-cta{margin-top:auto}
-.ig-rail-cta a{font-family:var(--fm);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue2);text-decoration:none;border-bottom:1px solid rgba(123,150,178,.28);padding-bottom:.12rem;transition:color .25s,border-color .25s}
-.ig-rail-cta a:hover{color:var(--tp);border-color:rgba(169,192,214,.55)}
-.ig-cockpit-controls{display:flex;gap:.7rem;align-items:center;justify-content:center;padding-top:.38rem}
-.ig-ctrl-btn{appearance:none;border:1px solid rgba(123,150,178,.2);background:rgba(0,0,0,.32);color:var(--td);font-family:var(--fm);font-size:.53rem;letter-spacing:.13em;text-transform:uppercase;padding:.44rem .92rem;cursor:pointer;transition:color .25s,border-color .25s,background .25s}
-.ig-ctrl-btn:hover{color:var(--ts);border-color:rgba(123,150,178,.44);background:rgba(123,150,178,.07)}
-.ig-ctrl-home{color:rgba(123,150,178,.48)!important}
+.ig-cockpit-inner{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:1.1rem;position:relative}
+
+/* Cockpit small wordmark + restart, top-left */
+.ig-cock-wordmark{position:absolute;top:calc(var(--tab) + 1.05rem);left:clamp(1.1rem,3vw,2.4rem);font-family:var(--fh);font-size:clamp(.98rem,1.35vw,1.18rem);font-weight:600;letter-spacing:.01em;color:var(--tp);display:flex;align-items:center;gap:.34rem;z-index:30;background:transparent;border:none;padding:0;cursor:pointer;line-height:1;text-shadow:0 0 18px rgba(123,150,178,.18)}
+.ig-cock-wordmark:hover{color:#fff}
+.ig-cock-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px rgba(123,150,178,.6);animation:igDotPulse 2.2s ease-in-out infinite;transform:translateY(.08em)}
+.ig-cock-restart{position:absolute;top:calc(var(--tab) + .98rem);left:clamp(8.5rem,13vw,12rem);background:transparent;border:1px solid rgba(123,150,178,.22);color:var(--td);width:32px;height:32px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:color .25s,border-color .25s,background .25s;z-index:30}
+.ig-cock-restart:hover{color:var(--blue2);border-color:rgba(123,150,178,.55);background:rgba(123,150,178,.06)}
+.ig-cock-restart svg{display:block;width:16px;height:16px}
+
+/* Cockpit canvas (SVG + overlay info cards) */
+.ig-cock-canvas{position:relative;width:100%;max-width:1140px;margin:0 auto;border:1px solid rgba(123,150,178,.14);background:linear-gradient(180deg,rgba(8,11,15,.78),rgba(0,0,0,.5));box-shadow:0 0 64px rgba(123,150,178,.05),inset 0 0 0 1px rgba(255,255,255,.012);padding:clamp(.6rem,1.6vw,1.2rem);min-height:min(560px,68svh)}
+.ig-cockpit-viz{width:100%;height:auto;display:block;max-height:min(540px,66svh)}
+
+/* Hover hot zones over each stage area (SVG) */
+.viz-hotzone{fill:transparent;cursor:pointer;pointer-events:all}
+.viz-stage-halo{fill:none;stroke:rgba(169,192,214,.6);stroke-width:1.2;opacity:0;transition:opacity .25s ease;pointer-events:none}
+.viz-stage-halo.visible{opacity:1}
+
+/* Info cards (positioned over the canvas) */
+.ig-info-card{position:absolute;width:clamp(220px,24vw,300px);padding:.95rem 1.05rem 1rem;background:linear-gradient(180deg,rgba(10,14,20,.96),rgba(0,0,0,.92));border:1px solid rgba(123,150,178,.32);box-shadow:0 0 38px rgba(123,150,178,.1),inset 0 0 0 1px rgba(255,255,255,.022);opacity:0;pointer-events:none;transform:scale(.86);transform-origin:var(--ig-card-origin,50% 50%);transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);z-index:6}
+.ig-info-card.visible{opacity:1;pointer-events:auto;transform:scale(1)}
+.ig-info-card .ig-card-label{font-family:var(--fm);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue2);font-weight:700;margin-bottom:.42rem}
+.ig-info-card .ig-card-title{font-family:var(--fh);font-size:.98rem;font-weight:600;line-height:1.24;margin:0 0 .55rem;color:var(--tp)}
+.ig-info-card .ig-card-body{font-family:var(--fb);font-size:.76rem;line-height:1.58;color:rgba(232,232,232,.74);margin:0}
+.ig-info-card .ig-card-mech{margin-top:.55rem;font-family:var(--fm);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(123,150,178,.62);line-height:1.5}
+.ig-info-card .ig-card-mech strong{color:var(--blue2);font-weight:500}
+
+/* Info card positions per stage (relative to .ig-cock-canvas) */
+.ig-info-card[data-stage="protocol"]{top:64%;left:1%;--ig-card-origin:0% 0%}
+.ig-info-card[data-stage="population"]{top:1%;left:18%;--ig-card-origin:50% 100%}
+.ig-info-card[data-stage="screening"]{top:64%;left:30%;--ig-card-origin:50% 0%}
+.ig-info-card[data-stage="forms"]{top:1%;left:54%;--ig-card-origin:50% 100%}
+.ig-info-card[data-stage="replay"]{top:64%;right:1%;--ig-card-origin:100% 0%}
+
+/* Validation brief: real button */
+.ig-card-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(180deg,rgba(123,150,178,.18),rgba(123,150,178,.08));border:1px solid rgba(169,192,214,.42);color:#f0f4f8;font-family:var(--fm);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;padding:.6rem 1.1rem;margin-top:.7rem;text-decoration:none;cursor:pointer;transition:background .25s,border-color .25s,box-shadow .25s;font-weight:600}
+.ig-card-btn:hover{background:linear-gradient(180deg,rgba(123,150,178,.26),rgba(123,150,178,.12));border-color:var(--blue2);box-shadow:0 0 22px rgba(123,150,178,.18)}
+.ig-card-btn:active{transform:translateY(1px)}
+
+/* Cockpit hover hint */
+.ig-cock-hint{margin-top:1rem;text-align:center;font-family:var(--fm);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--td);opacity:.66;transition:opacity .3s ease}
+.ig-cockpit.ig-has-active .ig-cock-hint{opacity:0}
 
 /* Manifesto */
-.ig-manifesto{position:relative;z-index:10;padding:clamp(3rem,7vh,5.5rem) clamp(1.5rem,5vw,5rem);opacity:0;pointer-events:none;transition:opacity .6s ease .4s;border-top:1px solid rgba(123,150,178,.07)}
+.ig-manifesto{position:relative;z-index:10;padding:clamp(3rem,6vh,4.5rem) clamp(1.5rem,5vw,5rem);opacity:0;pointer-events:none;transition:opacity .55s ease .35s;border-top:1px solid rgba(123,150,178,.07);text-align:center}
 body.is-cockpit .ig-manifesto{opacity:1;pointer-events:auto}
-.ig-manifesto p{font-family:'Playfair Display','Georgia',serif;font-size:clamp(1.12rem,2.2vw,1.85rem);font-weight:400;font-style:italic;line-height:1.4;letter-spacing:-.01em;color:rgba(232,232,232,.68);margin:0}
-.ig-manifesto p+p{margin-top:clamp(.55rem,1.4vh,.95rem)}
+.ig-manifesto p{font-family:var(--fh);font-size:clamp(1.05rem,1.95vw,1.55rem);font-weight:500;line-height:1.42;letter-spacing:-.005em;color:rgba(232,232,232,.74);margin:0;max-width:780px;margin-left:auto;margin-right:auto}
+.ig-manifesto p+p{margin-top:clamp(.55rem,1.3vh,.85rem);color:rgba(169,192,214,.68);font-size:clamp(.92rem,1.55vw,1.22rem);font-weight:400}
 
-/* Stakeholders */
-.ig-stakeholders{position:relative;z-index:10;padding:clamp(2rem,5vh,4rem) clamp(1.5rem,5vw,5rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;opacity:0;pointer-events:none;transition:opacity .6s ease .5s}
+/* Stakeholder integration (replaces card grid) */
+.ig-stakeholders{position:relative;z-index:10;padding:clamp(1.6rem,4vh,3rem) clamp(1.5rem,5vw,5rem) clamp(2.2rem,4.5vh,3.5rem);max-width:1180px;margin:0 auto;opacity:0;pointer-events:none;transition:opacity .55s ease .45s;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(1.4rem,3vw,2.4rem) clamp(2rem,4vw,3rem);border-top:1px solid rgba(123,150,178,.06)}
 body.is-cockpit .ig-stakeholders{opacity:1;pointer-events:auto}
-.ig-stakeholder-card{border:1px solid rgba(123,150,178,.12);background:linear-gradient(180deg,rgba(7,10,14,.72),rgba(0,0,0,.42));padding:1.15rem 1.1rem;display:flex;flex-direction:column;gap:.76rem;transition:border-color .42s,box-shadow .42s,background .42s,transform .42s cubic-bezier(.16,1,.3,1)}
-.ig-stakeholder-card:hover{border-color:rgba(123,150,178,.26);box-shadow:0 0 42px rgba(123,150,178,.055),inset 0 0 0 1px rgba(255,255,255,.014);background:linear-gradient(180deg,rgba(9,13,18,.82),rgba(0,0,0,.52));transform:translateY(-2px)}
-.ig-stakeholder-card.highlighted{border-color:rgba(169,192,214,.3);box-shadow:0 0 48px rgba(123,150,178,.075),inset 0 0 0 1px rgba(255,255,255,.018)}
-.ig-card-aud{font-family:var(--fm);font-size:.48rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(169,192,214,.52)}
-.ig-card-body{font-family:var(--fb);font-size:.86rem;line-height:1.58;color:var(--ts);margin:0;flex:1}
-.ig-card-cta{font-family:var(--fm);font-size:.53rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue2);text-decoration:none;border-bottom:1px solid rgba(123,150,178,.28);padding-bottom:.12rem;align-self:flex-start;transition:color .25s,border-color .25s}
-.ig-card-cta:hover{color:var(--tp);border-color:rgba(169,192,214,.52)}
+.ig-stake{display:flex;flex-direction:column;gap:.55rem}
+.ig-stake-aud{font-family:var(--fm);font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(169,192,214,.62);font-weight:700}
+.ig-stake-body{font-family:var(--fb);font-size:.86rem;line-height:1.58;color:rgba(232,232,232,.74);margin:0}
+.ig-stake-link{font-family:var(--fm);font-size:.55rem;letter-spacing:.13em;text-transform:uppercase;color:var(--blue2);text-decoration:none;align-self:flex-start;display:inline-flex;align-items:center;gap:.4rem;border-bottom:1px solid rgba(123,150,178,.32);padding-bottom:.18rem;transition:color .25s,border-color .25s;margin-top:.18rem}
+.ig-stake-link:hover{color:#fff;border-color:var(--blue2)}
+.ig-stake-link::after{content:'→';transition:transform .25s ease}
+.ig-stake-link:hover::after{transform:translateX(3px)}
 
 /* Bottom bar */
-.ig-bottom-bar{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:clamp(.8rem,1.8vh,1.2rem) clamp(1.5rem,5vw,5rem);color:var(--td);font-family:var(--fm);font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid rgba(123,150,178,.06);opacity:0;pointer-events:none;transition:opacity .5s ease .7s}
+.ig-bottom-bar{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:clamp(.8rem,1.8vh,1.2rem) clamp(1.5rem,5vw,5rem);color:var(--td);font-family:var(--fm);font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid rgba(123,150,178,.06);opacity:0;pointer-events:none;transition:opacity .5s ease .55s}
 body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
 
 /* Responsive */
-@media(max-width:900px){.ig-cockpit-body{grid-template-columns:1fr}.ig-cockpit-rail{min-height:auto}.ig-audience-switch{flex-direction:row;flex-wrap:wrap;justify-content:flex-end;padding:.42rem .6rem;gap:.12rem}}
-@media(max-width:600px){.ig-audience-switch{display:none}.ig-headline{font-size:clamp(1.4rem,5.5vw,2.2rem)}.ig-subline{font-size:.86rem}.ig-manifesto p{font-size:clamp(1rem,4.5vw,1.42rem)}.ig-stakeholders{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){.ig-monogram-grid,.ig-dot,.viz-origin-glow,.viz-origin-pulse,.viz-decision-glow,.viz-particle.eligible{animation:none}.ig-dot{opacity:.85}.tl-cursor{transition:none}.viz-layer,.ig-hero,.ig-stage,.ig-cockpit,.ig-manifesto,.ig-stakeholders,.ig-bottom-bar{transition:none}}
+@media(max-width:980px){
+  .ig-cock-canvas{padding:.5rem}
+  .ig-info-card{width:clamp(180px,42vw,240px);padding:.7rem .8rem;font-size:.9em}
+  .ig-info-card .ig-card-title{font-size:.88rem}
+  .ig-info-card .ig-card-body{font-size:.72rem}
+}
+@media(max-width:700px){
+  .ig-cock-wordmark{font-size:.95rem}
+  .ig-cock-restart{left:8rem}
+  /* On mobile, the canvas overlay layout breaks down — collapse cards to a stack below */
+  .ig-info-card{position:relative;width:100%;left:auto!important;right:auto!important;top:auto!important;margin-top:.6rem;opacity:1;transform:none;pointer-events:auto}
+  .ig-info-card:not(.visible){display:none}
+  .ig-cock-canvas{min-height:auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .ig-monogram-grid,.ig-dot,.viz-origin-glow,.viz-origin-pulse,.viz-decision-glow,.viz-particle.eligible,.ig-tagline-rotator::after,.ig-cock-dot{animation:none}
+  .ig-dot{opacity:.85}
+  .tl-cursor{transition:none}
+  .viz-layer,.ig-hero,.ig-stage,.ig-cockpit,.ig-manifesto,.ig-stakeholders,.ig-bottom-bar,.ig-info-card{transition:none}
+}
 
 </style>
 </head>
@@ -676,29 +712,23 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
   <div class="ig-monogram-bg"><div class="ig-monogram-grid" id="igMonogramGrid"></div></div>
 </div>
 
-<!-- Audience switch (fixed top-right) -->
-<div class="ig-audience-switch" role="group" aria-label="View by audience">
-  <button class="ig-aud-btn active" data-aud="investors" type="button">Investors</button>
-  <button class="ig-aud-btn" data-aud="sponsors" type="button">Sponsors &amp; CROs</button>
-  <button class="ig-aud-btn" data-aud="sites" type="button">Sites</button>
-  <button class="ig-aud-btn" data-aud="partners" type="button">Research Partners</button>
-</div>
-
-<!-- Hero -->
-<section class="ig-hero" id="igHero" aria-label="Damaros">
+<!-- Hero (click anywhere to initialize) -->
+<section class="ig-hero" id="igHero" aria-label="Damaros" role="button" tabindex="0">
   <div class="ig-hero-inner">
     <div class="ig-wordmark">
       <span>Damaros</span>
-      <button type="button" class="ig-dot" id="igDot" aria-label="Begin Damaros walkthrough"></button>
+      <button type="button" class="ig-dot" id="igDot" aria-label="Initialize Damaros walkthrough"></button>
     </div>
-    <h1 class="ig-headline" id="igHeadline">Clinical trials, simplified.</h1>
-    <p class="ig-subline">Damaros transforms protocol logic, site evidence, coordinator work, and audit trails into one replayable execution system.</p>
-    <p class="ig-cue" id="igCue" aria-live="polite">Press the dot, or scroll.</p>
+    <p class="ig-tagline" aria-label="clinical trial execution, cycling descriptor">
+      <span class="ig-tagline-prefix">clinical trial execution,&nbsp;</span>
+      <span class="ig-tagline-rotator" id="igTaglineRotator"></span>
+    </p>
   </div>
+  <p class="ig-cue-bottom" id="igCue" aria-live="polite">Click anywhere to initialize</p>
 </section>
 
-<!-- Provenance stage -->
-<section class="ig-stage" id="igStage" aria-label="Damaros provenance walkthrough" aria-hidden="true">
+<!-- Provenance stage (autoplay overlay) -->
+<section class="ig-stage" id="igStage" aria-label="Damaros walkthrough" aria-hidden="true">
   <p class="ig-caption" id="igCaption" aria-live="polite" aria-atomic="true"></p>
   <div class="ig-viz-wrap">
     <svg class="ig-viz" id="igViz" viewBox="0 0 820 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Provenance graph: Protocol, Population, Screening, Forms, Replay">
@@ -762,6 +792,12 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
         <circle class="viz-decision" cx="680" cy="200" r="18"/>
         <text class="viz-lbl-decision" x="680" y="235">Decision</text>
       </g>
+      <!-- Charge flash overlay rings (used during end-of-autoplay synthesis) -->
+      <circle class="viz-charge-flash" cx="88" cy="200" r="24"/>
+      <circle class="viz-charge-flash" cx="250" cy="200" r="34"/>
+      <circle class="viz-charge-flash" cx="395" cy="200" r="38"/>
+      <circle class="viz-charge-flash" cx="548" cy="200" r="32"/>
+      <circle class="viz-charge-flash" cx="680" cy="200" r="28"/>
       <g class="viz-timeline">
         <line class="tl-track" x1="55" y1="400" x2="755" y2="400"/>
         <circle class="tl-stop" cx="88" cy="400" r="3"/>
@@ -774,114 +810,145 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
         <text class="tl-stop-lbl" x="548" y="416">Forms</text>
         <circle class="tl-stop" cx="680" cy="400" r="3"/>
         <text class="tl-stop-lbl" x="680" y="416">Replay</text>
-        <circle class="tl-cursor" id="igTlCursor" cx="680" cy="400" r="5.5"/>
+        <circle class="tl-cursor" id="igTlCursor" cx="88" cy="400" r="5.5"/>
       </g>
     </svg>
   </div>
-  <button class="ig-skip" id="igSkip" type="button">Skip to walkthrough</button>
+  <button class="ig-skip" id="igSkip" type="button">Skip walkthrough</button>
 </section>
 
-<!-- Cockpit -->
-<section class="ig-cockpit" id="igCockpit" aria-label="Damaros execution walkthrough" aria-hidden="true">
+<!-- Cockpit (post-walkthrough, interactive) -->
+<section class="ig-cockpit" id="igCockpit" aria-label="Damaros execution substrate" aria-hidden="true">
+  <button type="button" class="ig-cock-wordmark" id="igCockWordmark" aria-label="Return to Damaros home">Damaros<span class="ig-cock-dot" aria-hidden="true"></span></button>
+  <button type="button" class="ig-cock-restart" id="igCtrlRewind" aria-label="Replay walkthrough" title="Replay walkthrough">
+    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M3 10 a7 7 0 1 0 2.5 -5.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <path d="M5.5 4.6 L3 4.6 L3 7.1" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </svg>
+  </button>
   <div class="ig-cockpit-inner">
-    <nav class="ig-stage-nav" aria-label="Workflow stages">
-      <button class="ig-stage-btn" data-stage="protocol" type="button"><span>01</span>Protocol</button>
-      <button class="ig-stage-btn" data-stage="population" type="button"><span>02</span>Population</button>
-      <button class="ig-stage-btn active" data-stage="screening" type="button"><span>03</span>Screening</button>
-      <button class="ig-stage-btn" data-stage="forms" type="button"><span>04</span>Forms</button>
-      <button class="ig-stage-btn" data-stage="replay" type="button"><span>05</span>Replay</button>
-    </nav>
-    <div class="ig-cockpit-body">
-      <div class="ig-cockpit-viz-wrap">
-        <svg class="ig-cockpit-viz" id="igCockpitViz" viewBox="0 0 820 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stage detail">
-          <g class="viz-layer" id="cvizProtocol" opacity="0">
-            <circle class="viz-origin-glow" cx="88" cy="200" r="36"/>
-            <circle class="viz-origin" cx="88" cy="200" r="16"/>
-            <line class="viz-conn-solid" x1="104" y1="200" x2="175" y2="200"/>
-            <text class="viz-lbl-sm" x="88" y="234">Protocol</text>
-            <text class="viz-lbl-xs" x="88" y="248">Trident · v24.06</text>
-          </g>
-          <g class="viz-layer" id="cvizPopulation" opacity="0">
-            <line class="viz-conn-solid" x1="330" y1="200" x2="350" y2="200"/>
-          </g>
-          <g class="viz-layer" id="cvizScreening" opacity="0">
-            <line class="viz-conn" x1="395" y1="195" x2="370" y2="155"/>
-            <line class="viz-conn" x1="395" y1="195" x2="395" y2="150"/>
-            <line class="viz-conn" x1="395" y1="195" x2="420" y2="155"/>
-            <line class="viz-conn" x1="370" y1="150" x2="350" y2="112"/>
-            <line class="viz-conn" x1="370" y1="150" x2="380" y2="112"/>
-            <line class="viz-conn" x1="395" y1="150" x2="395" y2="112"/>
-            <line class="viz-conn" x1="420" y1="150" x2="410" y2="112"/>
-            <line class="viz-conn" x1="420" y1="150" x2="435" y2="112"/>
-            <circle class="viz-criterion" cx="395" cy="200" r="10"/>
-            <circle class="viz-criterion pass" cx="370" cy="150" r="8"/>
-            <circle class="viz-criterion pass" cx="395" cy="150" r="8"/>
-            <circle class="viz-criterion review" cx="420" cy="150" r="8"/>
-            <circle class="viz-criterion pass" cx="350" cy="112" r="6"/>
-            <circle class="viz-criterion fail" cx="380" cy="112" r="6"/>
-            <circle class="viz-criterion pass" cx="395" cy="112" r="6"/>
-            <circle class="viz-criterion review" cx="410" cy="112" r="6"/>
-            <circle class="viz-criterion pass" cx="435" cy="112" r="6"/>
-            <line class="viz-conn" x1="395" y1="205" x2="370" y2="255"/>
-            <line class="viz-conn" x1="395" y1="205" x2="420" y2="255"/>
-            <circle class="viz-criterion pass" cx="370" cy="260" r="8"/>
-            <circle class="viz-criterion review" cx="420" cy="260" r="8"/>
-            <line class="viz-conn" x1="370" y1="265" x2="358" y2="295"/>
-            <line class="viz-conn" x1="420" y1="265" x2="432" y2="295"/>
-            <circle class="viz-criterion pass" cx="358" cy="298" r="6"/>
-            <circle class="viz-criterion fail" cx="432" cy="298" r="6"/>
-            <line class="viz-conn-solid" x1="447" y1="200" x2="478" y2="200"/>
-          </g>
-          <g class="viz-layer" id="cvizForms" opacity="0">
-            <line class="viz-conn" x1="480" y1="190" x2="548" y2="158"/>
-            <line class="viz-conn" x1="480" y1="200" x2="548" y2="200"/>
-            <line class="viz-conn" x1="480" y1="210" x2="548" y2="242"/>
-            <line class="viz-conn" x1="558" y1="158" x2="620" y2="185"/>
-            <line class="viz-conn" x1="558" y1="200" x2="620" y2="200"/>
-            <line class="viz-conn" x1="558" y1="242" x2="620" y2="215"/>
-            <circle class="viz-form-node" cx="548" cy="158" r="10"/>
-            <circle class="viz-form-node" cx="548" cy="200" r="10"/>
-            <circle class="viz-form-node" cx="548" cy="242" r="10"/>
-            <circle class="viz-evidence" cx="524" cy="145" r="4"/>
-            <circle class="viz-evidence" cx="530" cy="168" r="3"/>
-            <circle class="viz-evidence" cx="524" cy="200" r="4"/>
-            <circle class="viz-evidence" cx="530" cy="218" r="3"/>
-            <circle class="viz-evidence" cx="524" cy="255" r="4"/>
-          </g>
-          <g class="viz-layer" id="cvizDecision" opacity="1">
-            <circle class="viz-decision-glow" cx="680" cy="200" r="42"/>
-            <circle class="viz-decision" cx="680" cy="200" r="18"/>
-            <text class="viz-lbl-decision" x="680" y="235">Decision</text>
-          </g>
-          <g class="viz-timeline">
-            <line class="tl-track" x1="55" y1="400" x2="755" y2="400"/>
-            <circle class="tl-stop" cx="88" cy="400" r="3"/>
-            <text class="tl-stop-lbl" x="88" y="416">Protocol</text>
-            <circle class="tl-stop" cx="245" cy="400" r="3"/>
-            <text class="tl-stop-lbl" x="245" y="416">Population</text>
-            <circle class="tl-stop" cx="395" cy="400" r="3"/>
-            <text class="tl-stop-lbl" x="395" y="416">Screening</text>
-            <circle class="tl-stop" cx="548" cy="400" r="3"/>
-            <text class="tl-stop-lbl" x="548" y="416">Forms</text>
-            <circle class="tl-stop" cx="680" cy="400" r="3"/>
-            <text class="tl-stop-lbl" x="680" y="416">Replay</text>
-            <circle class="tl-cursor" id="igCTlCursor" cx="395" cy="400" r="5.5"/>
-          </g>
-        </svg>
+    <div class="ig-cock-canvas" id="igCockCanvas">
+      <svg class="ig-cockpit-viz" id="igCockpitViz" viewBox="0 0 820 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Provenance substrate">
+        <g class="viz-layer" id="cvizProtocol" opacity="1">
+          <circle class="viz-origin-glow" cx="88" cy="200" r="36"/>
+          <circle class="viz-origin" cx="88" cy="200" r="16"/>
+          <line class="viz-conn-solid" x1="104" y1="200" x2="175" y2="200"/>
+          <text class="viz-lbl-sm" x="88" y="234">Protocol</text>
+          <text class="viz-lbl-xs" x="88" y="248">Trident · v24.06</text>
+        </g>
+        <g class="viz-layer" id="cvizPopulation" opacity="1">
+          <line class="viz-conn-solid" x1="330" y1="200" x2="350" y2="200"/>
+        </g>
+        <g class="viz-layer" id="cvizScreening" opacity="1">
+          <line class="viz-conn" x1="395" y1="195" x2="370" y2="155"/>
+          <line class="viz-conn" x1="395" y1="195" x2="395" y2="150"/>
+          <line class="viz-conn" x1="395" y1="195" x2="420" y2="155"/>
+          <line class="viz-conn" x1="370" y1="150" x2="350" y2="112"/>
+          <line class="viz-conn" x1="370" y1="150" x2="380" y2="112"/>
+          <line class="viz-conn" x1="395" y1="150" x2="395" y2="112"/>
+          <line class="viz-conn" x1="420" y1="150" x2="410" y2="112"/>
+          <line class="viz-conn" x1="420" y1="150" x2="435" y2="112"/>
+          <circle class="viz-criterion" cx="395" cy="200" r="10"/>
+          <circle class="viz-criterion pass" cx="370" cy="150" r="8"/>
+          <circle class="viz-criterion pass" cx="395" cy="150" r="8"/>
+          <circle class="viz-criterion review" cx="420" cy="150" r="8"/>
+          <circle class="viz-criterion pass" cx="350" cy="112" r="6"/>
+          <circle class="viz-criterion fail" cx="380" cy="112" r="6"/>
+          <circle class="viz-criterion pass" cx="395" cy="112" r="6"/>
+          <circle class="viz-criterion review" cx="410" cy="112" r="6"/>
+          <circle class="viz-criterion pass" cx="435" cy="112" r="6"/>
+          <line class="viz-conn" x1="395" y1="205" x2="370" y2="255"/>
+          <line class="viz-conn" x1="395" y1="205" x2="420" y2="255"/>
+          <circle class="viz-criterion pass" cx="370" cy="260" r="8"/>
+          <circle class="viz-criterion review" cx="420" cy="260" r="8"/>
+          <line class="viz-conn" x1="370" y1="265" x2="358" y2="295"/>
+          <line class="viz-conn" x1="420" y1="265" x2="432" y2="295"/>
+          <circle class="viz-criterion pass" cx="358" cy="298" r="6"/>
+          <circle class="viz-criterion fail" cx="432" cy="298" r="6"/>
+          <line class="viz-conn-solid" x1="447" y1="200" x2="478" y2="200"/>
+        </g>
+        <g class="viz-layer" id="cvizForms" opacity="1">
+          <line class="viz-conn" x1="480" y1="190" x2="548" y2="158"/>
+          <line class="viz-conn" x1="480" y1="200" x2="548" y2="200"/>
+          <line class="viz-conn" x1="480" y1="210" x2="548" y2="242"/>
+          <line class="viz-conn" x1="558" y1="158" x2="620" y2="185"/>
+          <line class="viz-conn" x1="558" y1="200" x2="620" y2="200"/>
+          <line class="viz-conn" x1="558" y1="242" x2="620" y2="215"/>
+          <circle class="viz-form-node" cx="548" cy="158" r="10"/>
+          <circle class="viz-form-node" cx="548" cy="200" r="10"/>
+          <circle class="viz-form-node" cx="548" cy="242" r="10"/>
+          <circle class="viz-evidence" cx="524" cy="145" r="4"/>
+          <circle class="viz-evidence" cx="530" cy="168" r="3"/>
+          <circle class="viz-evidence" cx="524" cy="200" r="4"/>
+          <circle class="viz-evidence" cx="530" cy="218" r="3"/>
+          <circle class="viz-evidence" cx="524" cy="255" r="4"/>
+        </g>
+        <g class="viz-layer" id="cvizDecision" opacity="1">
+          <circle class="viz-decision-glow" cx="680" cy="200" r="42"/>
+          <circle class="viz-decision" cx="680" cy="200" r="18"/>
+          <text class="viz-lbl-decision" x="680" y="235">Decision</text>
+        </g>
+        <!-- Halos lit on hover/active per stage -->
+        <circle class="viz-stage-halo" id="haloProtocol" cx="88" cy="200" r="28"/>
+        <circle class="viz-stage-halo" id="haloPopulation" cx="250" cy="200" r="64"/>
+        <circle class="viz-stage-halo" id="haloScreening" cx="395" cy="200" r="58"/>
+        <circle class="viz-stage-halo" id="haloForms" cx="548" cy="200" r="50"/>
+        <circle class="viz-stage-halo" id="haloReplay" cx="680" cy="200" r="30"/>
+        <g class="viz-timeline">
+          <line class="tl-track" x1="55" y1="400" x2="755" y2="400"/>
+          <circle class="tl-stop" cx="88" cy="400" r="3"/>
+          <text class="tl-stop-lbl" x="88" y="416">Protocol</text>
+          <circle class="tl-stop" cx="245" cy="400" r="3"/>
+          <text class="tl-stop-lbl" x="245" y="416">Population</text>
+          <circle class="tl-stop" cx="395" cy="400" r="3"/>
+          <text class="tl-stop-lbl" x="395" y="416">Screening</text>
+          <circle class="tl-stop" cx="548" cy="400" r="3"/>
+          <text class="tl-stop-lbl" x="548" y="416">Forms</text>
+          <circle class="tl-stop" cx="680" cy="400" r="3"/>
+          <text class="tl-stop-lbl" x="680" y="416">Replay</text>
+        </g>
+        <!-- Invisible hot zones (last in SVG so they catch pointer events on top) -->
+        <rect class="viz-hotzone" data-stage="protocol"   x="20"  y="140" width="150" height="140"/>
+        <rect class="viz-hotzone" data-stage="population" x="170" y="80"  width="180" height="300"/>
+        <rect class="viz-hotzone" data-stage="screening"  x="335" y="80"  width="140" height="270"/>
+        <rect class="viz-hotzone" data-stage="forms"      x="478" y="120" width="135" height="190"/>
+        <rect class="viz-hotzone" data-stage="replay"     x="615" y="145" width="135" height="140"/>
+      </svg>
+
+      <!-- Info cards overlay -->
+      <div class="ig-info-card" data-stage="protocol" id="cardProtocol" role="region" aria-label="Protocol detail">
+        <div class="ig-card-label">01 · Protocol</div>
+        <h3 class="ig-card-title">Protocol is the executable form of a clinical trial.</h3>
+        <p class="ig-card-body">NCT records compile into a versioned Criterion Tree under one canonical FHIR-to-Trident compiler. Every inclusion and exclusion rule is locked with a content hash before patient evidence is requested.</p>
+        <div class="ig-card-mech"><strong>Mechanism:</strong> deterministic resource ordering, stable content hash, locked protocol object. No downstream re-interpretation.</div>
       </div>
-      <aside class="ig-cockpit-rail" id="igCockpitRail" aria-live="polite">
-        <div class="ig-rail-label" id="igRailLabel"></div>
-        <h2 class="ig-rail-title" id="igRailTitle"></h2>
-        <p class="ig-rail-body" id="igRailBody"></p>
-        <div class="ig-rail-outcomes" id="igRailOutcomes"></div>
-        <div class="ig-rail-cta" id="igRailCta"></div>
-        <div class="ig-rail-note" id="igRailNote"></div>
-      </aside>
+      <div class="ig-info-card" data-stage="population" id="cardPopulation" role="region" aria-label="Population detail">
+        <div class="ig-card-label">02 · Population</div>
+        <h3 class="ig-card-title">Population enters through one bounded evidence plane.</h3>
+        <p class="ig-card-body">FHIR REST, Bulk FHIR NDJSON, REDCap, CSV, Excel, and Epic flat exports route through a single parser registry. A DuckDB profile and Frictionless schema check block structural faults before screening.</p>
+        <div class="ig-card-mech"><strong>Mechanism:</strong> bounded retry/resume Bulk FHIR job spine. Tenant isolation at API, workbench, and ingest. Site retains pathway control.</div>
+      </div>
+      <div class="ig-info-card" data-stage="screening" id="cardScreening" role="region" aria-label="Screening detail">
+        <div class="ig-card-label">03 · Screening</div>
+        <h3 class="ig-card-title">Screening is deterministic and refuses to run against an unlocked protocol.</h3>
+        <p class="ig-card-body">Each patient × criterion pair resolves to PASS, REVIEW, or FAIL under versioned protocol logic. A service guard rejects unlocked-protocol evaluation with a 409 contract. ECOG performance status maps from LOINC 89247-1.</p>
+        <div class="ig-card-mech"><strong>Mechanism:</strong> no LLM on patient data. Runtime corpus fetches lint-blocked. Uncertainty surfaces as REVIEW, not silent coercion.</div>
+      </div>
+      <div class="ig-info-card" data-stage="forms" id="cardForms" role="region" aria-label="Forms detail">
+        <div class="ig-card-label">04 · Forms</div>
+        <h3 class="ig-card-title">Forms inherit the same substrate as Screening.</h3>
+        <p class="ig-card-body">Coordinator artifacts assemble from the same Protocol, Population, and Screening objects with source links preserved. Every AI extraction routes through one policy envelope carrying prompt version, content hash, and model id.</p>
+        <div class="ig-card-mech"><strong>Mechanism:</strong> PR-gated AI Eval CI enforces fact-recall and exact-match floors. Sponsor packet redaction preserves ai_origin lineage.</div>
+      </div>
+      <div class="ig-info-card" data-stage="replay" id="cardReplay" role="region" aria-label="Replay detail">
+        <div class="ig-card-label">05 · Replay</div>
+        <h3 class="ig-card-title">Replay reconstructs every decision from its content-hashed substrate.</h3>
+        <p class="ig-card-body">Each replay event binds ontology_release_id and ontology_manifest_hash. OTEL GenAI spans correlate ai_origin_id to trace_id end-to-end. The Signed Replay Bundle ships as a KMS-signed cryptographic manifest.</p>
+        <div class="ig-card-mech"><strong>Mechanism:</strong> the same engine runs synthetic, retrospective, and production. Divergence is attributable to named inputs and a named ontology release.</div>
+        <a class="ig-card-btn" href="mailto:anirudh@damaros.ai?subject=Damaros%20Validation%20Brief">Request validation brief</a>
+      </div>
     </div>
-    <div class="ig-cockpit-controls">
-      <button class="ig-ctrl-btn" id="igCtrlRewind" type="button">← Replay walkthrough</button>
-      <button class="ig-ctrl-btn ig-ctrl-home" id="igCtrlHome" type="button">Home</button>
-    </div>
+    <p class="ig-cock-hint" id="igCockHint">Hover or click any stage to inspect</p>
   </div>
 </section>
 
@@ -891,27 +958,27 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
   <p>Trials become objects you can audit, not stories you have to reconstruct.</p>
 </section>
 
-<!-- Stakeholder paths -->
+<!-- Stakeholder context -->
 <section class="ig-stakeholders" id="igStakeholders" aria-hidden="true">
-  <div class="ig-stakeholder-card" data-aud="investors">
-    <div class="ig-card-aud">Investors</div>
-    <p class="ig-card-body">A substrate, not a CRO. One engine across all sites.</p>
-    <a class="ig-card-cta" href="mailto:anirudh@damaros.ai?subject=Damaros%20Investor%20Brief">Read the investor brief</a>
+  <div class="ig-stake">
+    <div class="ig-stake-aud">Sponsors &amp; CROs</div>
+    <p class="ig-stake-body">The same versioned protocol object runs at every site. Every screening outcome is reconstructible from the same content-hashed substrate, with criterion-level evidence preserved.</p>
+    <a class="ig-stake-link" href="#trust">Learn more</a>
   </div>
-  <div class="ig-stakeholder-card" data-aud="sponsors">
-    <div class="ig-card-aud">Sponsors &amp; CROs</div>
-    <p class="ig-card-body">Run the same protocol at every site. Replay every decision.</p>
-    <a class="ig-card-cta" href="mailto:anirudh@damaros.ai?subject=Damaros%20Pilot">Talk to us about a pilot</a>
+  <div class="ig-stake">
+    <div class="ig-stake-aud">Clinical trial sites</div>
+    <p class="ig-stake-body">Site-approved Epic Backend Services or governed file extracts. Read-only, tenant-isolated, bounded jobs. Eligibility and forms run against the cohort the site already controls.</p>
+    <a class="ig-stake-link" href="#validation">Learn more</a>
   </div>
-  <div class="ig-stakeholder-card" data-aud="sites">
-    <div class="ig-card-aud">Sites</div>
-    <p class="ig-card-body">Eligibility runs on your real cohort. Forms assemble from real evidence.</p>
-    <a class="ig-card-cta" href="mailto:anirudh@damaros.ai?subject=Damaros%20Site%20Validation%20Brief">Request a site validation brief</a>
+  <div class="ig-stake">
+    <div class="ig-stake-aud">Investors &amp; operators</div>
+    <p class="ig-stake-body">A protocol-execution substrate, not another CRO. One engine across synthetic validation, retrospective validation, and production deployment, with the same Replay contract end-to-end.</p>
+    <a class="ig-stake-link" href="#trust">Learn more</a>
   </div>
-  <div class="ig-stakeholder-card" data-aud="partners">
-    <div class="ig-card-aud">Research Partners</div>
-    <p class="ig-card-body">Modular, FHIR-native, auditable execution for trial science.</p>
-    <a class="ig-card-cta" href="mailto:anirudh@damaros.ai?subject=Damaros%20Teaming">Propose a teaming project</a>
+  <div class="ig-stake">
+    <div class="ig-stake-aud">Research &amp; teaming partners</div>
+    <p class="ig-stake-body">FHIR-native, deterministic on PHI, auditable to the criterion. Modular for teaming workflows that require reproducibility, lineage, and ontology-pinned evidence.</p>
+    <a class="ig-stake-link" href="#docs">Learn more</a>
   </div>
 </section>
 
@@ -1452,60 +1519,110 @@ spec:
   const MONOGRAM_SRC =
     "https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png";
   // ================================================================
-  // Homepage v2 — Provenance substrate
+  // Homepage v3 — Provenance substrate (revised)
   // ================================================================
 
-  const igAudiences = {
-    investors: "Clinical trials, simplified.",
-    sponsors: "Run trials, with their reasoning intact.",
-    sites: "Trials your team can actually run.",
-    partners: "An execution substrate for trial science."
-  };
+  const TAGLINE_WORDS = ["simplified", "operationalized", "replayable", "source-linked", "unified"];
 
   const igAutoplayBeats = [
-    { stageId: "replay",     caption: "An eligibility decision.",                                                          cursorX: 680, ms: 900 },
-    { stageId: "forms",      caption: "Every form that authorized it traces to evidence.",                                 cursorX: 548, ms: 1600 },
-    { stageId: "screening",  caption: "Every piece of evidence was tested against a criterion.",                           cursorX: 395, ms: 1600 },
-    { stageId: "population", caption: "The same logic ran across the entire cohort.",                                      cursorX: 245, ms: 1600 },
-    { stageId: "protocol",   caption: "All of it resolves to a versioned protocol, compiled against the Trident ontology.", cursorX: 88,  ms: 1700 },
-    { stageId: "_fwd",       caption: "",                                                                                   cursorX: 680, ms: 1800, fast: true }
+    { stageId: "protocol",   caption: "Protocol compiles into a versioned, content-hashed Criterion Tree.",                  cursorX: 88,  ms: 1700 },
+    { stageId: "population", caption: "Population enters through one bounded evidence plane.",                                cursorX: 245, ms: 1600 },
+    { stageId: "screening",  caption: "Screening is deterministic at the patient × criterion grain.",                         cursorX: 395, ms: 1600 },
+    { stageId: "forms",      caption: "Forms inherit the same substrate, with source links preserved.",                       cursorX: 548, ms: 1600 },
+    { stageId: "replay",     caption: "Replay reconstructs every decision from a KMS-signed cryptographic manifest.",         cursorX: 680, ms: 1700 },
+    { stageId: "_charge",    caption: "One substrate. Protocol to Replay.",                                                    cursorX: 680, ms: 1600, charge: true }
   ];
-
-  const igStageData = {
-    protocol:   { label: "01 / Protocol",   title: "Protocol becomes executable logic.",       body: "NCT records compile into a versioned criterion tree. Every inclusion and exclusion rule is locked with a content hash before patient evidence is requested.", note: "Compiled against the Trident ontology release.", outcomes: null, cta: null },
-    population: { label: "02 / Population", title: "Population enters through one parser.",    body: "FHIR, Bulk FHIR, REDCap, CSV, and Epic flat exports feed the same bounded evidence plane. A data quality gate blocks structural faults before screening.", note: "Tenant-isolated. Site controls the pathway.", outcomes: null, cta: null },
-    screening:  { label: "03 / Screening",  title: "Screening is deterministic.",              body: "Each patient × criterion pair resolves to a recorded outcome under versioned protocol logic. The engine refuses to run against an unlocked protocol.", note: null, outcomes: [["PASS","pass"],["REVIEW","review"],["FAIL","fail"]], cta: null },
-    forms:      { label: "04 / Forms",      title: "Forms inherit the protocol substrate.",    body: "Coordinator artifacts assemble from the same Protocol, Population, and Screening objects. Every AI extraction routes through the same policy envelope.", note: "Source links preserved throughout.", outcomes: null, cta: null },
-    replay:     { label: "05 / Replay",     title: "Every decision reconstructs.",             body: "Replay re-derives screening outputs from the locked protocol version, evidence snapshot, and ontology release. The signed Replay Bundle is a cryptographic artifact.", note: "Ontology-pinned. Trace-linked. Audit-grade.", outcomes: null, cta: { href: "mailto:anirudh@damaros.ai?subject=Damaros%20Validation%20Brief", label: "Request validation brief" } }
-  };
 
   const igStageCursorX = { protocol: 88, population: 245, screening: 395, forms: 548, replay: 680 };
 
-  const igStageAudHighlight = { protocol: "partners", population: "sites", screening: "sponsors", forms: "sites", replay: "investors" };
-
   // ── State ──
   let igState = "hero"; // hero | playing | cockpit
-  let igCurrentStage = "screening";
-  let igCurrentAudience = "investors";
+  let igActiveStage = null;
+  let igLockedStage = null;
   let igAutoplayRunning = false;
   let igAutoplayAbort = false;
   let scrollTriggered = false;
 
+  // ── Tagline rotator ──
+  let taglineTimer = null;
+  let taglineWordIdx = 0;
+  let taglineDisplayLen = 0;
+  let taglinePhase = "typing";
+
+  function clearTagline() {
+    if (taglineTimer !== null) { clearTimeout(taglineTimer); taglineTimer = null; }
+  }
+  function schedTagline(ms) { taglineTimer = setTimeout(tickTagline, ms); }
+
+  function tickTagline() {
+    taglineTimer = null;
+    const el = document.getElementById("igTaglineRotator");
+    if (!el || igState !== "hero") return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = TAGLINE_WORDS[0];
+      return;
+    }
+    const word = TAGLINE_WORDS[taglineWordIdx];
+    if (taglinePhase === "typing") {
+      taglineDisplayLen += 1;
+      el.textContent = word.slice(0, taglineDisplayLen);
+      if (taglineDisplayLen >= word.length) {
+        taglinePhase = "pause";
+        schedTagline(1900);
+      } else schedTagline(58);
+      return;
+    }
+    if (taglinePhase === "pause") {
+      taglinePhase = "deleting";
+      schedTagline(420);
+      return;
+    }
+    if (taglinePhase === "deleting") {
+      taglineDisplayLen -= 1;
+      el.textContent = word.slice(0, Math.max(0, taglineDisplayLen));
+      if (taglineDisplayLen <= 0) {
+        taglineWordIdx = (taglineWordIdx + 1) % TAGLINE_WORDS.length;
+        taglinePhase = "typing";
+        schedTagline(360);
+      } else schedTagline(40);
+    }
+  }
+  function startTagline() {
+    clearTagline();
+    const el = document.getElementById("igTaglineRotator");
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = TAGLINE_WORDS[0];
+      return;
+    }
+    taglineWordIdx = 0;
+    taglineDisplayLen = 0;
+    taglinePhase = "typing";
+    el.textContent = "";
+    schedTagline(580);
+  }
+  function stopTagline() {
+    clearTagline();
+    const el = document.getElementById("igTaglineRotator");
+    if (el) el.textContent = "";
+  }
+
   // ── DOM refs ──
-  const igDot = document.getElementById("igDot");
   const igHero = document.getElementById("igHero");
   const igStage = document.getElementById("igStage");
   const igCockpit = document.getElementById("igCockpit");
   const igManifesto = document.getElementById("igManifesto");
   const igStakeholders = document.getElementById("igStakeholders");
   const igCaption = document.getElementById("igCaption");
-  const igHeadline = document.getElementById("igHeadline");
   const igTlCursor = document.getElementById("igTlCursor");
-  const igCTlCursor = document.getElementById("igCTlCursor");
   const igMonogramGrid = document.getElementById("igMonogramGrid");
   const igSkip = document.getElementById("igSkip");
   const igCtrlRewind = document.getElementById("igCtrlRewind");
-  const igCtrlHome = document.getElementById("igCtrlHome");
+  const igCockWordmark = document.getElementById("igCockWordmark");
+  const igCockCanvas = document.getElementById("igCockCanvas");
+  const igDot = document.getElementById("igDot");
+  const igViz = document.getElementById("igViz");
+  const igCockpitVizEl = document.getElementById("igCockpitViz");
 
   // ── Monogram grid ──
   function initMonogramGrid() {
@@ -1530,7 +1647,7 @@ spec:
     test.src = MONOGRAM_SRC;
   }
 
-  // ── Particles (seeded for visual stability) ──
+  // ── Particles ──
   function mulberry32(seed) {
     return function () {
       seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
@@ -1539,7 +1656,6 @@ spec:
       return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
     };
   }
-
   function initPopulationParticles() {
     const layers = [
       document.getElementById("vizPopulation"),
@@ -1555,41 +1671,35 @@ spec:
         const x = 180 + rng() * 145;
         const y = 80 + rng() * 260;
         const r = 1.8 + rng() * 1.8;
-        const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        circle.setAttribute("cx", x.toFixed(1));
-        circle.setAttribute("cy", y.toFixed(1));
-        circle.setAttribute("r", r.toFixed(2));
+        const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", x.toFixed(1));
+        c.setAttribute("cy", y.toFixed(1));
+        c.setAttribute("r", r.toFixed(2));
         let cls = "viz-particle";
-        if (eligibleSet.has(i)) {
-          cls += " eligible";
-          circle.style.animationDelay = (rng() * 1.5).toFixed(2) + "s";
-        } else if (nearSet.has(i)) {
-          cls += " near-eligible";
-        }
-        circle.setAttribute("class", cls);
-        frag.appendChild(circle);
+        if (eligibleSet.has(i)) { cls += " eligible"; c.style.animationDelay = (rng() * 1.5).toFixed(2) + "s"; }
+        else if (nearSet.has(i)) cls += " near-eligible";
+        c.setAttribute("class", cls);
+        frag.appendChild(c);
       }
       layer.insertBefore(frag, layer.firstChild);
     });
   }
 
-  // ── SVG focus ──
+  // ── Stage focus (main viz, used during autoplay) ──
   const vizLayerIds = {
-    main:    { protocol: "vizProtocol",  population: "vizPopulation",  screening: "vizScreening",  forms: "vizForms",  replay: "vizDecision" },
-    cockpit: { protocol: "cvizProtocol", population: "cvizPopulation", screening: "cvizScreening", forms: "cvizForms", replay: "cvizDecision" }
+    main: { protocol: "vizProtocol", population: "vizPopulation", screening: "vizScreening", forms: "vizForms", replay: "vizDecision" }
   };
   const allStages = ["protocol", "population", "screening", "forms", "replay"];
 
-  function setVizFocus(stageId, vizType) {
-    const ids = vizLayerIds[vizType || "main"];
+  function setMainVizFocus(stageId) {
+    const ids = vizLayerIds.main;
     const activeIdx = allStages.indexOf(stageId);
     allStages.forEach(function (s) {
       const el = document.getElementById(ids[s]);
       if (!el) return;
       el.classList.remove("viz-active", "viz-dim", "viz-mid");
-      if (s === stageId) {
-        el.classList.add("viz-active");
-      } else {
+      if (s === stageId) el.classList.add("viz-active");
+      else {
         const thisIdx = allStages.indexOf(s);
         if (Math.abs(activeIdx - thisIdx) === 1) el.classList.add("viz-mid");
         else el.classList.add("viz-dim");
@@ -1597,14 +1707,11 @@ spec:
     });
   }
 
-  function setTimelineCursor(cursorX, fastSwing) {
-    if (igTlCursor) {
-      igTlCursor.style.transition = fastSwing ? "cx .55s cubic-bezier(.16,1,.3,1)" : "";
-      igTlCursor.setAttribute("cx", cursorX);
-    }
+  function setTimelineCursor(cursorX) {
+    if (igTlCursor) igTlCursor.setAttribute("cx", cursorX);
   }
 
-  // ── Autoplay ──
+  // ── Autoplay (left to right + ending charge-up) ──
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   async function runAutoplay() {
@@ -1612,27 +1719,23 @@ spec:
     igAutoplayRunning = true;
     igAutoplayAbort = false;
     igState = "playing";
+    stopTagline();
     document.body.classList.add("is-playing");
     document.body.classList.remove("is-cockpit");
     if (igStage) igStage.setAttribute("aria-hidden", "false");
     if (igCockpit) igCockpit.setAttribute("aria-hidden", "true");
     if (igManifesto) igManifesto.setAttribute("aria-hidden", "true");
     if (igStakeholders) igStakeholders.setAttribute("aria-hidden", "true");
+    if (igViz) igViz.classList.remove("viz-charged");
     window.scrollTo(0, 0);
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Reset viz: only decision visible at start
-    setVizFocus("replay", "main");
-    if (igTlCursor) {
-      igTlCursor.style.transition = "";
-      igTlCursor.setAttribute("cx", 680);
-    }
-    if (igCaption) {
-      igCaption.classList.add("fading");
-      igCaption.textContent = "";
-    }
-    await wait(reduceMotion ? 0 : 240);
+    // Reset: cursor at start, all stages dim except first (protocol gets active immediately)
+    setMainVizFocus("protocol");
+    setTimelineCursor(88);
+    if (igCaption) { igCaption.classList.add("fading"); igCaption.textContent = ""; }
+    await wait(reduceMotion ? 0 : 260);
 
     for (let i = 0; i < igAutoplayBeats.length; i++) {
       if (igAutoplayAbort) break;
@@ -1640,39 +1743,45 @@ spec:
 
       if (igCaption && beat.caption !== undefined) {
         igCaption.classList.add("fading");
-        await wait(reduceMotion ? 0 : 200);
+        await wait(reduceMotion ? 0 : 180);
         if (igAutoplayAbort) break;
         igCaption.textContent = beat.caption;
         igCaption.classList.remove("fading");
       }
 
-      const focusId = beat.stageId === "_fwd" ? "replay" : beat.stageId;
-      setVizFocus(focusId, "main");
-      setTimelineCursor(beat.cursorX, !!beat.fast);
+      if (beat.charge) {
+        // Synthesis: all stages light up simultaneously, charge flash
+        if (igViz) igViz.classList.add("viz-charged");
+        setTimelineCursor(beat.cursorX);
+      } else {
+        setMainVizFocus(beat.stageId);
+        setTimelineCursor(beat.cursorX);
+      }
 
       await wait(reduceMotion ? 160 : beat.ms);
     }
 
     igAutoplayRunning = false;
-    if (!igAutoplayAbort) {
-      enterCockpit();
-    }
+    if (igViz) igViz.classList.remove("viz-charged");
+    if (!igAutoplayAbort) enterCockpit();
   }
 
   function abortAutoplay() {
     igAutoplayAbort = true;
     igAutoplayRunning = false;
+    if (igViz) igViz.classList.remove("viz-charged");
   }
 
   function enterCockpit() {
     igState = "cockpit";
+    stopTagline();
     document.body.classList.remove("is-playing");
     document.body.classList.add("is-cockpit");
     if (igStage) igStage.setAttribute("aria-hidden", "true");
     if (igCockpit) igCockpit.setAttribute("aria-hidden", "false");
     if (igManifesto) igManifesto.setAttribute("aria-hidden", "false");
     if (igStakeholders) igStakeholders.setAttribute("aria-hidden", "false");
-    focusStage(igCurrentStage);
+    clearActiveStage();
     requestAnimationFrame(function () {
       if (igCockpit) igCockpit.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -1689,87 +1798,34 @@ spec:
     if (igHero) igHero.removeAttribute("aria-hidden");
     scrollTriggered = false;
     if (igCaption) { igCaption.textContent = ""; igCaption.classList.remove("fading"); }
-    setVizFocus("replay", "main");
-    if (igTlCursor) { igTlCursor.style.transition = ""; igTlCursor.setAttribute("cx", 680); }
+    clearActiveStage();
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(startTagline, 320);
   }
 
-  // ── Cockpit stage focus ──
-  function escapeHtml(str) {
-    return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
-  }
-
-  function focusStage(stageId) {
-    if (!igStageData[stageId]) return;
-    igCurrentStage = stageId;
-    document.querySelectorAll(".ig-stage-btn").forEach(function (btn) {
-      btn.classList.toggle("active", btn.dataset.stage === stageId);
+  // ── Cockpit hover/click (info cards + stage halo) ──
+  function showStage(stageId, locked) {
+    if (!stageId) return;
+    igActiveStage = stageId;
+    if (locked) igLockedStage = stageId;
+    document.querySelectorAll(".ig-info-card").forEach(function (c) {
+      c.classList.toggle("visible", c.dataset.stage === stageId);
     });
-    setVizFocus(stageId, "cockpit");
-    const cx = igStageCursorX[stageId] || 395;
-    if (igCTlCursor) igCTlCursor.setAttribute("cx", cx);
-
-    const data = igStageData[stageId];
-    const label = document.getElementById("igRailLabel");
-    const title = document.getElementById("igRailTitle");
-    const body = document.getElementById("igRailBody");
-    const outcomes = document.getElementById("igRailOutcomes");
-    const cta = document.getElementById("igRailCta");
-    const note = document.getElementById("igRailNote");
-    if (label) label.textContent = data.label;
-    if (title) title.textContent = data.title;
-    if (body) body.textContent = data.body;
-    if (outcomes) {
-      if (data.outcomes && data.outcomes.length) {
-        outcomes.innerHTML = data.outcomes.map(function (o) {
-          return '<span class="ig-outcome ' + o[1] + '">' + o[0] + '</span>';
-        }).join("");
-      } else {
-        outcomes.innerHTML = "";
-      }
-    }
-    if (cta) {
-      if (data.cta) {
-        cta.innerHTML = '<a href="' + data.cta.href + '">' + escapeHtml(data.cta.label) + '</a>';
-      } else {
-        cta.innerHTML = "";
-      }
-    }
-    if (note) note.textContent = data.note || "";
-
-    const audToHighlight = igStageAudHighlight[stageId];
-    document.querySelectorAll(".ig-stakeholder-card").forEach(function (card) {
-      card.classList.toggle("highlighted", !!audToHighlight && card.dataset.aud === audToHighlight);
+    document.querySelectorAll(".viz-stage-halo").forEach(function (h) {
+      h.classList.toggle("visible", h.id === "halo" + stageId.charAt(0).toUpperCase() + stageId.slice(1));
     });
+    if (igCockpit) igCockpit.classList.add("ig-has-active");
   }
-
-  // ── Audience switch ──
-  function setAudience(audId) {
-    if (!igAudiences[audId]) return;
-    igCurrentAudience = audId;
-    document.querySelectorAll(".ig-aud-btn").forEach(function (btn) {
-      btn.classList.toggle("active", btn.dataset.aud === audId);
-    });
-    if (igHeadline) igHeadline.textContent = igAudiences[audId];
+  function clearActiveStage() {
+    if (igLockedStage) return; // locked — keep visible
+    igActiveStage = null;
+    document.querySelectorAll(".ig-info-card.visible").forEach(function (c) { c.classList.remove("visible"); });
+    document.querySelectorAll(".viz-stage-halo.visible").forEach(function (h) { h.classList.remove("visible"); });
+    if (igCockpit) igCockpit.classList.remove("ig-has-active");
   }
-
-  // ── Scroll trigger ──
-  function initScrollTrigger() {
-    if (!igStage || !window.IntersectionObserver) return;
-    const sentinel = document.createElement("div");
-    sentinel.style.cssText = "position:absolute;top:120svh;left:0;width:1px;height:1px;pointer-events:none";
-    const homePanel = document.getElementById("damaros-panel-home");
-    if (!homePanel) return;
-    homePanel.appendChild(sentinel);
-    const observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting && igState === "hero" && !scrollTriggered && !igAutoplayRunning) {
-          scrollTriggered = true;
-          runAutoplay();
-        }
-      });
-    }, { threshold: 0.1 });
-    observer.observe(sentinel);
+  function unlockStage() {
+    igLockedStage = null;
+    clearActiveStage();
   }
 
   // ── Reset (called by setPanel) ──
@@ -1784,8 +1840,12 @@ spec:
     if (igManifesto) igManifesto.setAttribute("aria-hidden", "true");
     if (igStakeholders) igStakeholders.setAttribute("aria-hidden", "true");
     if (igHero) igHero.removeAttribute("aria-hidden");
-    setVizFocus("replay", "main");
-    if (igTlCursor) { igTlCursor.style.transition = ""; igTlCursor.setAttribute("cx", 680); }
+    setMainVizFocus("protocol");
+    if (igTlCursor) igTlCursor.setAttribute("cx", 88);
+    if (igViz) igViz.classList.remove("viz-charged");
+    igLockedStage = null;
+    clearActiveStage();
+    startTagline();
   };
 
   // ── Panel switching ──
@@ -1801,16 +1861,14 @@ spec:
     document.body.classList.remove("damaros-home-lock");
     if (!isHome) {
       document.body.classList.remove("damaros-ignition-home-active");
+      stopTagline();
       window.__damarosIgnitionReset();
     } else {
       document.body.classList.add("damaros-ignition-home-active");
       window.__damarosIgnitionReset();
     }
-    if (isHome) {
-      history.replaceState(null, "", window.location.pathname);
-    } else {
-      history.replaceState(null, "", "#" + (anchorId || target));
-    }
+    if (isHome) history.replaceState(null, "", window.location.pathname);
+    else history.replaceState(null, "", "#" + (anchorId || target));
     setTimeout(function () {
       if (anchorId) {
         const el = document.getElementById(anchorId);
@@ -1826,44 +1884,77 @@ spec:
     const panel = h.split("-")[0];
     if (panel === "docs" || panel === "trust" || panel === "validation") {
       setPanel(panel, h.indexOf("-") > -1 ? h : (h === "trust" ? "trust" : null));
-    } else {
-      setPanel("home");
-    }
+    } else setPanel("home");
   }
 
   // ── Bindings ──
+  // Click ANYWHERE on hero to initialize
+  if (igHero) {
+    igHero.addEventListener("click", function () {
+      if (igState === "hero") runAutoplay();
+    });
+    igHero.addEventListener("keydown", function (e) {
+      if ((e.key === "Enter" || e.key === " ") && igState === "hero") {
+        e.preventDefault();
+        runAutoplay();
+      }
+    });
+  }
+  // Dot click also works (already inside hero, but keep explicit handler for clarity)
   if (igDot) {
-    igDot.addEventListener("click", function () { if (igState === "hero") runAutoplay(); });
-    igDot.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (igState === "hero") runAutoplay(); }
+    igDot.addEventListener("click", function (e) {
+      e.stopPropagation();
+      if (igState === "hero") runAutoplay();
     });
   }
   if (igSkip) {
     igSkip.addEventListener("click", function () {
       if (igState === "playing") { abortAutoplay(); enterCockpit(); }
-      else if (igState === "hero") { runAutoplay(); }
     });
   }
-  if (igCtrlHome) igCtrlHome.addEventListener("click", goHome);
   if (igCtrlRewind) igCtrlRewind.addEventListener("click", function () {
     if (igState === "cockpit") runAutoplay();
   });
+  if (igCockWordmark) igCockWordmark.addEventListener("click", goHome);
 
-  document.querySelectorAll(".ig-stage-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () { if (igState === "cockpit") focusStage(btn.dataset.stage); });
-    btn.addEventListener("keydown", function (e) {
-      if ((e.key === "ArrowRight" || e.key === "ArrowLeft") && igState === "cockpit") {
+  // Hot zones in cockpit SVG → info cards
+  document.querySelectorAll(".viz-hotzone").forEach(function (zone) {
+    const stage = zone.dataset.stage;
+    zone.addEventListener("mouseenter", function () {
+      if (igState !== "cockpit") return;
+      if (igLockedStage && igLockedStage !== stage) return;
+      showStage(stage, false);
+    });
+    zone.addEventListener("mouseleave", function () {
+      if (igState !== "cockpit") return;
+      if (igLockedStage) return;
+      clearActiveStage();
+    });
+    zone.addEventListener("click", function (e) {
+      if (igState !== "cockpit") return;
+      e.stopPropagation();
+      if (igLockedStage === stage) { unlockStage(); return; }
+      showStage(stage, true);
+    });
+    zone.addEventListener("keydown", function (e) {
+      if (igState !== "cockpit") return;
+      if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
-        const idx = allStages.indexOf(igCurrentStage);
-        if (e.key === "ArrowRight" && idx < allStages.length - 1) focusStage(allStages[idx + 1]);
-        if (e.key === "ArrowLeft" && idx > 0) focusStage(allStages[idx - 1]);
+        if (igLockedStage === stage) unlockStage();
+        else showStage(stage, true);
       }
     });
+    zone.setAttribute("tabindex", "0");
   });
 
-  document.querySelectorAll(".ig-aud-btn").forEach(function (btn) {
-    btn.addEventListener("click", function () { setAudience(btn.dataset.aud); });
-  });
+  // Click on cockpit (outside hotzone or card) clears lock
+  if (igCockCanvas) {
+    igCockCanvas.addEventListener("click", function (e) {
+      if (igState !== "cockpit") return;
+      if (e.target.closest(".viz-hotzone") || e.target.closest(".ig-info-card")) return;
+      unlockStage();
+    });
+  }
 
   document.querySelectorAll(".damaros-tab-btn").forEach(function (btn) {
     btn.addEventListener("click", function () { setPanel(btn.dataset.panel); });
@@ -1873,12 +1964,12 @@ spec:
   // ── Init ──
   initMonogramGrid();
   initPopulationParticles();
-  initScrollTrigger();
-  setVizFocus("replay", "main");
-  focusStage("screening");
+  setMainVizFocus("protocol");
+  if (igTlCursor) igTlCursor.setAttribute("cx", 88);
   routeFromHash();
+  startTagline();
 
-  // ── Geo (visitor location) ──
+  // ── Geo ──
   const loc = document.getElementById("igLocation");
   if (loc) {
     const ac = new AbortController();
@@ -1898,11 +1989,7 @@ spec:
         loc.textContent = line;
         if (line) loc.setAttribute("title", line); else loc.removeAttribute("title");
       })
-      .catch(function () {
-        clearTimeout(to);
-        loc.textContent = "";
-        loc.removeAttribute("title");
-      });
+      .catch(function () { clearTimeout(to); loc.textContent = ""; loc.removeAttribute("title"); });
   }
 })();
 
