@@ -1,0 +1,8 @@
+[2026-05-17T22:25:30.360Z] GET http://127.0.0.1:3535/ → 200 (3ms, 194523B)
+[2026-05-17T22:25:30.366Z] GET https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap → pending (?ms, ?B)
+[2026-05-17T22:25:36.784Z] GET https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4Cw.woff2 → pending (?ms, ?B)
+[2026-05-17T22:25:36.784Z] GET https://fonts.gstatic.com/s/chakrapetch/v13/cIflMapbsEk7TDLdtEz1BwkeJI91R5_F.woff2 → pending (?ms, ?B)
+[2026-05-17T22:25:36.784Z] GET https://fonts.gstatic.com/s/chakrapetch/v13/cIflMapbsEk7TDLdtEz1BwkeQI51R5_F.woff2 → pending (?ms, ?B)
+[2026-05-17T22:25:36.784Z] GET https://fonts.gstatic.com/s/chakrapetch/v13/cIflMapbsEk7TDLdtEz1BwkebIl1R5_F.woff2 → pending (?ms, ?B)
+[2026-05-17T22:25:36.788Z] GET https://get.geojs.io/v1/ip/geo.json → pending (?ms, ?B)
+[2026-05-17T22:25:36.788Z] GET https://cdn.prod.website-files.com/68bf7963d15243aa9de0b68c/68bf7986af7ebf743a5ea4a9_Damaros%20v4%20Logo%20White.png → pending (?ms, ?B)
