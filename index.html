@@ -569,8 +569,10 @@ body.is-cockpit .ig-stage{display:none}
 /* SVG visualization shared */
 .viz-layer{transition:opacity .65s cubic-bezier(.16,1,.3,1)}
 .viz-layer.viz-active{opacity:1!important}
-.viz-layer.viz-dim{opacity:.16!important}
-.viz-layer.viz-mid{opacity:.42!important}
+.viz-layer.viz-dim{opacity:.22!important}
+.viz-layer.viz-mid{opacity:.22!important}
+/* During autoplay: all stages stay grey/dim. Only charge sweep brings them alive. */
+body.is-playing #vizProtocol,body.is-playing #vizPopulation,body.is-playing #vizScreening,body.is-playing #vizForms,body.is-playing #vizDecision{opacity:.22}
 .viz-origin-glow{fill:none;stroke:rgba(123,150,178,.15);stroke-width:1;animation:igOriginGlow 3s ease-in-out infinite}
 .viz-origin-pulse{fill:none;stroke:rgba(123,150,178,.07);stroke-width:1;animation:igOriginGlow 3s ease-in-out infinite 1.2s}
 @keyframes igOriginGlow{0%,100%{r:36px;stroke-opacity:.15}50%{r:47px;stroke-opacity:.3}}
@@ -599,59 +601,62 @@ body.is-cockpit .ig-stage{display:none}
 .tl-cursor{fill:var(--amber);filter:drop-shadow(0 0 5px rgba(250,204,21,.55));transition:cx .75s cubic-bezier(.16,1,.3,1)}
 
 /* Charge-up: all stages light simultaneously at end of autoplay */
-.viz-charged .viz-layer{opacity:1!important;transition:opacity .35s ease}
-.viz-charged .viz-conn,.viz-charged .viz-conn-solid{stroke:rgba(169,192,214,.78)!important;transition:stroke .3s ease}
-.viz-charged .tl-cursor{filter:drop-shadow(0 0 12px rgba(250,204,21,.9))}
-.viz-charge-flash{fill:none;stroke:rgba(169,192,214,.7);stroke-width:1.5;opacity:0;pointer-events:none}
-.viz-charged .viz-charge-flash{animation:igChargePulse .9s ease-out}
-@keyframes igChargePulse{0%{opacity:.85;stroke-width:1.5}100%{opacity:0;stroke-width:4}}
+/* Charge sweep: stages light up sequentially left to right (loading-bar feel) */
+.viz-charged #vizProtocol  {animation:igChargeLight 1s ease 0s    forwards}
+.viz-charged #vizPopulation{animation:igChargeLight 1s ease .35s  forwards}
+.viz-charged #vizScreening {animation:igChargeLight 1s ease .7s   forwards}
+.viz-charged #vizForms     {animation:igChargeLight 1s ease 1.05s forwards}
+.viz-charged #vizDecision  {animation:igChargeLight 1s ease 1.4s  forwards}
+@keyframes igChargeLight{from{opacity:.22}to{opacity:1}}
+.viz-charged .tl-cursor{transition:cx 1.85s cubic-bezier(.65,0,.35,1);filter:drop-shadow(0 0 12px rgba(250,204,21,.9))}
+.viz-charge-flash{display:none}
 
 /* Cockpit — fullscreen takeover */
-.ig-cockpit{position:relative;z-index:10;padding:calc(var(--tab) + 4rem) clamp(1rem,3vw,2.4rem) clamp(1.4rem,3vh,2.4rem);opacity:0;pointer-events:none;transition:opacity .55s ease .15s;min-height:100svh}
+.ig-cockpit{position:relative;z-index:10;padding:calc(var(--tab) + 2.4rem) clamp(1rem,3vw,2.4rem) clamp(1.4rem,3vh,2.4rem);opacity:0;pointer-events:none;transition:opacity .55s ease .15s;min-height:100svh}
 body.is-cockpit .ig-cockpit{opacity:1;pointer-events:auto}
-.ig-cockpit-inner{max-width:1320px;margin:0 auto;display:flex;flex-direction:column;gap:1.1rem;position:relative}
+.ig-cockpit-inner{max-width:1480px;margin:0 auto;display:flex;flex-direction:column;gap:.95rem;position:relative}
 
-/* Cockpit small wordmark + restart, top-left */
-.ig-cock-wordmark{position:absolute;top:calc(var(--tab) + 1.05rem);left:clamp(1.1rem,3vw,2.4rem);font-family:var(--fh);font-size:clamp(.98rem,1.35vw,1.18rem);font-weight:600;letter-spacing:.01em;color:var(--tp);display:flex;align-items:center;gap:.34rem;z-index:30;background:transparent;border:none;padding:0;cursor:pointer;line-height:1;text-shadow:0 0 18px rgba(123,150,178,.18)}
+/* Wordmark sits above the canvas, left-aligned to canvas's left edge */
+.ig-cock-header{max-width:1140px;width:100%;margin:0 auto;display:flex;align-items:flex-end;justify-content:flex-start}
+.ig-cock-wordmark{font-family:var(--fh);font-size:clamp(1.15rem,1.5vw,1.4rem);font-weight:600;letter-spacing:.01em;color:var(--tp);display:inline-flex;align-items:center;gap:.36rem;background:transparent;border:none;padding:0 0 .55rem;cursor:pointer;line-height:1;text-shadow:0 0 18px rgba(123,150,178,.18)}
 .ig-cock-wordmark:hover{color:#fff}
 .ig-cock-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px rgba(123,150,178,.6);animation:igDotPulse 2.2s ease-in-out infinite;transform:translateY(.08em)}
-.ig-cock-restart{position:absolute;top:calc(var(--tab) + .98rem);left:clamp(8.5rem,13vw,12rem);background:transparent;border:1px solid rgba(123,150,178,.22);color:var(--td);width:32px;height:32px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:color .25s,border-color .25s,background .25s;z-index:30}
-.ig-cock-restart:hover{color:var(--blue2);border-color:rgba(123,150,178,.55);background:rgba(123,150,178,.06)}
-.ig-cock-restart svg{display:block;width:16px;height:16px}
 
-/* Cockpit canvas (SVG + overlay info cards) */
-.ig-cock-canvas{position:relative;width:100%;max-width:1140px;margin:0 auto;border:1px solid rgba(123,150,178,.14);background:linear-gradient(180deg,rgba(8,11,15,.78),rgba(0,0,0,.5));box-shadow:0 0 64px rgba(123,150,178,.05),inset 0 0 0 1px rgba(255,255,255,.012);padding:clamp(.6rem,1.6vw,1.2rem);min-height:min(560px,68svh)}
+/* Canvas wrapper */
+.ig-cock-canvas{position:relative;width:100%;max-width:1140px;margin:0 auto;border:1px solid rgba(123,150,178,.14);background:linear-gradient(180deg,rgba(8,11,15,.78),rgba(0,0,0,.5));box-shadow:0 0 64px rgba(123,150,178,.05),inset 0 0 0 1px rgba(255,255,255,.012);padding:clamp(.7rem,1.6vw,1.2rem);min-height:min(560px,68svh)}
 .ig-cockpit-viz{width:100%;height:auto;display:block;max-height:min(540px,66svh)}
 
-/* Hover hot zones over each stage area (SVG) */
-.viz-hotzone{fill:transparent;cursor:pointer;pointer-events:all}
-.viz-stage-halo{fill:none;stroke:rgba(169,192,214,.6);stroke-width:1.2;opacity:0;transition:opacity .25s ease;pointer-events:none}
-.viz-stage-halo.visible{opacity:1}
+/* Restart button — flush left edge, top against top edge of canvas */
+.ig-cock-restart{position:absolute;top:-1px;left:-1px;background:rgba(0,0,0,.62);border:1px solid rgba(123,150,178,.22);border-top:1px solid rgba(123,150,178,.14);border-left:1px solid rgba(123,150,178,.14);color:var(--td);width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:color .25s,border-color .25s,background .25s;z-index:10}
+.ig-cock-restart:hover{color:var(--blue2);border-color:rgba(123,150,178,.5);background:rgba(123,150,178,.08)}
+.ig-cock-restart:focus-visible{outline:1px solid var(--blue2);outline-offset:1px}
+.ig-cock-restart svg{display:block;width:16px;height:16px}
 
-/* Info cards (positioned over the canvas) */
-.ig-info-card{position:absolute;width:clamp(220px,24vw,300px);padding:.95rem 1.05rem 1rem;background:linear-gradient(180deg,rgba(10,14,20,.96),rgba(0,0,0,.92));border:1px solid rgba(123,150,178,.32);box-shadow:0 0 38px rgba(123,150,178,.1),inset 0 0 0 1px rgba(255,255,255,.022);opacity:0;pointer-events:none;transform:scale(.86);transform-origin:var(--ig-card-origin,50% 50%);transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);z-index:6}
+/* Hover hot zones over each stage area — no focus outline, no halos */
+.viz-hotzone{fill:transparent;cursor:pointer;pointer-events:all;outline:none}
+.viz-hotzone:focus,.viz-hotzone:focus-visible,.viz-hotzone:active{outline:none}
+
+/* Info cards (positioned at outer edges of .ig-cockpit-inner so they fan out beyond canvas) */
+.ig-info-card{position:absolute;width:clamp(290px,25vw,360px);padding:1.1rem 1.2rem 1.25rem;background:linear-gradient(180deg,rgba(10,14,20,.97),rgba(0,0,0,.94));border:1px solid rgba(123,150,178,.32);box-shadow:0 0 42px rgba(123,150,178,.12),inset 0 0 0 1px rgba(255,255,255,.022);opacity:0;pointer-events:none;transform:scale(.86);transition:opacity .3s cubic-bezier(.16,1,.3,1),transform .3s cubic-bezier(.16,1,.3,1);z-index:6}
 .ig-info-card.visible{opacity:1;pointer-events:auto;transform:scale(1)}
-.ig-info-card .ig-card-label{font-family:var(--fm);font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue2);font-weight:700;margin-bottom:.42rem}
-.ig-info-card .ig-card-title{font-family:var(--fh);font-size:.98rem;font-weight:600;line-height:1.24;margin:0 0 .55rem;color:var(--tp)}
-.ig-info-card .ig-card-body{font-family:var(--fb);font-size:.76rem;line-height:1.58;color:rgba(232,232,232,.74);margin:0}
-.ig-info-card .ig-card-mech{margin-top:.55rem;font-family:var(--fm);font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(123,150,178,.62);line-height:1.5}
-.ig-info-card .ig-card-mech strong{color:var(--blue2);font-weight:500}
+.ig-info-card .ig-card-label{font-family:var(--fm);font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue2);font-weight:700;margin-bottom:.55rem}
+.ig-info-card .ig-card-title{font-family:var(--fh);font-size:clamp(1.02rem,1.25vw,1.16rem);font-weight:600;line-height:1.26;margin:0 0 .65rem;color:var(--tp)}
+.ig-info-card .ig-card-body{font-family:var(--fb);font-size:clamp(.78rem,.95vw,.86rem);line-height:1.6;color:rgba(232,232,232,.78);margin:0}
+.ig-info-card .ig-card-mech{margin-top:.7rem;font-family:var(--fb);font-size:clamp(.7rem,.85vw,.78rem);line-height:1.55;color:rgba(169,192,214,.72);letter-spacing:.01em}
+.ig-info-card .ig-card-mech strong{color:var(--blue2);font-weight:600;font-family:var(--fm);letter-spacing:.12em;text-transform:uppercase;font-size:.62rem;display:block;margin-bottom:.2rem}
 
-/* Info card positions per stage (relative to .ig-cock-canvas) */
-.ig-info-card[data-stage="protocol"]{top:64%;left:1%;--ig-card-origin:0% 0%}
-.ig-info-card[data-stage="population"]{top:1%;left:18%;--ig-card-origin:50% 100%}
-.ig-info-card[data-stage="screening"]{top:64%;left:30%;--ig-card-origin:50% 0%}
-.ig-info-card[data-stage="forms"]{top:1%;left:54%;--ig-card-origin:50% 100%}
-.ig-info-card[data-stage="replay"]{top:64%;right:1%;--ig-card-origin:100% 0%}
+/* Info card positions: fan out at edges of cockpit-inner (1480px max), canvas (1140px) centered. ~170px shoulders each side. */
+.ig-info-card[data-stage="protocol"]   {top:0;       left:0;  --ig-card-origin:100% 100%}
+.ig-info-card[data-stage="population"] {top:34%;     left:0;  --ig-card-origin:100% 50%}
+.ig-info-card[data-stage="screening"]  {bottom:0;    left:50%;margin-left:clamp(-180px,-12vw,-160px);--ig-card-origin:50% 0%}
+.ig-info-card[data-stage="forms"]      {top:34%;     right:0; --ig-card-origin:0% 50%}
+.ig-info-card[data-stage="replay"]     {top:0;       right:0; --ig-card-origin:0% 100%}
 
-/* Validation brief: real button */
-.ig-card-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(180deg,rgba(123,150,178,.18),rgba(123,150,178,.08));border:1px solid rgba(169,192,214,.42);color:#f0f4f8;font-family:var(--fm);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;padding:.6rem 1.1rem;margin-top:.7rem;text-decoration:none;cursor:pointer;transition:background .25s,border-color .25s,box-shadow .25s;font-weight:600}
-.ig-card-btn:hover{background:linear-gradient(180deg,rgba(123,150,178,.26),rgba(123,150,178,.12));border-color:var(--blue2);box-shadow:0 0 22px rgba(123,150,178,.18)}
-.ig-card-btn:active{transform:translateY(1px)}
-
-/* Cockpit hover hint */
-.ig-cock-hint{margin-top:1rem;text-align:center;font-family:var(--fm);font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:var(--td);opacity:.66;transition:opacity .3s ease}
-.ig-cockpit.ig-has-active .ig-cock-hint{opacity:0}
+/* Down arrow: pulsing chevron, click scrolls to stakeholders */
+.ig-down-arrow{display:block;margin:1.6rem auto 0;background:transparent;border:none;color:var(--blue2);cursor:pointer;padding:.4rem .7rem;line-height:0;opacity:.7;transition:opacity .25s,color .25s}
+.ig-down-arrow:hover{opacity:1;color:#fff}
+.ig-down-arrow svg{display:block;width:22px;height:22px;animation:igArrowPulse 1.8s ease-in-out infinite}
+@keyframes igArrowPulse{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(7px);opacity:1}}
 
 /* Manifesto */
 .ig-manifesto{position:relative;z-index:10;padding:clamp(3rem,6vh,4.5rem) clamp(1.5rem,5vw,5rem);opacity:0;pointer-events:none;transition:opacity .55s ease .35s;border-top:1px solid rgba(123,150,178,.07);text-align:center}
@@ -659,35 +664,36 @@ body.is-cockpit .ig-manifesto{opacity:1;pointer-events:auto}
 .ig-manifesto p{font-family:var(--fh);font-size:clamp(1.05rem,1.95vw,1.55rem);font-weight:500;line-height:1.42;letter-spacing:-.005em;color:rgba(232,232,232,.74);margin:0;max-width:780px;margin-left:auto;margin-right:auto}
 .ig-manifesto p+p{margin-top:clamp(.55rem,1.3vh,.85rem);color:rgba(169,192,214,.68);font-size:clamp(.92rem,1.55vw,1.22rem);font-weight:400}
 
-/* Stakeholder integration (replaces card grid) */
-.ig-stakeholders{position:relative;z-index:10;padding:clamp(1.6rem,4vh,3rem) clamp(1.5rem,5vw,5rem) clamp(2.2rem,4.5vh,3.5rem);max-width:1180px;margin:0 auto;opacity:0;pointer-events:none;transition:opacity .55s ease .45s;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(1.4rem,3vw,2.4rem) clamp(2rem,4vw,3rem);border-top:1px solid rgba(123,150,178,.06)}
+/* Stakeholders: 3-column horizontal + single CTA */
+.ig-stakeholders{position:relative;z-index:10;padding:clamp(2.2rem,5vh,3.4rem) clamp(1.5rem,5vw,5rem) clamp(1.2rem,3vh,2rem);max-width:1180px;margin:0 auto;opacity:0;pointer-events:none;transition:opacity .55s ease .45s;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.4rem,3vw,2.6rem);border-top:1px solid rgba(123,150,178,.06)}
+@media(max-width:780px){.ig-stakeholders{grid-template-columns:1fr}}
 body.is-cockpit .ig-stakeholders{opacity:1;pointer-events:auto}
 .ig-stake{display:flex;flex-direction:column;gap:.55rem}
 .ig-stake-aud{font-family:var(--fm);font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(169,192,214,.62);font-weight:700}
 .ig-stake-body{font-family:var(--fb);font-size:.86rem;line-height:1.58;color:rgba(232,232,232,.74);margin:0}
-.ig-stake-link{font-family:var(--fm);font-size:.55rem;letter-spacing:.13em;text-transform:uppercase;color:var(--blue2);text-decoration:none;align-self:flex-start;display:inline-flex;align-items:center;gap:.4rem;border-bottom:1px solid rgba(123,150,178,.32);padding-bottom:.18rem;transition:color .25s,border-color .25s;margin-top:.18rem}
-.ig-stake-link:hover{color:#fff;border-color:var(--blue2)}
-.ig-stake-link::after{content:'→';transition:transform .25s ease}
-.ig-stake-link:hover::after{transform:translateX(3px)}
+/* No per-card link — single CTA below all three */
+.ig-stakeholders-cta{position:relative;z-index:10;display:flex;justify-content:center;padding:0 clamp(1.5rem,5vw,5rem) clamp(2.6rem,5vh,4rem);opacity:0;pointer-events:none;transition:opacity .55s ease .55s}
+body.is-cockpit .ig-stakeholders-cta{opacity:1;pointer-events:auto}
+.ig-cta-btn{display:inline-flex;align-items:center;gap:.55rem;background:linear-gradient(180deg,rgba(123,150,178,.16),rgba(123,150,178,.06));border:1px solid rgba(169,192,214,.4);color:#f0f4f8;font-family:var(--fm);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;padding:.78rem 1.4rem;text-decoration:none;cursor:pointer;font-weight:600;transition:background .25s,border-color .25s,box-shadow .25s,color .25s}
+.ig-cta-btn:hover{background:linear-gradient(180deg,rgba(123,150,178,.26),rgba(123,150,178,.12));border-color:var(--blue2);color:#fff;box-shadow:0 0 24px rgba(123,150,178,.22)}
+.ig-cta-btn:active{transform:translateY(1px)}
+.ig-cta-btn::after{content:'→';margin-left:.15rem;transition:transform .25s ease}
+.ig-cta-btn:hover::after{transform:translateX(3px)}
 
 /* Bottom bar */
 .ig-bottom-bar{position:relative;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:clamp(.8rem,1.8vh,1.2rem) clamp(1.5rem,5vw,5rem);color:var(--td);font-family:var(--fm);font-size:.57rem;letter-spacing:.1em;text-transform:uppercase;border-top:1px solid rgba(123,150,178,.06);opacity:0;pointer-events:none;transition:opacity .5s ease .55s}
 body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
 
 /* Responsive */
-@media(max-width:980px){
-  .ig-cock-canvas{padding:.5rem}
-  .ig-info-card{width:clamp(180px,42vw,240px);padding:.7rem .8rem;font-size:.9em}
-  .ig-info-card .ig-card-title{font-size:.88rem}
-  .ig-info-card .ig-card-body{font-size:.72rem}
+@media(max-width:1280px){
+  .ig-info-card[data-stage="protocol"],.ig-info-card[data-stage="forms"]{top:0}
+  .ig-info-card[data-stage="population"],.ig-info-card[data-stage="replay"]{top:40%}
 }
-@media(max-width:700px){
-  .ig-cock-wordmark{font-size:.95rem}
-  .ig-cock-restart{left:8rem}
-  /* On mobile, the canvas overlay layout breaks down — collapse cards to a stack below */
-  .ig-info-card{position:relative;width:100%;left:auto!important;right:auto!important;top:auto!important;margin-top:.6rem;opacity:1;transform:none;pointer-events:auto}
-  .ig-info-card:not(.visible){display:none}
-  .ig-cock-canvas{min-height:auto}
+@media(max-width:980px){
+  .ig-cock-canvas{padding:.5rem;min-height:auto}
+  .ig-info-card{position:relative;width:100%;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;margin:.6rem 0 0;margin-left:0!important;opacity:1;transform:none;pointer-events:auto;display:none}
+  .ig-info-card.visible{display:block}
+  .ig-cock-header{max-width:100%;padding:0 .5rem}
 }
 @media(prefers-reduced-motion:reduce){
   .ig-monogram-grid,.ig-dot,.viz-origin-glow,.viz-origin-pulse,.viz-decision-glow,.viz-particle.eligible,.ig-tagline-rotator::after,.ig-cock-dot{animation:none}
@@ -818,15 +824,17 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
 
 <!-- Cockpit (post-walkthrough, interactive) -->
 <section class="ig-cockpit" id="igCockpit" aria-label="Damaros execution substrate" aria-hidden="true">
-  <button type="button" class="ig-cock-wordmark" id="igCockWordmark" aria-label="Return to Damaros home">Damaros<span class="ig-cock-dot" aria-hidden="true"></span></button>
-  <button type="button" class="ig-cock-restart" id="igCtrlRewind" aria-label="Replay walkthrough" title="Replay walkthrough">
-    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M3 10 a7 7 0 1 0 2.5 -5.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <path d="M5.5 4.6 L3 4.6 L3 7.1" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-    </svg>
-  </button>
   <div class="ig-cockpit-inner">
+    <div class="ig-cock-header">
+      <button type="button" class="ig-cock-wordmark" id="igCockWordmark" aria-label="Return to Damaros home">Damaros<span class="ig-cock-dot" aria-hidden="true"></span></button>
+    </div>
     <div class="ig-cock-canvas" id="igCockCanvas">
+      <button type="button" class="ig-cock-restart" id="igCtrlRewind" aria-label="Replay walkthrough" title="Replay walkthrough">
+        <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 10 a7 7 0 1 0 2.5 -5.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M5.5 4.6 L3 4.6 L3 7.1" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </button>
       <svg class="ig-cockpit-viz" id="igCockpitViz" viewBox="0 0 820 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Provenance substrate">
         <g class="viz-layer" id="cvizProtocol" opacity="1">
           <circle class="viz-origin-glow" cx="88" cy="200" r="36"/>
@@ -887,12 +895,6 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
           <circle class="viz-decision" cx="680" cy="200" r="18"/>
           <text class="viz-lbl-decision" x="680" y="235">Decision</text>
         </g>
-        <!-- Halos lit on hover/active per stage -->
-        <circle class="viz-stage-halo" id="haloProtocol" cx="88" cy="200" r="28"/>
-        <circle class="viz-stage-halo" id="haloPopulation" cx="250" cy="200" r="64"/>
-        <circle class="viz-stage-halo" id="haloScreening" cx="395" cy="200" r="58"/>
-        <circle class="viz-stage-halo" id="haloForms" cx="548" cy="200" r="50"/>
-        <circle class="viz-stage-halo" id="haloReplay" cx="680" cy="200" r="30"/>
         <g class="viz-timeline">
           <line class="tl-track" x1="55" y1="400" x2="755" y2="400"/>
           <circle class="tl-stop" cx="88" cy="400" r="3"/>
@@ -906,80 +908,81 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
           <circle class="tl-stop" cx="680" cy="400" r="3"/>
           <text class="tl-stop-lbl" x="680" y="416">Replay</text>
         </g>
-        <!-- Invisible hot zones (last in SVG so they catch pointer events on top) -->
+        <!-- Hot zones (transparent, focus outline disabled) -->
         <rect class="viz-hotzone" data-stage="protocol"   x="20"  y="140" width="150" height="140"/>
         <rect class="viz-hotzone" data-stage="population" x="170" y="80"  width="180" height="300"/>
         <rect class="viz-hotzone" data-stage="screening"  x="335" y="80"  width="140" height="270"/>
         <rect class="viz-hotzone" data-stage="forms"      x="478" y="120" width="135" height="190"/>
         <rect class="viz-hotzone" data-stage="replay"     x="615" y="145" width="135" height="140"/>
       </svg>
-
-      <!-- Info cards overlay -->
-      <div class="ig-info-card" data-stage="protocol" id="cardProtocol" role="region" aria-label="Protocol detail">
-        <div class="ig-card-label">01 · Protocol</div>
-        <h3 class="ig-card-title">Protocol is the executable form of a clinical trial.</h3>
-        <p class="ig-card-body">NCT records compile into a versioned Criterion Tree under one canonical FHIR-to-Trident compiler. Every inclusion and exclusion rule is locked with a content hash before patient evidence is requested.</p>
-        <div class="ig-card-mech"><strong>Mechanism:</strong> deterministic resource ordering, stable content hash, locked protocol object. No downstream re-interpretation.</div>
-      </div>
-      <div class="ig-info-card" data-stage="population" id="cardPopulation" role="region" aria-label="Population detail">
-        <div class="ig-card-label">02 · Population</div>
-        <h3 class="ig-card-title">Population enters through one bounded evidence plane.</h3>
-        <p class="ig-card-body">FHIR REST, Bulk FHIR NDJSON, REDCap, CSV, Excel, and Epic flat exports route through a single parser registry. A DuckDB profile and Frictionless schema check block structural faults before screening.</p>
-        <div class="ig-card-mech"><strong>Mechanism:</strong> bounded retry/resume Bulk FHIR job spine. Tenant isolation at API, workbench, and ingest. Site retains pathway control.</div>
-      </div>
-      <div class="ig-info-card" data-stage="screening" id="cardScreening" role="region" aria-label="Screening detail">
-        <div class="ig-card-label">03 · Screening</div>
-        <h3 class="ig-card-title">Screening is deterministic and refuses to run against an unlocked protocol.</h3>
-        <p class="ig-card-body">Each patient × criterion pair resolves to PASS, REVIEW, or FAIL under versioned protocol logic. A service guard rejects unlocked-protocol evaluation with a 409 contract. ECOG performance status maps from LOINC 89247-1.</p>
-        <div class="ig-card-mech"><strong>Mechanism:</strong> no LLM on patient data. Runtime corpus fetches lint-blocked. Uncertainty surfaces as REVIEW, not silent coercion.</div>
-      </div>
-      <div class="ig-info-card" data-stage="forms" id="cardForms" role="region" aria-label="Forms detail">
-        <div class="ig-card-label">04 · Forms</div>
-        <h3 class="ig-card-title">Forms inherit the same substrate as Screening.</h3>
-        <p class="ig-card-body">Coordinator artifacts assemble from the same Protocol, Population, and Screening objects with source links preserved. Every AI extraction routes through one policy envelope carrying prompt version, content hash, and model id.</p>
-        <div class="ig-card-mech"><strong>Mechanism:</strong> PR-gated AI Eval CI enforces fact-recall and exact-match floors. Sponsor packet redaction preserves ai_origin lineage.</div>
-      </div>
-      <div class="ig-info-card" data-stage="replay" id="cardReplay" role="region" aria-label="Replay detail">
-        <div class="ig-card-label">05 · Replay</div>
-        <h3 class="ig-card-title">Replay reconstructs every decision from its content-hashed substrate.</h3>
-        <p class="ig-card-body">Each replay event binds ontology_release_id and ontology_manifest_hash. OTEL GenAI spans correlate ai_origin_id to trace_id end-to-end. The Signed Replay Bundle ships as a KMS-signed cryptographic manifest.</p>
-        <div class="ig-card-mech"><strong>Mechanism:</strong> the same engine runs synthetic, retrospective, and production. Divergence is attributable to named inputs and a named ontology release.</div>
-        <a class="ig-card-btn" href="mailto:anirudh@damaros.ai?subject=Damaros%20Validation%20Brief">Request validation brief</a>
-      </div>
     </div>
-    <p class="ig-cock-hint" id="igCockHint">Hover or click any stage to inspect</p>
+
+    <!-- Info cards fanned out at the edges of the cockpit-inner -->
+    <div class="ig-info-card" data-stage="protocol" id="cardProtocol" role="region" aria-label="Protocol detail">
+      <div class="ig-card-label">01 · Protocol</div>
+      <h3 class="ig-card-title">Protocol becomes executable logic, immediately.</h3>
+      <p class="ig-card-body">NCT records compile into a versioned Criterion Tree under one canonical FHIR-to-Trident compiler. Site teams get an executable eligibility object without manual mapping, spreadsheet hand-offs, or version drift.</p>
+      <div class="ig-card-mech"><strong>Mechanism</strong>Locked, content-hashed protocol object. Deterministic compile pipeline. Amendment-aware versioning.</div>
+    </div>
+    <div class="ig-info-card" data-stage="population" id="cardPopulation" role="region" aria-label="Population detail">
+      <div class="ig-card-label">02 · Population</div>
+      <h3 class="ig-card-title">One parser. One bounded evidence plane.</h3>
+      <p class="ig-card-body">FHIR REST, Bulk FHIR NDJSON, REDCap, CSV, Excel, and Epic flat exports route through a single parser registry. A data-quality gate blocks structural faults before screening, so coordinators stop burning cycles on bad rows.</p>
+      <div class="ig-card-mech"><strong>Mechanism</strong>Bounded retry/resume Bulk FHIR job spine. Tenant isolation at API, workbench, and ingest. Site retains pathway control.</div>
+    </div>
+    <div class="ig-info-card" data-stage="screening" id="cardScreening" role="region" aria-label="Screening detail">
+      <div class="ig-card-label">03 · Screening</div>
+      <h3 class="ig-card-title">Eligibility evaluated across the cohort, deterministically.</h3>
+      <p class="ig-card-body">Each patient × criterion pair resolves to PASS, REVIEW, or FAIL under versioned protocol logic. Coordinators reach the right candidates faster, with criterion-level evidence attached for review.</p>
+      <div class="ig-card-mech"><strong>Mechanism</strong>No LLM on patient data. Service guard refuses unlocked protocols. Uncertainty surfaces as REVIEW, not silent coercion.</div>
+    </div>
+    <div class="ig-info-card" data-stage="forms" id="cardForms" role="region" aria-label="Forms detail">
+      <div class="ig-card-label">04 · Forms</div>
+      <h3 class="ig-card-title">Forms assemble from real evidence.</h3>
+      <p class="ig-card-body">Coordinator artifacts (eligibility documentation, evidence packets, sponsor-ready outputs) assemble from the same Protocol, Population, and Screening objects with source links preserved. The same evidence the engine evaluated populates the forms.</p>
+      <div class="ig-card-mech"><strong>Mechanism</strong>PR-gated AI Eval CI enforces fact-recall and exact-match floors. Sponsor packet redaction preserves ai_origin lineage.</div>
+    </div>
+    <div class="ig-info-card" data-stage="replay" id="cardReplay" role="region" aria-label="Replay detail">
+      <div class="ig-card-label">05 · Replay</div>
+      <h3 class="ig-card-title">Every decision reconstructs from its source.</h3>
+      <p class="ig-card-body">Each replay event binds the ontology release and content-hashed inputs that produced the outcome. Validation evidence transfers to production cutover without re-mapping, and divergence is attributable to named inputs and a named ontology release.</p>
+      <div class="ig-card-mech"><strong>Mechanism</strong>Same engine across synthetic, retrospective, and production. Signed Replay Bundle ships as a KMS-signed cryptographic manifest.</div>
+    </div>
+
+    <button type="button" class="ig-down-arrow" id="igDownArrow" aria-label="Scroll to overview">
+      <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 7 L10 13 L16 7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </div>
 </section>
 
 <!-- Manifesto -->
 <section class="ig-manifesto" id="igManifesto" aria-hidden="true">
-  <p>Damaros keeps the reasoning behind every clinical decision intact.</p>
-  <p>Trials become objects you can audit, not stories you have to reconstruct.</p>
+  <p>Damaros runs clinical trials at the speed of the protocol.</p>
+  <p>Coordinators move faster. Forms assemble from real evidence. Every decision is replayable to its source.</p>
 </section>
 
-<!-- Stakeholder context -->
+<!-- Stakeholder context (3-column horizontal) -->
 <section class="ig-stakeholders" id="igStakeholders" aria-hidden="true">
   <div class="ig-stake">
     <div class="ig-stake-aud">Sponsors &amp; CROs</div>
-    <p class="ig-stake-body">The same versioned protocol object runs at every site. Every screening outcome is reconstructible from the same content-hashed substrate, with criterion-level evidence preserved.</p>
-    <a class="ig-stake-link" href="#trust">Learn more</a>
+    <p class="ig-stake-body">The same versioned protocol object runs at every site. Faster site startup and enrollment, with replayable evidence at every step.</p>
   </div>
   <div class="ig-stake">
     <div class="ig-stake-aud">Clinical trial sites</div>
-    <p class="ig-stake-body">Site-approved Epic Backend Services or governed file extracts. Read-only, tenant-isolated, bounded jobs. Eligibility and forms run against the cohort the site already controls.</p>
-    <a class="ig-stake-link" href="#validation">Learn more</a>
-  </div>
-  <div class="ig-stake">
-    <div class="ig-stake-aud">Investors &amp; operators</div>
-    <p class="ig-stake-body">A protocol-execution substrate, not another CRO. One engine across synthetic validation, retrospective validation, and production deployment, with the same Replay contract end-to-end.</p>
-    <a class="ig-stake-link" href="#trust">Learn more</a>
+    <p class="ig-stake-body">Coordinators reach the right patients faster. Eligibility runs across the cohort in one pass. Forms assemble from real evidence, not from re-keying chart data.</p>
   </div>
   <div class="ig-stake">
     <div class="ig-stake-aud">Research &amp; teaming partners</div>
     <p class="ig-stake-body">FHIR-native, deterministic on PHI, auditable to the criterion. Modular for teaming workflows that require reproducibility, lineage, and ontology-pinned evidence.</p>
-    <a class="ig-stake-link" href="#docs">Learn more</a>
   </div>
 </section>
+
+<!-- Single CTA below all three -->
+<div class="ig-stakeholders-cta" aria-hidden="true">
+  <a class="ig-cta-btn" href="mailto:anirudh@damaros.ai?subject=Damaros%20%E2%80%94%20Get%20in%20touch">Get in touch</a>
+</div>
 
 <!-- Bottom bar -->
 <div class="ig-bottom-bar">
@@ -1522,12 +1525,12 @@ spec:
   // ================================================================
 
   const igAutoplayBeats = [
-    { stageId: "protocol",   caption: "Protocol compiles into a versioned, content-hashed Criterion Tree.",                  cursorX: 88,  ms: 1700 },
-    { stageId: "population", caption: "Population enters through one bounded evidence plane.",                                cursorX: 245, ms: 1600 },
-    { stageId: "screening",  caption: "Screening is deterministic at the patient × criterion grain.",                         cursorX: 395, ms: 1600 },
-    { stageId: "forms",      caption: "Forms inherit the same substrate, with source links preserved.",                       cursorX: 548, ms: 1600 },
-    { stageId: "replay",     caption: "Replay reconstructs every decision from a KMS-signed cryptographic manifest.",         cursorX: 680, ms: 1700 },
-    { stageId: "_charge",    caption: "One substrate. Protocol to Replay.",                                                    cursorX: 680, ms: 1600, charge: true }
+    { stageId: "protocol",   caption: "Protocol becomes executable logic in days, not months.",                               cursorX: 88,  ms: 3400 },
+    { stageId: "population", caption: "Eligibility runs across the whole cohort in one pass.",                                cursorX: 245, ms: 3200 },
+    { stageId: "screening",  caption: "Coordinators reach the right candidates with reasoning intact.",                cursorX: 395, ms: 3400 },
+    { stageId: "forms",      caption: "Coordinator artifacts assemble from the same evidence the engine evaluated.",    cursorX: 548, ms: 3600 },
+    { stageId: "replay",     caption: "Every screening outcome traces back to its source.",                                       cursorX: 680, ms: 3200 },
+    { stageId: "_charge",    caption: "One substrate. Faster trials. Defensible answers.",                                     cursorX: 680, ms: 3200, charge: true }
   ];
 
   const igStageCursorX = { protocol: 88, population: 245, screening: 395, forms: 548, replay: 680 };
@@ -1625,18 +1628,14 @@ spec:
   const allStages = ["protocol", "population", "screening", "forms", "replay"];
 
   function setMainVizFocus(stageId) {
+    // During autoplay, all stages stay grey (no per-stage highlighting). The CSS
+    // rule body.is-playing #vizX{opacity:.22} handles the grey baseline.
+    // Only the timeline cursor moves to indicate progress.
     const ids = vizLayerIds.main;
-    const activeIdx = allStages.indexOf(stageId);
     allStages.forEach(function (s) {
       const el = document.getElementById(ids[s]);
       if (!el) return;
       el.classList.remove("viz-active", "viz-dim", "viz-mid");
-      if (s === stageId) el.classList.add("viz-active");
-      else {
-        const thisIdx = allStages.indexOf(s);
-        if (Math.abs(activeIdx - thisIdx) === 1) el.classList.add("viz-mid");
-        else el.classList.add("viz-dim");
-      }
     });
   }
 
@@ -1682,9 +1681,18 @@ spec:
       }
 
       if (beat.charge) {
-        // Synthesis: all stages light up simultaneously, charge flash
+        // Synthesis: instant-snap cursor to Protocol (no transition), then smooth glide to Replay
+        if (igTlCursor) {
+          igTlCursor.style.transition = "none";
+          igTlCursor.setAttribute("cx", 88);
+          void igTlCursor.getBoundingClientRect(); // force reflow so the snap is final
+          igTlCursor.style.transition = "";
+        }
+        await wait(reduceMotion ? 0 : 140);
+        if (igAutoplayAbort) break;
         if (igViz) igViz.classList.add("viz-charged");
-        setTimelineCursor(beat.cursorX);
+        // The .viz-charged .tl-cursor rule kicks in a 1.85s smooth transition
+        igTlCursor.setAttribute("cx", 680);
       } else {
         setMainVizFocus(beat.stageId);
         setTimelineCursor(beat.cursorX);
@@ -1712,7 +1720,10 @@ spec:
     if (igCockpit) igCockpit.setAttribute("aria-hidden", "false");
     if (igManifesto) igManifesto.setAttribute("aria-hidden", "false");
     if (igStakeholders) igStakeholders.setAttribute("aria-hidden", "false");
+    const ctaEl = document.querySelector(".ig-stakeholders-cta");
+    if (ctaEl) ctaEl.removeAttribute("aria-hidden");
     clearActiveStage();
+    if (igViz) igViz.classList.remove("viz-charged");
     requestAnimationFrame(function () {
       if (igCockpit) igCockpit.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -1726,10 +1737,13 @@ spec:
     if (igCockpit) igCockpit.setAttribute("aria-hidden", "true");
     if (igManifesto) igManifesto.setAttribute("aria-hidden", "true");
     if (igStakeholders) igStakeholders.setAttribute("aria-hidden", "true");
+    const ctaEl = document.querySelector(".ig-stakeholders-cta");
+    if (ctaEl) ctaEl.setAttribute("aria-hidden", "true");
     if (igHero) igHero.removeAttribute("aria-hidden");
     scrollTriggered = false;
     if (igCaption) { igCaption.textContent = ""; igCaption.classList.remove("fading"); }
     clearActiveStage();
+    if (igViz) igViz.classList.remove("viz-charged");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -1741,16 +1755,12 @@ spec:
     document.querySelectorAll(".ig-info-card").forEach(function (c) {
       c.classList.toggle("visible", c.dataset.stage === stageId);
     });
-    document.querySelectorAll(".viz-stage-halo").forEach(function (h) {
-      h.classList.toggle("visible", h.id === "halo" + stageId.charAt(0).toUpperCase() + stageId.slice(1));
-    });
     if (igCockpit) igCockpit.classList.add("ig-has-active");
   }
   function clearActiveStage() {
-    if (igLockedStage) return; // locked — keep visible
+    if (igLockedStage) return;
     igActiveStage = null;
     document.querySelectorAll(".ig-info-card.visible").forEach(function (c) { c.classList.remove("visible"); });
-    document.querySelectorAll(".viz-stage-halo.visible").forEach(function (h) { h.classList.remove("visible"); });
     if (igCockpit) igCockpit.classList.remove("ig-has-active");
   }
   function unlockStage() {
@@ -1888,6 +1898,28 @@ spec:
     btn.addEventListener("click", function () { setPanel(btn.dataset.panel); });
   });
   window.addEventListener("hashchange", routeFromHash);
+
+  // Down arrow → scroll to stakeholders
+  const igDownArrow = document.getElementById("igDownArrow");
+  const igStakeholdersEl = document.getElementById("igStakeholders");
+  if (igDownArrow) {
+    igDownArrow.addEventListener("click", function () {
+      if (igStakeholdersEl) igStakeholdersEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  // Stakeholders CTA reveal
+  const igStakeCta = document.querySelector(".ig-stakeholders-cta");
+  function showCtaIfCockpit() {
+    if (document.body.classList.contains("is-cockpit") && igStakeCta) {
+      igStakeCta.removeAttribute("aria-hidden");
+    } else if (igStakeCta) {
+      igStakeCta.setAttribute("aria-hidden", "true");
+    }
+  }
+  // hook into setPanel + enterCockpit + reset
+  const _origEnterCockpit = enterCockpit;
+  // (already defined above; this block just keeps the CTA in sync)
 
   // ── Init ──
   initMonogramGrid();
