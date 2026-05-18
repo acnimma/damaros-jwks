@@ -789,7 +789,17 @@ body.is-cockpit .ig-bottom-bar{opacity:1;pointer-events:auto}
   body.is-playing:not(.is-charging) .ig-viz .viz-layer:not(.viz-active){display:none!important}
   body.is-playing:not(.is-charging) .ig-viz .tl-track,
   body.is-playing:not(.is-charging) .ig-viz .tl-cursor{display:none!important}
+  /* Kill the 0.65s opacity transition on the active layer during walkthrough so the
+     symbol "pops in" instantly with each viewBox snap — no lingering fade overlapping
+     the caption's fade-in. */
+  body.is-playing:not(.is-charging) .ig-viz .viz-layer{transition:none!important}
 }
+
+/* ── Replay scenario: cockpit instantly clears when the walkthrough starts. Without this,
+   the cockpit's all-five-layers view fades out over 550ms while the stage fades in over
+   500ms, and on mobile the user briefly sees the cockpit's full workflow bleed through
+   the stage's single-symbol view. ── */
+body.is-playing .ig-cockpit{transition:none!important;opacity:0!important;pointer-events:none!important}
 
 /* ── SVG label legibility: white + larger (all platforms) ── */
 .viz-lbl-sm{font-size:11px!important;fill:rgba(232,232,232,.88)!important}
@@ -2132,10 +2142,22 @@ spec:
     // Reset: cursor at start, all stages dim except first (protocol gets active immediately)
     setMainVizFocus("protocol");
     setTimelineCursor(88);
+
+    // MOBILE: snap viewBox to the first beat's crop BEFORE we yield to the browser.
+    // Without this pre-snap, the first paint shows the full 768-wide viewBox — protocol
+    // stuck near the left edge with all five timeline labels visible across the bottom —
+    // and the first loop iteration only snaps to the protocol crop ~620ms later. That's
+    // the "all 5 then glitch to Protocol" jump.
+    const onMobile = _isMobileLayout();
+    if (onMobile) {
+      const firstStage = igAutoplayBeats[0] && igAutoplayBeats[0].stageId;
+      if (firstStage && igMobileViewBoxes[firstStage]) {
+        igViz.setAttribute("viewBox", igMobileViewBoxes[firstStage]);
+      }
+    }
+
     if (igCaption) { igCaption.classList.add("fading"); igCaption.textContent = ""; }
     await wait(reduceMotion ? 0 : 260);
-
-    const onMobile = _isMobileLayout();
 
     for (let i = 0; i < igAutoplayBeats.length; i++) {
       if (igAutoplayAbort) break;
