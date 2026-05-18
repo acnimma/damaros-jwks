@@ -1576,96 +1576,123 @@ spec:
 </div>
 
 <div id="damaros-panel-validation" class="damaros-panel">
-  <div class="damaros-docs-wrap">
+  <div class="damaros-docs-wrap" id="validation" style="scroll-margin-top:calc(var(--tab) + 12px)">
     <div class="damaros-docs-eyebrow">Validation playbook</div>
     <h1 class="damaros-docs-title">Validation pathway.</h1>
     <p class="damaros-docs-subtitle">
-      Validation runs through the same deterministic screening engine, the same Trident verified ontology release, and the same Signed Replay Bundle that ship in production. Two connection pathways. The primary pathway is a site-approved Epic Backend Services connection against a closed cohort, operationally lighter than coordinating an internal extract pipeline. The supplementary pathway is a governed file extract for sites that cannot land Epic in the pilot window or whose historical cohort predates Epic enablement. Validation evidence carries forward to production without re-mapping in either pathway. Epic/FHIR reference is documented under <a class="damaros-kv-link" href="#docs">Epic / FHIR</a>.
+      Damaros validation measures the full trial-execution workflow: how quickly a site can turn a closed protocol and closed cohort into mapped evidence, screening outputs, coordinator artifacts, and a replayable audit record.
     </p>
+    <div class="damaros-docs-body damaros-docs-lead">
+      <p>There are two connection pathways. Epic Backend Services is primary when available. Governed file extract is available when Epic cannot be landed in the pilot window or when the historical cohort sits outside the FHIR path.</p>
+      <p>Both pathways use the same Damaros engine, Trident ontology release, evidence model, and Signed Replay Bundle. The goal is simple: prove that Damaros makes the site&rsquo;s existing trial workflow faster, clearer, and easier to reconstruct. Epic/FHIR reference is documented under <a class="damaros-kv-link" href="#docs">Epic / FHIR</a>.</p>
+    </div>
 
     <section class="damaros-docs-section" id="val-00">
       <div class="damaros-docs-section-label">00_TWO_PATHWAYS_ONE_ENGINE</div>
       <h2 class="damaros-docs-section-heading">Two pathways, one engine.</h2>
       <div class="damaros-docs-body">
-        <p><strong>Primary: Epic Backend Services validation.</strong> The site provisions a read-only SMART Backend Services client_id, registers the Damaros-published JWKS URL (non-prod and prod, dual-key for rotation), and approves the per-patient scope set in <a class="damaros-kv-link" href="#docs-02c">Epic / FHIR §02C</a>. Damaros pulls cohort members via <code>GET Group/{id}</code> and (where enabled) a bounded Bulk FHIR <code>$export</code> job, runs deterministic screening at patient × criterion granularity, and returns agreement metrics, REVIEW drivers, and a Signed Replay Bundle. No internal extract pipeline has to be coordinated. The Site Readiness Report endpoint (<code>/v1/integrations/epic/readiness-report</code>) confirms configuration before any traffic.</p>
-        <p><strong>Supplementary: governed file extract.</strong> CSV, Excel, REDCap, JSON/NDJSON, FHIR Bundle, Bulk FHIR NDJSON, Epic flat export, or warehouse flat export route through the same parser registry, DQ pre-screen gate, screening engine, and Replay contract. This pathway is the right choice when the institution cannot land Epic Backend Services in the pilot window, when the historical cohort predates Epic enablement for that protocol, or when policy requires the cohort never leave a controlled extract.</p>
-        <p>Critically, both pathways terminate in the same artifacts: the same deterministic engine, the same multi-source verified Trident ontology release, the same content-hashed replay packet. Validation evidence transfers to production cutover without re-mapping.</p>
+        <p><strong>Primary: Epic Backend Services.</strong> The site approves a read-only connection to the closed cohort. Damaros pulls the needed patient evidence, runs the workflow, and returns validation metrics plus a Signed Replay Bundle.</p>
+        <p><strong>Supplementary: governed file extract.</strong> The site provides CSV, Excel, REDCap, JSON/NDJSON, FHIR Bundle, Bulk FHIR NDJSON, Epic flat export, or warehouse export through an approved data pathway.</p>
+        <p>Both routes end in the same artifacts: mapped evidence, screening outputs, REVIEW drivers, coordinator artifacts, discrepancy analysis, workflow timing, and replay.</p>
       </div>
     </section>
 
     <section class="damaros-docs-section" id="val-01">
       <div class="damaros-docs-section-label">01_PROTOCOL_SELECTION</div>
       <h2 class="damaros-docs-section-heading">Protocol selection.</h2>
-      <div class="damaros-docs-body"><p>Site nominates one or two closed oncology protocols; NCT identifier or closed protocol package including eligibility criteria and amendment history where available.</p></div>
+      <div class="damaros-docs-body"><p>The site nominates one or two closed protocols with an NCT ID, eligibility criteria, amendment history where available, and historical screening records if they exist.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-02">
       <div class="damaros-docs-section-label">02_CONNECTION_CONTRACT</div>
       <h2 class="damaros-docs-section-heading">Connection contract.</h2>
-      <div class="damaros-docs-body">
-        <p><strong>Primary, Epic Backend Services.</strong> Site provisions a SMART Backend Services client_id, registers the public JWKS at the URLs Damaros publishes (non-prod and prod, dual-key for rotation), and approves the per-patient scope set documented in <a class="damaros-kv-link" href="#docs-02c">Epic / FHIR §02C</a>. Damaros holds the private signing key in a secret manager; Epic tokens live in process memory only. No file pipeline is required.</p>
-        <p><strong>Supplementary, governed file extract.</strong> CSV, Excel, REDCap, JSON/NDJSON, FHIR Bundle, Bulk FHIR NDJSON, Epic flat export, or warehouse flat export route through one parser registry. Each extract carries a field dictionary and a site-approved data pathway (de-identified, limited dataset, site-hosted, or hybrid). Every workbench run persists to Postgres with a <code>population_ingest_run_id</code> that chains forward to the screening run and replay packet.</p>
-      </div>
+      <div class="damaros-docs-body"><p>The site chooses the data path: Epic Backend Services or governed file extract. Damaros confirms readiness before any patient-level workflow begins.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-03">
-      <div class="damaros-docs-section-label">03_COMPARATOR_GOLD_STANDARD</div>
-      <h2 class="damaros-docs-section-heading">Comparator / gold standard.</h2>
-      <div class="damaros-docs-body"><p>Prior coordinator, PI, screening committee, or REDCap adjudication used as the site gold standard for agreement metrics.</p></div>
+      <div class="damaros-docs-section-label">03_BASELINE_WORKFLOW</div>
+      <h2 class="damaros-docs-section-heading">Baseline workflow.</h2>
+      <div class="damaros-docs-body"><p>The site documents how the protocol was handled historically: how criteria were interpreted, where evidence was found, how screening was recorded, how documentation was produced, and how decisions were later reconstructed.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-04">
-      <div class="damaros-docs-section-label">04_SCREENING_RUN</div>
-      <h2 class="damaros-docs-section-heading">Screening run.</h2>
-      <div class="damaros-docs-body"><p>Deterministic screening at patient × criterion granularity. The run manifest pins protocol version, evidence snapshot, Trident ontology release, normalization rules, and evaluation timestamp. ECOG performance status maps from LOINC 89247-1. A service guard rejects screening against an unlocked protocol with a 409 <code>protocol_not_locked</code> contract. Runtime corpus fetches are lint-blocked out of the screening path.</p></div>
+      <div class="damaros-docs-section-label">04_PROTOCOL_METRICS</div>
+      <h2 class="damaros-docs-section-heading">Protocol metrics.</h2>
+      <div class="damaros-docs-body"><p>Measure time to convert the protocol into locked criterion logic, identify required evidence, handle amendments, and flag criteria that need human review.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-05">
-      <div class="damaros-docs-section-label">05_AGREEMENT_METRICS</div>
-      <h2 class="damaros-docs-section-heading">Agreement metrics.</h2>
-      <div class="damaros-docs-body"><p>Criterion-level agreement against comparator; patient-level summaries; false PASS / false FAIL framing where applicable.</p></div>
+      <div class="damaros-docs-section-label">05_POPULATION_METRICS</div>
+      <h2 class="damaros-docs-section-heading">Population metrics.</h2>
+      <div class="damaros-docs-body"><p>Measure time and effort to map site data into trial-ready evidence, including missing fields, stale evidence, conflicting records, data-quality issues, and source-lineage completeness.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-06">
-      <div class="damaros-docs-section-label">06_REVIEW_DRIVER_TAXONOMY</div>
-      <h2 class="damaros-docs-section-heading">REVIEW driver taxonomy.</h2>
-      <div class="damaros-docs-body"><p>Structured drivers for missing, stale, conflicting, ambiguous, or investigator-dependent evidence routed to REVIEW.</p></div>
+      <div class="damaros-docs-section-label">06_SCREENING_METRICS</div>
+      <h2 class="damaros-docs-section-heading">Screening metrics.</h2>
+      <div class="damaros-docs-body"><p>Measure screening throughput, criterion-level PASS / REVIEW / FAIL outputs, REVIEW burden, and agreement against prior adjudication where historical records support comparison. False PASS and false FAIL are reported only when the comparator is strong enough.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-07">
-      <div class="damaros-docs-section-label">07_REPLAY_PACKET</div>
-      <h2 class="damaros-docs-section-heading">Replay packet.</h2>
-      <div class="damaros-docs-body"><p>Evidence lineage, discrepancy categories, and audit-grade reconstruction artifacts. Each replay event binds <code>ontology_release_id</code> and <code>ontology_manifest_hash</code>. OTEL GenAI spans correlate <code>ai_origin_id</code> to <code>trace_id</code>. The Signed Replay Bundle ships as a KMS-signed cryptographic manifest. Answers what evidence and which ontology release produced this criterion outcome, not what a model said.</p></div>
+      <div class="damaros-docs-section-label">07_FORMS_METRICS</div>
+      <h2 class="damaros-docs-section-heading">Forms metrics.</h2>
+      <div class="damaros-docs-body"><p>Measure time to produce coordinator-facing artifacts: screening documentation, missing-field lists, source-documentation aids, schedule traces, and review-ready materials.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-08">
-      <div class="damaros-docs-section-label">08_DATA_PATHWAYS</div>
-      <h2 class="damaros-docs-section-heading">Data pathways.</h2>
-      <div class="damaros-docs-body">
-        <p><strong>Primary, Epic Backend Services.</strong> Read-only SMART Backend Services scopes per <a class="damaros-kv-link" href="#docs-02c">Epic / FHIR §02C</a>. Bulk FHIR <code>$export</code> is bounded, site-controlled, and persists as a retry/resume job (<code>pg_fhir_bulk_jobs</code>); see <a class="damaros-kv-link" href="#docs-03b">Epic / FHIR §03B</a> for the lifecycle. Nothing leaves the hospital-approved execution boundary except screening classifications, criterion-level audit references, and operational telemetry.</p>
-        <p><strong>Supplementary, governed file extract.</strong> De-identified, limited-dataset, site-hosted, or hybrid models per institutional policy, same bounded evidence plane. A DQ pre-screen gate (DuckDB profile, Frictionless schema, dup-MRN, impossible-date, null-PK rules) blocks structural faults before screening. Tenant binding is enforced at API, workbench, and ingest in both pathways.</p>
-      </div>
+      <div class="damaros-docs-section-label">08_REPLAY_METRICS</div>
+      <h2 class="damaros-docs-section-heading">Replay metrics.</h2>
+      <div class="damaros-docs-body"><p>Measure how quickly and completely Damaros can reconstruct the decision record: protocol version, evidence used, criterion outcome, human review, ontology release, and audit trail.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-09">
-      <div class="damaros-docs-section-label">09_WHAT_THIS_DOES_NOT_CLAIM</div>
-      <h2 class="damaros-docs-section-heading">What this does not claim.</h2>
-      <div class="damaros-docs-body"><p>Not clinical validation as a regulated label. Not FDA validation. Not autonomous enrollment. Not sponsor endorsement. Not production EHR readiness from validation evidence alone; production cutover remains gated on the Site Readiness Report, the JWKS dual-key drill, hospital approval, and Epic registration.</p></div>
+      <div class="damaros-docs-section-label">09_EXECUTION_METRICS</div>
+      <h2 class="damaros-docs-section-heading">Execution metrics.</h2>
+      <div class="damaros-docs-body"><p>Quantify workflow lift across Protocol, Population, Screening, Forms, and Replay: setup time, mapping effort, screening throughput, REVIEW resolution burden, artifact-generation time, and audit-reconstruction time. The validation claim is not patient matching alone; it is faster trial execution with clearer evidence and a reproducible record.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-10">
-      <div class="damaros-docs-section-label">10_NEXT_INSTITUTIONAL_STEP</div>
-      <h2 class="damaros-docs-section-heading">Next institutional step.</h2>
-      <div class="damaros-docs-body"><p><a class="damaros-kv-link" href="mailto:anirudh@damaros.ai?subject=Request%20Validation%20Brief">Request Validation Brief</a> or review the <a class="damaros-kv-link" href="#trust">Trust packet</a> and <a class="damaros-kv-link" href="#docs">Epic / FHIR</a> reference. When production integration is in scope, the Site Readiness Report endpoint (<code>/v1/integrations/epic/readiness-report</code>) returns the pre-cutover checklist.</p></div>
+      <div class="damaros-docs-section-label">10_REVIEW_DRIVERS</div>
+      <h2 class="damaros-docs-section-heading">REVIEW drivers.</h2>
+      <div class="damaros-docs-body"><p>Classify unresolved work into useful categories: missing evidence, stale evidence, conflicting records, ambiguous values, unmapped fields, protocol ambiguity, investigator judgment, or ontology limitation.</p></div>
     </section>
 
     <section class="damaros-docs-section" id="val-11">
-      <div class="damaros-docs-section-label">11_CONTACT</div>
-      <h2 class="damaros-docs-section-heading">Contact</h2>
-      <div class="damaros-contact-block">
-        <div>Website &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="https://damaros.ai">damaros.ai</a></div>
-        <div>Contact &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:anirudh@damaros.ai">anirudh@damaros.ai</a></div>
+      <div class="damaros-docs-section-label">11_VALIDATION_OUTPUTS</div>
+      <h2 class="damaros-docs-section-heading">Validation outputs.</h2>
+      <div class="damaros-docs-body">
+        <p>The site receives a validation packet containing:</p>
+        <ul class="damaros-bullet-list">
+          <li>protocol logic</li>
+          <li>evidence requirements</li>
+          <li>mapping report</li>
+          <li>screening outputs</li>
+          <li>adjudication comparison where available</li>
+          <li>forms summary</li>
+          <li>REVIEW drivers</li>
+          <li>discrepancy categories</li>
+          <li>execution metrics</li>
+          <li>Signed Replay Bundle</li>
+        </ul>
       </div>
+    </section>
+
+    <section class="damaros-docs-section" id="val-12">
+      <div class="damaros-docs-section-label">12_DATA_PATHWAYS</div>
+      <h2 class="damaros-docs-section-heading">Data pathways.</h2>
+      <div class="damaros-docs-body"><p>Epic Backend Services uses read-only, site-approved FHIR access. Governed file extract supports de-identified, limited-dataset, site-hosted, or hybrid workflows. Both pathways preserve tenant binding, evidence lineage, deterministic screening, and replay.</p></div>
+    </section>
+
+    <section class="damaros-docs-section" id="val-13">
+      <div class="damaros-docs-section-label">13_WHAT_THIS_DOES_NOT_CLAIM</div>
+      <h2 class="damaros-docs-section-heading">What this does not claim.</h2>
+      <div class="damaros-docs-body"><p>Not FDA validation. Not autonomous enrollment. Not sponsor endorsement. Not replacement of coordinator or PI judgment. Not production EHR readiness by itself.</p></div>
+    </section>
+
+    <section class="damaros-docs-section" id="val-14">
+      <div class="damaros-docs-section-label">14_NEXT_INSTITUTIONAL_STEP</div>
+      <h2 class="damaros-docs-section-heading">Next institutional step.</h2>
+      <div class="damaros-docs-body"><p>Pick one closed protocol, confirm the cohort, choose the data pathway, document the baseline workflow, and run Damaros across Protocol, Population, Screening, Forms, and Replay.</p></div>
     </section>
   </div>
 </div>
