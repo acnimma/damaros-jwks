@@ -66,6 +66,7 @@
     --mono-tile-opacity-min:.72;
     --mono-tile-opacity-range:.24;
     --mono-stage-opacity:1;
+    --mono-hero-mask:radial-gradient(ellipse at center,var(--mask-solid) 0%,var(--mask-solid) 36%,var(--mask-fade) 60%,transparent 75%);
     --mono-stage-mask:radial-gradient(ellipse at center,var(--mask-solid) 0%,var(--mask-solid) 42%,var(--mask-fade) 70%,transparent 88%);
     --cockpit-canvas-bg:linear-gradient(180deg,var(--gradient-path-top),var(--gradient-path-bottom));
     --cockpit-card-bg:linear-gradient(180deg,var(--card-bg-top),var(--card-bg-bottom));
@@ -113,6 +114,7 @@
       --mono-tile-opacity-min:.10;
       --mono-tile-opacity-range:.085;
       --mono-stage-opacity:.62;
+      --mono-hero-mask:radial-gradient(ellipse 60% 48% at 50% 46%,transparent 0%,transparent 29%,var(--mask-fade) 48%,var(--mask-solid) 71%);
       --mono-stage-mask:radial-gradient(ellipse 70% 56% at 50% 46%,transparent 0%,transparent 34%,var(--mask-fade) 56%,var(--mask-solid) 84%);
       --cockpit-canvas-bg:var(--cockpit-surface);
       --cockpit-card-bg:var(--cockpit-card);
@@ -161,6 +163,7 @@
     --mono-tile-opacity-min:.10;
     --mono-tile-opacity-range:.085;
     --mono-stage-opacity:.62;
+    --mono-hero-mask:radial-gradient(ellipse 60% 48% at 50% 46%,transparent 0%,transparent 29%,var(--mask-fade) 48%,var(--mask-solid) 71%);
     --mono-stage-mask:radial-gradient(ellipse 70% 56% at 50% 46%,transparent 0%,transparent 34%,var(--mask-fade) 56%,var(--mask-solid) 84%);
     --cockpit-canvas-bg:var(--cockpit-surface);
     --cockpit-card-bg:var(--cockpit-card);
@@ -690,8 +693,8 @@ body.damaros-docs-active .damaros-site:before{background:var(--site-overlay)!imp
 
 /* Background */
 .ig-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.ig-monogram-bg{position:absolute;inset:0;background:var(--bg);-webkit-mask-image:var(--mono-stage-mask);mask-image:var(--mono-stage-mask);overflow:hidden}
-body.is-cockpit .ig-monogram-bg,body.is-playing .ig-monogram-bg{opacity:var(--mono-stage-opacity)}
+.ig-monogram-bg{position:absolute;inset:0;background:var(--bg);-webkit-mask-image:var(--mono-hero-mask,var(--mono-stage-mask));mask-image:var(--mono-hero-mask,var(--mono-stage-mask));overflow:hidden}
+body.is-cockpit .ig-monogram-bg,body.is-playing .ig-monogram-bg{opacity:var(--mono-stage-opacity);-webkit-mask-image:var(--mono-stage-mask);mask-image:var(--mono-stage-mask)}
 body.is-cockpit .ig-cock-canvas,body.is-cockpit .ig-info-card{backdrop-filter:var(--cockpit-surface-backdrop)!important;-webkit-backdrop-filter:var(--cockpit-surface-backdrop)!important}
 .ig-monogram-grid{position:absolute;top:-20%;left:-12%;width:124%;height:140%;display:grid;grid-template-columns:repeat(auto-fill,100px);grid-auto-rows:100px;gap:32px;opacity:var(--mono-grid-opacity);transform:rotate(-8deg) translate3d(0,0,0);animation:igGridDrift 14s linear infinite;will-change:transform}
 body:not(.is-playing):not(.is-cockpit) .ig-monogram-grid{opacity:var(--mono-hero-grid-opacity,var(--mono-grid-opacity))}
